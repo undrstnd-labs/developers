@@ -4,25 +4,19 @@ import { render } from "@react-email/render"
 import nodemailer from "nodemailer"
 
 import { env } from "@/env.mjs"
-import {
-  MagicLinkData,
-  MailOptions,
-  MailType,
-  NewUserData,
-  WaitlistData,
-} from "@/types/mail"
+import { MagicLinkData, MailOptions, MailType, NewUserData } from "@/types/mail"
 
 import { siteConfig } from "@/config/site"
 
 import { EmailMagicLink } from "@/components/app/email-magic-link"
 import { EmailNewUser } from "@/components/app/email-new-user"
-import { EmailWhitelist } from "@/components/app/email-whitelist"
 
 export async function sendMail(
   type: MailType,
-  body: MagicLinkData | WaitlistData | NewUserData
+  body: MagicLinkData | NewUserData
 ) {
   const mailTransporter = nodemailer.createTransport({
+    service: "gmail",
     host: env.SMTP_SERVER,
     port: env.SMTP_PORT,
     auth: {
@@ -31,24 +25,14 @@ export async function sendMail(
     },
   })
 
-  let mailOptions: MailOptions
+  let mailOptions: MailOptions | undefined
   switch (type) {
     case "magic-link": {
       const html = render(EmailMagicLink({ magicLink: body as MagicLinkData }))
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
         to: (body as MagicLinkData).email,
-        subject: `Your magic link to ${siteConfig.name}`,
-        html,
-      }
-      break
-    }
-    case "whitelist": {
-      const html = render(EmailWhitelist())
-      mailOptions = {
-        from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
-        to: (body as WaitlistData).email,
-        subject: `You're invited to join ${siteConfig.name} private beta`,
+        subject: `Votre Magic Link et OTP code ${siteConfig.name}`,
         html,
       }
       break
@@ -60,7 +44,7 @@ export async function sendMail(
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
         to: (body as NewUserData).email,
-        subject: `Welcome to ${siteConfig.name}`,
+        subject: `Bienvenu to ${siteConfig.name}`,
         html,
       }
       break
@@ -68,6 +52,7 @@ export async function sendMail(
   }
 
   try {
+    if (!mailOptions) throw new Error("Mail options not set")
     await mailTransporter.sendMail(mailOptions)
     return true
   } catch (error) {
