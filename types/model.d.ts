@@ -13,3 +13,9 @@ export type Model = {
   maxFileSize?: number
   maxContextWindow?: number
 }
+
+export type Message = {
+  name: string
+  content: string
+  role: "system" | "user" | "assistant" | "tool"
+}

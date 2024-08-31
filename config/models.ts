@@ -61,7 +61,7 @@ export const models: Model[] = [
     tags: ["llama", "3", "groq", "8b", "tool-use", "preview"],
     maxContextWindow: 8192,
   },
-    {
+  {
     id: "llama-3.1-405b",
     active: false,
     name: "Llama 3.1 405B",
@@ -81,7 +81,8 @@ export const models: Model[] = [
       "Llama 3.1 is a version of the Llama model developed by Meta. This 70B parameter version of Llama 3.1 is optimized for a variety of tasks.",
     developer: "@meta-llama",
     provider: "Github",
-    source: "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
+    source:
+      "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
     tags: ["llama", "3.1", "70b", "versatile"],
     maxContextWindow: 131072,
   },
@@ -93,7 +94,8 @@ export const models: Model[] = [
       "Llama 3.1 is a version of the Llama model developed by Meta. This 8B parameter version of Llama 3.1 is optimized for fast inference.",
     developer: "@meta-llama",
     provider: "Github",
-    source: "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
+    source:
+      "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
     tags: ["llama", "3.1", "8b", "instant"],
     maxContextWindow: 131072,
   },
