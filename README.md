@@ -1,22 +1,18 @@
-![hero](/public/opengraph/web.png)
-
 <p align="center">
-	<h1 align="center"><b>FindPlate</b></h1>
+	<h1 align="center"><b>Undrstnd Developers</b></h1>
 <p align="center">
-    Speeds up project setup and development ⏩
+    Easy AI integration for devs. ⏩
     <br />
     <br />
- <!--    <a href="https://go.findmalek.com/anPiuRx">Discord</a>
-    · -->
-    <a href="https://plate.findmalek.com">Website</a>
+    <a href="https://dev.undrstnd.com">Website</a>
     ·
-    <a href="https://github.com/findmalek/findplate/issues">Issues</a>
+    <a href="https://github.com/undrstnd-labs/developers/issues">Issues</a>
   </p>
 </p>
 
 # Under active development
 
-> FindPlate is dedicated to delivering a high-quality product and has been actively improving code quality and best practices. Our philosophy centers around providing a seamless and enjoyable user experience, with a focus on reliability, efficiency, and security. We're excited about the progress made and continue to innovate and improve the platform for our users.
+> Undrstnd Developers is dedicated to delivering a high-quality product and has been actively improving code quality and best practices. Our philosophy centers around providing a seamless and enjoyable user experience, with a focus on reliability, efficiency, and security. We're excited about the progress made and continue to innovate and improve the platform for our users.
 
 # App Architecture
 
@@ -29,7 +25,6 @@
 - TailwindCSS
 - Prisma
 - NextAuth
-- NextI18Next
 
 ### Hosting
 

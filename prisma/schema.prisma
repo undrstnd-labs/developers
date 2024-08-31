@@ -8,9 +8,68 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Waitlist {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  country   String
-  createdAt DateTime @default(now())
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+  email    String @unique
+
+  usages    Usage[]
+  requests  Request[]
+  fundings  Funding[]
+  apiTokens APIToken[]
+
+  deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @default(now()) @map(name: "updated_at")
+}
+
+model Funding {
+  id String @id @default(cuid())
+
+  amount   Float
+  currency String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+}
+
+model APIToken {
+  id    String @id @default(cuid())
+  token String @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @default(now()) @map(name: "updated_at")
+}
+
+model Request {
+  id String @id @default(cuid())
+
+  response   Json
+  parameters Json
+  endpoint   String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @map(name: "updated_at")
+}
+
+model Usage {
+  id         String @id @default(cuid())
+  tokensUsed Int
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @default(now()) @map(name: "updated_at")
 }
