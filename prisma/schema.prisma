@@ -21,6 +21,8 @@ model User {
   deletedAt DateTime? @map(name: "deleted_at")
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @default(now()) @map(name: "updated_at")
+
+  @@map(name: "users")
 }
 
 model Funding {
@@ -34,6 +36,8 @@ model Funding {
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  @@map(name: "fundings")
 }
 
 model APIToken {
@@ -46,6 +50,8 @@ model APIToken {
   deletedAt DateTime? @map(name: "deleted_at")
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @default(now()) @map(name: "updated_at")
+
+  @@map(name: "api_tokens")
 }
 
 model Request {
@@ -61,6 +67,8 @@ model Request {
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  @@map(name: "requests")
 }
 
 model Usage {
@@ -73,4 +81,6 @@ model Usage {
   deletedAt DateTime? @map(name: "deleted_at")
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @default(now()) @map(name: "updated_at")
+
+  @@map(name: "usages")
 }
