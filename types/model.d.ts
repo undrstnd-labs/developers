@@ -12,6 +12,7 @@ export type Model = {
 
   maxFileSize?: number
   maxContextWindow?: number
+  pricing: number
 }
 
 export type Message = {

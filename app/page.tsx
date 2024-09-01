@@ -9,9 +9,10 @@ async function getStream() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": "udsk_demo-api-key-x-00000",
       },
       body: JSON.stringify({
-        stream: true,
+        stream: false,
         system: "groq",
         messages: [
           {
@@ -21,7 +22,7 @@ async function getStream() {
           },
           {
             name: "user",
-            content: "I need help with my taxes.",
+            content: "What is the weather like in San Francisco?",
             role: "user",
           },
         ],
@@ -29,14 +30,12 @@ async function getStream() {
     }
   )
 
-  const data = await response.json()
-  console.log(data)
-  return data
+  return await response.json()
 }
 
 export default async function page() {
   const stream = await getStream()
-  console.log(stream)
+
   return (
     <div>
       <h1>Stream</h1>

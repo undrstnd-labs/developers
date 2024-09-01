@@ -12,6 +12,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/distil-whisper/distil-large-v3",
     tags: ["distil-whisper", "large", "v3", "english"],
     maxFileSize: 25 * 1024 * 1024,
+    pricing: 1.3 * 2 * 0.02,
   },
   {
     id: "gemma2-9b-it",
@@ -24,6 +25,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/google/gemma-2-9b-it",
     tags: ["gemma", "9b", "italian"],
     maxContextWindow: 8192,
+    pricing: 0.2 * 1.3 * 2,
   },
   {
     id: "gemma-7b-it",
@@ -36,6 +38,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/google/gemma-1.1-7b-it",
     tags: ["gemma", "7b", "italian"],
     maxContextWindow: 8192,
+    pricing: 0.07 * 1.3 * 2,
   },
   {
     id: "llama3-groq-70b-8192-tool-use-preview",
@@ -48,6 +51,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/Groq/Llama-3-Groq-70B-Tool-Use",
     tags: ["llama", "3", "groq", "70b", "tool-use", "preview"],
     maxContextWindow: 8192,
+    pricing: 1.3 * 2 * 0.89,
   },
   {
     id: "llama3-groq-8b-8192-tool-use-preview",
@@ -60,6 +64,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/Groq/Llama-3-Groq-8B-Tool-Use",
     tags: ["llama", "3", "groq", "8b", "tool-use", "preview"],
     maxContextWindow: 8192,
+    pricing: 1.3 * 2 * 0.19,
   },
   {
     id: "llama-3.1-405b",
@@ -72,6 +77,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B",
     tags: ["llama", "3.1", "405b"],
     maxContextWindow: 131072,
+    pricing: 1.3 * 2 * 2,
   },
   {
     id: "llama-3.1-70b-versatile",
@@ -85,6 +91,7 @@ export const models: Model[] = [
       "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
     tags: ["llama", "3.1", "70b", "versatile"],
     maxContextWindow: 131072,
+    pricing: 1.3 * 2 * 0.89,
   },
   {
     id: "llama-3.1-8b-instant",
@@ -98,6 +105,7 @@ export const models: Model[] = [
       "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
     tags: ["llama", "3.1", "8b", "instant"],
     maxContextWindow: 131072,
+    pricing: 1.3 * 2 * 0.23,
   },
   {
     id: "llama-guard-3-8b",
@@ -110,6 +118,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/meta-llama/Llama-Guard-3-8B",
     tags: ["llama", "guard", "3", "8b"],
     maxContextWindow: 8192,
+    pricing: 1.3 * 2 * 0.2,
   },
   {
     id: "llama3-70b-8192",
@@ -122,6 +131,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct",
     tags: ["llama", "3", "70b"],
     maxContextWindow: 8192,
+    pricing: 1.3 * 2 * 0.79,
   },
   {
     id: "llama3-8b-8192",
@@ -134,6 +144,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct",
     tags: ["llama", "3", "8b"],
     maxContextWindow: 8192,
+    pricing: 1.3 * 2 * 0.08,
   },
   {
     id: "mixtral-8x7b-32768",
@@ -146,6 +157,7 @@ export const models: Model[] = [
     source: "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1",
     tags: ["mixtral", "8x7b"],
     maxContextWindow: 32768,
+    pricing: 1.3 * 2 * 0.24,
   },
   {
     id: "whisper-large-v3",
@@ -158,5 +170,6 @@ export const models: Model[] = [
     source: "https://huggingface.co/openai/whisper-large-v3",
     tags: ["whisper", "large", "v3"],
     maxFileSize: 25 * 1024 * 1024,
+    pricing: 1.3 * 2 * 0.03,
   },
 ]
