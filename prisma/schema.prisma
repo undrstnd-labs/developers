@@ -51,8 +51,9 @@ model APIToken {
 model Request {
   id String @id @default(cuid())
 
-  response   Json
   parameters Json
+  request    Json
+  response   String
   endpoint   String
 
   userId String

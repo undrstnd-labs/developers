@@ -2,15 +2,23 @@
 
 import { db } from "@/lib/prisma"
 
-export async function createRequest(
-  response: any,
-  parameters: any,
-  endpoint: string,
+export async function createRequest({
+  response,
+  request,
+  parameters,
+  endpoint,
+  userId,
+}: {
+  response: string
+  request: any
+  parameters: any
+  endpoint: string
   userId: string
-) {
-  await db.request.create({
+}) {
+  return await db.request.create({
     data: {
       response,
+      request,
       parameters,
       endpoint,
       userId,

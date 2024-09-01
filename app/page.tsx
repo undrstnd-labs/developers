@@ -17,12 +17,12 @@ async function getStream() {
         messages: [
           {
             name: "system",
-            content: "Hello, how can I help you?",
+            content: "Hello, how can I help you? x=5",
             role: "system",
           },
           {
             name: "user",
-            content: "What is the weather like in San Francisco?",
+            content: "What is 'x'",
             role: "user",
           },
         ],

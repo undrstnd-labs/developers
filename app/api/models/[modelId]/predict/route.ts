@@ -5,9 +5,13 @@ import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
 import { models } from "@/config/models"
+import { getFunding, returnError } from "@/lib/api"
 import { db } from "@/lib/prisma"
+import { getModel } from "@/lib/utils"
 
+import { updateFunding } from "@/actions/funding"
 import { createRequest } from "@/actions/request"
+import { createUsage } from "@/actions/usage"
 
 const routeContextSchema = z.object({
   params: z.object({
@@ -30,15 +34,8 @@ export async function POST(
     params: { modelId },
   } = routeContextSchema.parse(context)
 
-  const model = models.find((model) => model.id === modelId)
-  if (!model) {
-    return NextResponse.json(
-      { error: `ERROR: Model with id ${modelId} not found.` },
-      { status: 404 }
-    )
-  }
-
   const headersList = headers()
+  const model = getModel(modelId)
   const body = await request.json()
   const { stream, system, messages } = body
 
@@ -51,39 +48,34 @@ export async function POST(
   })
 
   if (!api_token) {
-    return NextResponse.json(
-      { error: "ERROR: Invalid API token." },
-      { status: 401 }
-    )
+    return returnError({
+      error: "ERROR: Invalid API token.",
+      status: 401,
+      modelId,
+    })
   }
 
-  const funding = await db.funding.findFirst({
-    where: {
-      userId: api_token.userId,
-    },
-  })
+  const funding = await getFunding(api_token.userId, model.id)
 
-  if (!funding) {
-    return NextResponse.json(
-      { error: "ERROR: Funding not found.", date: Date.now() },
-      { status: 404 }
-    )
-  } else if (funding.amount <= 0) {
-    await createRequest(
-      "ERROR: Insufficient balance.",
-      {
+  if (!funding || funding.amount <= 0) {
+    await createRequest({
+      response: "ERROR: Insufficient balance.",
+      request: JSON.stringify(body),
+      parameters: {
         model: model.id,
         system,
         messages,
       },
-      "predict",
-      api_token.userId
-    )
+      endpoint: "predict",
+      userId: api_token.userId,
+    })
 
-    return NextResponse.json(
-      { error: "ERROR: Insufficient balance.", date: Date.now() },
-      { status: 400 }
-    )
+    return returnError({
+      error: "ERROR: Insufficient balance.",
+      status: 400,
+      userId: api_token.userId,
+      modelId,
+    })
   }
 
   const groq = createOpenAI({
@@ -103,173 +95,68 @@ export async function POST(
       const result = await generateText(groq_data)
 
       token_used = result.usage.totalTokens
-
-      await db.request.create({
-        data: {
-          response: result.text,
-          parameters: {
-            model: model.id,
-            system,
-            messages,
-          },
-          endpoint: "predict",
-          userId: api_token.userId,
+      await createRequest({
+        response: result.text,
+        request: JSON.stringify(groq_data),
+        parameters: {
+          model: model.id,
+          system,
+          messages,
         },
-      })
-
-      await db.usage.create({
-        data: {
-          tokensUsed: token_used,
-          userId: api_token.userId,
-        },
-      })
-
-      await db.request.create({
-        data: {
-          response: await result.text,
-          parameters: {
-            model: model.id,
-            system,
-            messages,
-          },
-          endpoint: "predict",
-          userId: api_token.userId,
-        },
-      })
-
-      await db.usage.create({
-        data: {
-          tokensUsed: token_used,
-          userId: api_token.userId,
-        },
+        endpoint: "predict",
+        userId: api_token.userId,
       })
 
       const consumption = token_used * (model.pricing / 1000000)
-      const funding = await db.funding.findFirst({
-        where: {
-          userId: api_token.userId,
+      const funding = await updateFunding(
+        api_token.userId,
+        model.id,
+        consumption
+      )
+
+      const usage = await createUsage(api_token.userId, token_used)
+
+      return NextResponse.json({
+        output: result.text,
+        funding: {
+          amount: funding?.amount.toString(),
+          currency: funding?.currency,
+        },
+        usage: {
+          tokensUsed: usage.tokensUsed,
+          date: usage.createdAt,
         },
       })
+    }
 
-      if (!funding) {
-        return NextResponse.json(
-          { error: "ERROR: Funding not found.", date: Date.now() },
-          { status: 404 }
-        )
-      }
-
-      if (funding.amount < consumption) {
-        await createRequest(
-          "ERROR: Insufficient balance.",
-          {
-            model: model.id,
-            system,
-            messages,
-          },
-          "predict",
-          api_token.userId
-        )
-        return NextResponse.json(
-          { error: "ERROR: Insufficient balance.", date: Date.now() },
-          { status: 400 }
-        )
-      }
-
-      await db.funding.update({
-        where: {
-          id: funding.id,
-          userId: api_token.userId,
-        },
-        data: {
-          amount: funding.amount - consumption,
-        },
-      })
-      await db.usage.create({
-        data: {
-          tokensUsed: token_used,
-          userId: api_token.userId,
-        },
-      })
-      return NextResponse.json({ output: result.text, token_used })
-    } else {
+    if (stream) {
       const result = await streamText(groq_data)
 
       token_used = (await result.usage).totalTokens
-
-      await db.request.create({
-        data: {
-          response: await result.text,
-          parameters: {
-            model: model.id,
-            system,
-            messages,
-          },
-          endpoint: "predict",
-          userId: api_token.userId,
+      await createRequest({
+        response: await result.text,
+        request: JSON.stringify(groq_data),
+        parameters: {
+          model: model.id,
+          system,
+          messages,
         },
-      })
-
-      await db.usage.create({
-        data: {
-          tokensUsed: token_used,
-          userId: api_token.userId,
-        },
+        endpoint: "predict",
+        userId: api_token.userId,
       })
 
       const consumption = token_used * (model.pricing / 1000000)
-      const funding = await db.funding.findFirst({
-        where: {
-          userId: api_token.userId,
-        },
-      })
-
-      if (!funding) {
-        return NextResponse.json(
-          { error: "ERROR: Funding not found.", date: Date.now() },
-          { status: 404 }
-        )
-      }
-
-      if (funding.amount < consumption) {
-        await createRequest(
-          "ERROR: Insufficient balance.",
-          {
-            model: model.id,
-            system,
-            messages,
-          },
-          "predict",
-          api_token.userId
-        )
-        return NextResponse.json(
-          { error: "ERROR: Insufficient balance.", date: Date.now() },
-          { status: 400 }
-        )
-      }
-
-      await db.funding.update({
-        where: {
-          id: funding.id,
-          userId: api_token.userId,
-        },
-        data: {
-          amount: funding.amount - consumption,
-        },
-      })
-      await db.usage.create({
-        data: {
-          tokensUsed: token_used,
-          userId: api_token.userId,
-        },
-      })
+      await updateFunding(api_token.userId, model.id, consumption)
+      await createUsage(api_token.userId, token_used)
 
       return result.toDataStreamResponse()
     }
   } catch (error) {
     console.error(error)
-    return NextResponse.json(
-      { error: "ERROR: Unable to generate text.", date: Date.now() },
-      { status: 500 }
-    )
+    return returnError({
+      error: "ERROR: Unable to generate text.",
+      status: 500,
+      modelId,
+    })
   }
 }
