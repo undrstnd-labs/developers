@@ -37,7 +37,7 @@ export async function POST(
   const headersList = headers()
   const model = getModel(modelId)
   const body = await request.json()
-  const { stream, system, messages } = body
+  const { stream, system, messages, prompt } = body
 
   const req_token = headersList.get("x-api-key") as string
   const api_token = await db.aPIToken.findFirst({
@@ -86,7 +86,8 @@ export async function POST(
   const groq_data = {
     model: groq(model.id),
     system,
-    messages: convertToCoreMessages(messages),
+    ...(prompt ? { prompt } : {}),
+    ...(messages ? { messages: convertToCoreMessages(messages) } : {}),
   }
 
   try {
