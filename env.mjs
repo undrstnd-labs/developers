@@ -11,6 +11,8 @@ export const env = createEnv({
     SMTP_SERVER: z.string().min(1),
     FROM_EMAIL_GMAIL: z.string().min(1),
     SMTP_PORT: z.string().min(1),
+    NEXTAUTH_URL: z.string().url(),
+    NEXTAUTH_SECRET: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -23,5 +25,7 @@ export const env = createEnv({
     FROM_EMAIL_PASSWORD: process.env.FROM_EMAIL_PASSWORD,
     SMTP_SERVER: process.env.SMTP_SERVER,
     SMTP_PORT: process.env.SMTP_PORT,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
 })
