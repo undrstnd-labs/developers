@@ -22,7 +22,7 @@ async function getStream() {
           },
           {
             name: "user",
-            content: "What is 'x'",
+            content: "What is 'h'",
             role: "user",
           },
         ],

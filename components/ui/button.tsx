@@ -1,4 +1,5 @@
 import * as React from "react"
+import type { CSSProperties } from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -24,6 +25,7 @@ const buttonVariants = cva(
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
+        "small-icon": "h-6 w-6",
       },
     },
     defaultVariants: {
@@ -54,3 +56,55 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
+
+interface ShimmerButtonProps {
+  shimmerColor?: string
+  shimmerSize?: string
+  borderRadius?: string
+  shimmerDuration?: string
+  background?: string
+  className?: string
+  children?: React.ReactNode
+  [key: string]: any
+}
+
+export const ShimmerButton = ({
+  shimmerColor = "#ffffff",
+  shimmerSize = "1px",
+  shimmerDuration = "1.5s",
+  borderRadius = "100px",
+  background = "radial-gradient(ellipse 80% 50% at 50% 120%,rgba(62, 61, 117),rgba(18, 18, 38))",
+  className,
+  children,
+  ...props
+}: ShimmerButtonProps) => {
+  return (
+    <button
+      style={
+        {
+          "--spread": "90deg",
+          "--shimmer-color": shimmerColor,
+          "--radius": borderRadius,
+          "--speed": shimmerDuration,
+          "--cut": shimmerSize,
+          "--bg": background,
+        } as CSSProperties
+      }
+      className={`
+        group relative flex h-11 cursor-pointer overflow-hidden whitespace-nowrap px-6 text-white shadow-[0_0_0_3px_rgba(255,255,255,0.3)_inset]  transition-all duration-300 [background:var(--bg)] [border-radius:var(--radius)] hover:scale-105 dark:text-black ${
+          className || ""
+        }
+      `}
+      {...props}
+    >
+      <div className="absolute inset-0 overflow-visible [container-type:size]">
+        <div className="animate-slide absolute inset-0 h-[100cqh] [aspect-ratio:1] [border-radius:0] [mask:none] ">
+          <div className="absolute -inset-full w-auto rotate-0 animate-spin [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,hsl(0_0%_100%/1)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+        </div>
+      </div>
+
+      <div className="absolute [background:var(--bg)] [border-radius:var(--radius)] [inset:var(--cut)]" />
+      {children}
+    </button>
+  )
+}
