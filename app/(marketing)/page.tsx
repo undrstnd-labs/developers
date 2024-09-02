@@ -40,6 +40,12 @@ export default async function page() {
     <div>
       <h1>Stream</h1>
       <pre>{JSON.stringify(stream, null, 2)}</pre>
+
+      <h2 className="mt-8 text-lg">Documentation</h2>
+      <p>
+        You can find the documentation for the API at{" "}
+        <a href="/api/docs">/api/docs</a>.
+      </p>
     </div>
   )
 }

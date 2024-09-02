@@ -67,6 +67,13 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        chart: {
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -83,19 +90,42 @@ const config = {
           },
         },
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: {
+            height: "0",
+          },
+          to: {
+            height: "var(--radix-accordion-content-height)",
+          },
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: {
+            height: "var(--radix-accordion-content-height)",
+          },
+          to: {
+            height: "0",
+          },
         },
         "loading-ellipsis": {
-          "0%": { opacity: "0", content: '""' },
-          "25%": { opacity: "1", content: '.""' },
-          "50%": { opacity: "1", content: '..""' },
-          "75%": { opacity: "1", content: '...""' },
-          "100%": { opacity: "0", content: '""' },
+          "0%": {
+            opacity: "0",
+            content: "",
+          },
+          "25%": {
+            opacity: "1",
+            content: '.""',
+          },
+          "50%": {
+            opacity: "1",
+            content: '..""',
+          },
+          "75%": {
+            opacity: "1",
+            "": "",
+          },
+          "100%": {
+            opacity: "0",
+            content: "",
+          },
         },
         "text-gradient": {
           to: {
@@ -103,8 +133,12 @@ const config = {
           },
         },
         grid: {
-          "0%": { transform: "translateY(-50%)" },
-          "100%": { transform: "translateY(0)" },
+          "0%": {
+            transform: "translateY(-50%)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+          },
         },
         spin: {
           "0%": {
@@ -131,16 +165,29 @@ const config = {
           },
         },
         marquee: {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+          from: {
+            transform: "translateX(0)",
+          },
+          to: {
+            transform: "translateX(calc(-100% - var(--gap)))",
+          },
         },
         "marquee-vertical": {
-          from: { transform: "translateY(0)" },
-          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+          from: {
+            transform: "translateY(0)",
+          },
+          to: {
+            transform: "translateY(calc(-100% - var(--gap)))",
+          },
         },
         meteor: {
-          "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
-          "70%": { opacity: "1" },
+          "0%": {
+            transform: "rotate(215deg) translateX(0)",
+            opacity: "1",
+          },
+          "70%": {
+            opacity: "1",
+          },
           "100%": {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0",
