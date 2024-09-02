@@ -8,21 +8,101 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model Account {
+  userId String
+
+  type              String
+  provider          String
+  providerAccountId String
+
+  refresh_token String?
+  access_token  String?
+  expires_at    Int?
+
+  token_type String?
+  scope      String?
+  id_token   String?
+
+  session_state String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@map(name: "accounts")
+}
+
+model Session {
+  sessionToken String @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expires   DateTime
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@map(name: "sessions")
+}
+
 model User {
-  id       String @id @default(cuid())
-  username String @unique
-  email    String @unique
+  id String @id @default(cuid())
+
+  username String?
+  phone    String? @unique
+  email    String  @unique
+  image    String  @default("https://dev.undrstnd-labs.com/placeholder.svg")
+
+  verified      Boolean   @default(false)
+  emailVerified DateTime? @map("email_verified")
 
   usages    Usage[]
   requests  Request[]
   fundings  Funding[]
+  accounts  Account[]
+  sessions  Session[]
   apiTokens APIToken[]
+
+  Authenticator Authenticator[]
 
   deletedAt DateTime? @map(name: "deleted_at")
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @default(now()) @map(name: "updated_at")
 
   @@map(name: "users")
+}
+
+model VerificationToken {
+  token String @unique
+
+  identifier String
+  expires    DateTime
+
+  passCode        String?
+  verificationUrl String?
+
+  @@id([identifier, token])
+  @@map(name: "verification_tokens")
+}
+
+model Authenticator {
+  credentialID String @unique
+
+  providerAccountId    String
+  credentialPublicKey  String
+  credentialDeviceType String
+  transports           String?
+
+  counter            Int
+  credentialBackedUp Boolean
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+  @@map(name: "authenticators")
 }
 
 model Funding {

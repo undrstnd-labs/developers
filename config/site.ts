@@ -3,10 +3,10 @@ import { SiteConfig } from "@/types"
 export const siteConfig: SiteConfig = {
   name: "Undrstnd Developers",
   description: "Easy AI integration for devs.",
-  url: "https://dev.undrstnd.com",
+  url: "https://dev.undrstnd-labs.com",
   images: {
-    default: "https://dev.undrstnd.com/og.png",
-    notFound: "https://dev.undrstnd.com/not-found.png",
+    default: "https://dev.undrstnd-labs.com/og.png",
+    notFound: "https://dev.undrstnd-labs.com/not-found.png",
     logo: "https://emojicdn.elk.sh/⏩?style=twitter",
   },
   links: {
