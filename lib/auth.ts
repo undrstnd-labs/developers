@@ -1,5 +1,6 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth"
+import { Adapter } from "next-auth/adapters"
 import { JWT } from "next-auth/jwt"
 import EmailProvider from "next-auth/providers/email"
 import FacebookProvider from "next-auth/providers/facebook"
@@ -13,10 +14,8 @@ import { sendMail } from "@/actions/mail"
 import { updateVerificationToken } from "@/actions/token"
 import { isBanned } from "@/actions/user"
 
-//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
-//udsk_demo-api-key-x-00000
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(db) as any,
+  adapter: PrismaAdapter(db) as Adapter,
   secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",

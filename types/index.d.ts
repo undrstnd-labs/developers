@@ -32,8 +32,8 @@ export type SiteConfig = {
   description: string
   url: string
   links: {
-    twitter?: string
-    github?: string
+    twitter: string
+    github: string
     discord?: string
   }
   images: {
@@ -45,7 +45,7 @@ export type SiteConfig = {
     name: string
     url: string
     email: string
-    github?: string
+    github: string
   }
   keywords: string[]
 }
@@ -81,4 +81,18 @@ export type NavLink = {
   name: string
   title: string
   path: string
+}
+
+export type accordianItemType = {
+  title: string
+  href?: string
+  links: userNavLink[]
+}
+
+export type userNavLink = {
+  name: string
+  icon: (typeof Icons)[keyof typeof Icons]
+  href: string
+  hide?: boolean
+  active?: boolean
 }
