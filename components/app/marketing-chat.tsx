@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useActions } from "ai/rsc"
 import { motion } from "framer-motion"
 
+import { siteConfig } from "@/config/site"
 import { useScrollToBottom } from "@/hooks/use-scroll-to-bottom"
 
 import { Message } from "@/components/app/marketing-chat-message"
@@ -40,7 +41,7 @@ export function MarketingChat() {
   ]
 
   return (
-    <div className="flex h-dvh flex-row justify-center bg-white pb-20 dark:bg-zinc-900">
+    <div className="justify-cente flex h-dvh flex-row pb-20 ">
       <div className="flex flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
@@ -48,16 +49,17 @@ export function MarketingChat() {
         >
           {messages.length === 0 && (
             <motion.div className="h-[350px] w-full px-4 pt-20 md:w-[500px] md:px-0">
-              <div className="flex flex-col gap-4 rounded-lg border p-6 text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">
-                <p className="flex flex-row items-center justify-center gap-4 text-zinc-900 dark:text-zinc-50">
-                  <Icons.logo className="size-16" />
+              <div className="text-secondary-foreground dark:border-muted-foreground/40 flex flex-col gap-4 rounded-lg border p-6 text-sm">
+                <p className="flex flex-row items-center justify-center gap-4">
+                  <Icons.logo className="size-8" />
+                  <span className="text-lg font-medium">{siteConfig.name}</span>
                 </p>
-                <p>
+                <p className="text-muted-foreground">
                   The streamUI function allows you to stream React Server
                   Components along with your language model generations to
                   integrate dynamic user interfaces into your application.
                 </p>
-                <p>
+                <p className="text-muted-foreground">
                   {" "}
                   Learn more about the{" "}
                   <Link
