@@ -10,11 +10,16 @@ export async function getUsage(userId: string) {
   })
 }
 
-export async function createUsage(userId: string, tokensUsed: number) {
+export async function createUsage(
+  userId: string,
+  tokensUsed: number,
+  cost: number
+) {
   return await db.usage.create({
     data: {
-      tokensUsed: tokensUsed,
-      userId: userId,
+      tokensUsed,
+      userId,
+      cost,
     },
   })
 }

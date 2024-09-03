@@ -1,6 +1,7 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 import { createOpenAI } from "@ai-sdk/openai"
+import { RequestStatus } from "@prisma/client"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
@@ -10,7 +11,7 @@ import { db } from "@/lib/prisma"
 import { getModel } from "@/lib/utils"
 
 import { updateFunding } from "@/actions/funding"
-import { createRequest } from "@/actions/request"
+import { createRequest, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
 const routeContextSchema = z.object({
@@ -55,19 +56,26 @@ export async function POST(
     })
   }
 
+  const usuageRequest = await createRequest({
+    response: "PENDING: Request in progress.",
+    status: RequestStatus.PENDING,
+    request: JSON.stringify(body),
+    parameters: {
+      model: model.id,
+      system,
+      messages,
+    },
+    endpoint: "predict",
+    userId: api_token.userId,
+  })
+
   const funding = await getFunding(api_token.userId, model.id)
 
   if (!funding || funding.amount <= 0) {
-    await createRequest({
+    await updateRequest({
+      id: usuageRequest.id,
       response: "ERROR: Insufficient balance.",
-      request: JSON.stringify(body),
-      parameters: {
-        model: model.id,
-        system,
-        messages,
-      },
-      endpoint: "predict",
-      userId: api_token.userId,
+      status: RequestStatus.FAILED,
     })
 
     return returnError({
@@ -96,18 +104,6 @@ export async function POST(
       const result = await generateText(groq_data)
 
       token_used = result.usage.totalTokens
-      await createRequest({
-        response: result.text,
-        request: JSON.stringify(groq_data),
-        parameters: {
-          model: model.id,
-          system,
-          messages,
-        },
-        endpoint: "predict",
-        userId: api_token.userId,
-      })
-
       const consumption = token_used * (model.pricing / 1000000)
       const funding = await updateFunding(
         api_token.userId,
@@ -115,7 +111,13 @@ export async function POST(
         consumption
       )
 
-      const usage = await createUsage(api_token.userId, token_used)
+      const usage = await createUsage(api_token.userId, token_used, consumption)
+      await updateRequest({
+        id: usuageRequest.id,
+        response: result.text,
+        status: RequestStatus.SUCCESS,
+        usageId: usage.id,
+      })
 
       return NextResponse.json({
         output: result.text,
@@ -134,26 +136,25 @@ export async function POST(
       const result = await streamText(groq_data)
 
       token_used = (await result.usage).totalTokens
-      await createRequest({
-        response: await result.text,
-        request: JSON.stringify(groq_data),
-        parameters: {
-          model: model.id,
-          system,
-          messages,
-        },
-        endpoint: "predict",
-        userId: api_token.userId,
-      })
-
       const consumption = token_used * (model.pricing / 1000000)
       await updateFunding(api_token.userId, model.id, consumption)
-      await createUsage(api_token.userId, token_used)
+
+      const usage = await createUsage(api_token.userId, token_used, consumption)
+      await updateRequest({
+        id: usuageRequest.id,
+        response: await result.text,
+        status: RequestStatus.SUCCESS,
+        usageId: usage.id,
+      })
 
       return result.toDataStreamResponse()
     }
   } catch (error) {
-    console.error(error)
+    await updateRequest({
+      id: usuageRequest.id,
+      response: "ERROR: Unable to generate text.",
+      status: RequestStatus.SUCCESS,
+    })
     return returnError({
       error: "ERROR: Unable to generate text.",
       status: 500,
