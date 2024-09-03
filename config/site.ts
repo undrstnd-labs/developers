@@ -1,4 +1,4 @@
-import { SiteConfig } from "@/types"
+import { AnnouncementBannerProps, SiteConfig } from "@/types"
 
 export const siteConfig: SiteConfig = {
   name: "Undrstnd Developers",
@@ -22,10 +22,10 @@ export const siteConfig: SiteConfig = {
       github: "https://github.com/FindMalek",
     },
     {
-      name: "Denis",
-      url: "https://undrstnd-labs.com",
+      name: "Denis Cartin",
+      url: "https://www.linkedin.com/in/denis-cartin-3127581b1",
       email: "denis@undrstnd-labs.com",
-      github: "https://github.com/denis",
+      github: "https://github.com/deniscartin",
     },
   ],
   agency: {
@@ -35,4 +35,9 @@ export const siteConfig: SiteConfig = {
     github: "https://github.com/undrstnd-labs",
   },
   keywords: ["undrstnd", "developers", "ai", "integration", "easy", "devs"],
+}
+
+export const news: AnnouncementBannerProps = {
+  overview: "Don't worry, I'm the fastest and cheapest",
+  url: "/",
 }

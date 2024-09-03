@@ -58,6 +58,11 @@ export type SiteConfig = {
   keywords: string[]
 }
 
+export type AnnouncementBannerProps = {
+  overview: string
+  url: string
+}
+
 export type DocsConfig = {
   mainNav: MainNavItem[]
   sidebarNav: SidebarNavItem[]
@@ -103,4 +108,9 @@ export type userNavLink = {
   href: string
   hide?: boolean
   active?: boolean
+}
+
+export type AnimatedBadgeProps = {
+  title: string
+  href: string
 }
