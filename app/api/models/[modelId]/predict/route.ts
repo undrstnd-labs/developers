@@ -7,6 +7,7 @@ import * as z from "zod"
 
 import { models } from "@/config/models"
 import { getFunding, returnError } from "@/lib/api"
+import { groq_client } from "@/lib/groq"
 import { db } from "@/lib/prisma"
 import { getModel } from "@/lib/utils"
 
@@ -86,10 +87,7 @@ export async function POST(
     })
   }
 
-  const groq = createOpenAI({
-    baseURL: "https://api.groq.com/openai/v1",
-    apiKey: api_token.token,
-  })
+  const groq = groq_client(api_token.token)
 
   const groq_data = {
     model: groq(model.id),
