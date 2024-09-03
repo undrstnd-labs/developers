@@ -13,6 +13,7 @@ export const env = createEnv({
     SMTP_PORT: z.string().min(1),
     NEXTAUTH_URL: z.string().url(),
     NEXTAUTH_SECRET: z.string().min(1),
+    GROQ_API_KEY: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -27,5 +28,6 @@ export const env = createEnv({
     SMTP_PORT: process.env.SMTP_PORT,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    GROQ_API_KEY: process.env.GROQ_API_KEY,
   },
 })

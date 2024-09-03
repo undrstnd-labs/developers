@@ -1,3 +1,5 @@
+import React from "react"
+
 import { ThemeProvider } from "@/components/layout/theme-provider"
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {

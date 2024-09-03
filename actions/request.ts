@@ -10,7 +10,7 @@ export async function createRequest({
   parameters,
   endpoint,
   userId,
-  status
+  status,
 }: {
   response: string
   request: any
@@ -35,7 +35,7 @@ export async function updateRequest({
   id,
   response,
   status,
-  usageId
+  usageId,
 }: {
   id: string
   response: string
@@ -49,7 +49,7 @@ export async function updateRequest({
     data: {
       status,
       response,
-      usageId
+      usageId,
     },
   })
 }
