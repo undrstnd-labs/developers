@@ -1,7 +1,13 @@
-import { User } from "@prisma/client"
-import type { Icon } from "lucide-react"
+import { User } from "@prisma/client";
+import type { Icon } from "lucide-react";
 
-import { Icons } from "@/components/shared/icons"
+
+
+import { Icons } from "@/components/shared/icons";
+
+
+
+
 
 export type NavItem = {
   title: string
@@ -27,6 +33,13 @@ export type SidebarNavItem = {
     }
 )
 
+export type Author = {
+  name: string
+  url: string
+  email: string
+  github: string
+}
+
 export type SiteConfig = {
   name: string
   description: string
@@ -41,7 +54,8 @@ export type SiteConfig = {
     notFound: string
     logo: string
   }
-  author: {
+  author: Author[],
+  agency?: {
     name: string
     url: string
     email: string

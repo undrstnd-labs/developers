@@ -14,19 +14,25 @@ export const siteConfig: SiteConfig = {
     github: "https://github.com/findmalek/findplate",
     discord: "https://discord.gg/uF4bynbKnH",
   },
-  author: {
-    name: "findmalek",
-    url: "https://www.findmalek.com",
-    email: "hi@findmalek.com",
-    github: "https://github.com/FindMalek",
-  },
-  keywords: [
-    "findmalek",
-    "undrstnd",
-    "developers",
-    "ai",
-    "integration",
-    "easy",
-    "devs",
+  author: [
+    {
+      name: "findmalek",
+      url: "https://www.findmalek.com",
+      email: "hi@findmalek.com",
+      github: "https://github.com/FindMalek",
+    },
+    {
+      name: "Denis",
+      url: "https://undrstnd-labs.com",
+      email: "denis@undrstnd-labs.com",
+      github: "https://github.com/denis",
+    },
   ],
+  agency: {
+    name: "Undrstnd Labs",
+    url: "https://undrstnd-labs.com",
+    email: "info@undrstnd-labs.com",
+    github: "https://github.com/undrstnd-labs",
+  },
+  keywords: ["undrstnd", "developers", "ai", "integration", "easy", "devs"],
 }

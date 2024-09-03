@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 import { siteConfig } from "@/config/site"
 
 import { Icons } from "@/components/shared/icons"
@@ -10,32 +8,24 @@ export function SiteFooter() {
       <div className="flex w-full flex-col items-start justify-between gap-5 md:flex-row md:items-center">
         <div className="header-logo flex items-center gap-x-2">
           <Icons.logo className="size-8 rounded-full" />
-          <h2 className="text-base font-bold text-neutral-900 dark:text-white">
+          <h2 className="text-base font-medium text-neutral-900 dark:text-white">
             {siteConfig.name}
           </h2>
         </div>
-        <div className="flex items-center justify-center md:justify-start">
-          <p className="text-muted-foreground mr-2 text-sm leading-loose">
-            D&apos;apres l&apos;autheur
+        <div className="flex items-center justify-center text-sm md:justify-start">
+          <p className="mr-2  leading-loose text-muted-foreground">
+            Brought by
           </p>
-          {siteConfig.author.github && (
-            <Image
-              src={`${siteConfig.author.github}.png`}
-              alt={siteConfig.author.name}
-              width={24}
-              height={24}
-              className="mr-2 rounded-full"
-            />
+          {siteConfig.agency && (
+            <a
+              href={siteConfig.agency.url}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline hover:underline-offset-4"
+            >
+              {siteConfig.agency.name}
+            </a>
           )}
-          <a
-            href={siteConfig.links.twitter}
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium underline underline-offset-4"
-          >
-            {siteConfig.author.name}
-          </a>
-          <p className="ml-1">.</p>
         </div>
       </div>
     </footer>

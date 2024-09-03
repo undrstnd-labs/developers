@@ -1,7 +1,6 @@
 "use server"
 
 import { ReactNode } from "react"
-import { openai } from "@ai-sdk/openai"
 import { CoreMessage, generateId } from "ai"
 import {
   createAI,
@@ -13,12 +12,6 @@ import {
 import { groq } from "@/lib/groq"
 
 import { TextStreamMessage } from "@/components/app/marketing-chat-message"
-
-export interface Hub {
-  climate: Record<"low" | "high", number>
-  lights: Array<{ name: string; status: boolean }>
-  locks: Array<{ name: string; isLocked: boolean }>
-}
 
 export async function sendMessage(message: string) {
   const messages = getMutableAIState<typeof AI>("messages")
@@ -72,12 +65,5 @@ export const AI = createAI<AIState, UIState>({
   initialUIState: [],
   actions: {
     sendMessage,
-  },
-  onSetAIState: async ({ state, done }) => {
-    "use server"
-
-    if (done) {
-      // save to database
-    }
   },
 })
