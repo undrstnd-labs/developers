@@ -15,20 +15,20 @@ export function AnimatedBadge({ title, href }: AnimatedBadgeProps) {
       <GradientText>
         <div
           className={cn(
-            `animate-gradient absolute inset-0 block size-full bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:var(--bg-size)_100%] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]`,
+            `animate-gradient absolute inset-0 block size-full bg-gradient-to-r from-sky-400/50 via-teal-500/50 to-sky-600/50 bg-[length:var(--bg-size)_100%] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]`,
             `p-px ![mask-composite:subtract]`
           )}
         />
         ⚡ <Separator className="mx-2 h-4" orientation="vertical" />
         <span
           className={cn(
-            `animate-gradient bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
+            `animate-gradient bg-gradient-to-r from-sky-600 via-teal-700 to-sky-800 bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`,
             `inline`
           )}
         >
           {title}
         </span>
-        <Icons.chevronRight className="ml-1 size-4 text-gray-500" />
+        <Icons.chevronRight className="text-muted-foreground ml-1 size-4" />
       </GradientText>
     </Link>
   )
