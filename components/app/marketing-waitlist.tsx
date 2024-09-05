@@ -32,8 +32,7 @@ export function WaitlistForm() {
   const [isSubmitted, setSubmitted] = useState(false)
 
   return (
-    <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center px-4">
         {isSubmitted ? (
           <div className="font-sm text-primary flex h-11 w-[330px] items-center justify-between rounded-lg border border-[#2C2C2C] px-3 py-1">
             <p>Subscribed</p>
@@ -80,6 +79,5 @@ export function WaitlistForm() {
           </form>
         )}
       </div>
-    </div>
   )
 }

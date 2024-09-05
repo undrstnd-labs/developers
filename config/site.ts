@@ -38,6 +38,6 @@ export const siteConfig: SiteConfig = {
 }
 
 export const news: AnnouncementBannerProps = {
-  overview: "Don't worry, I'm the fastest and cheapest",
+  overview: "I'm the fastest and cheapest",
   url: "/",
 }
