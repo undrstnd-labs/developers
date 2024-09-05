@@ -155,7 +155,7 @@ export function MarketingCallToAction() {
               <Card key={idx} {...review} />
             ))}
           </Marquee>
-          <div className="absolute z-10">
+          <div className="container absolute z-10">
             <div className="mx-auto size-24 rounded-[2rem] border bg-white/10 p-3 shadow-2xl backdrop-blur-md lg:size-32 dark:bg-black/10">
               <Icons.logoLucide className="text-primary mx-auto size-16 lg:size-24 " />
             </div>
