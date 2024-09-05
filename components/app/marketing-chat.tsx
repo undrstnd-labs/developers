@@ -85,7 +85,7 @@ export function MarketingChat() {
         </div>
         <div className="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
           <div
-            className="ring-primary-50 bg-primary-foreground shadow-secondary-foreground/10 absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] shadow-xl ring-1 md:-mr-20 lg:-mr-36"
+            className="ring-primary-50 shadow-secondary-foreground/10 absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl ring-1 md:-mr-20 lg:-mr-36 dark:bg-black"
             aria-hidden="true"
           />
           <div className="shadow-lg md:rounded-3xl">
@@ -94,7 +94,7 @@ export function MarketingChat() {
                 className="bg-primary-foreground ring-primary-foreground absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] opacity-20 ring-1 ring-inset md:ml-20 lg:ml-36"
                 aria-hidden="true"
               />
-              <div className="bg-primary-foreground flex h-full flex-row justify-center px-2 pb-20 sm:px-8">
+              <div className="bg-muted flex h-full flex-row justify-center px-2 pb-20 sm:px-8">
                 <div className="border-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-secondary flex h-[640px] flex-col justify-between gap-4 overflow-y-scroll p-6">
                   <div
                     ref={messagesContainerRef}
@@ -189,7 +189,7 @@ export function MarketingChat() {
                     <div className="relative w-full max-w-[calc(100dvw-32px)] md:max-w-[500px]">
                       <Input
                         ref={inputRef}
-                        className="w-full pr-10 outline-none ring-transparent focus-visible:ring-0"
+                        className="w-full bg-white/60 pr-10 outline-none ring-transparent focus-visible:ring-0 dark:bg-black/60"
                         placeholder="Send a message..."
                         value={input}
                         onChange={(event) => {
@@ -211,7 +211,7 @@ export function MarketingChat() {
           </div>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32" />
+      <div className="from-secondary absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t sm:h-32" />
     </div>
   )
 }
