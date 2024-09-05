@@ -184,7 +184,10 @@ export function MarketingChat() {
                       ])
                       setInput("")
 
-                      const response: ReactNode = await sendMessage(input)
+                      const response: ReactNode = await sendMessage(
+                        input,
+                        model
+                      )
                       setMessages((messages) => [...messages, response])
                     }}
                   >
