@@ -28,7 +28,7 @@ export function SiteHeader({ user }: { user: User | Boolean }) {
           </div>
         </Link>
 
-        <div className="hidden w-full sm:max-w-xs lg:block">
+        {/* <div className="hidden w-full sm:max-w-xs lg:block">
           <div className="relative">
             <Icons.search className="text-muted-foreground absolute left-2 top-2.5 size-4" />
             <Input
@@ -37,7 +37,7 @@ export function SiteHeader({ user }: { user: User | Boolean }) {
               className="w-full pl-8 lg:w-[400px]"
             />
           </div>
-        </div>
+        </div> */}
 
         <MobileNav user={user} />
 

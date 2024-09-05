@@ -13,7 +13,7 @@ export function SiteAuthentification() {
           size: "sm",
         })}
       >
-        Connexion
+        Log in
       </Link>
       <Link
         href="/register"
@@ -21,7 +21,7 @@ export function SiteAuthentification() {
           size: "sm",
         })}
       >
-        Inscription
+        Register
       </Link>
     </div>
   )
