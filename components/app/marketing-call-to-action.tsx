@@ -164,8 +164,8 @@ export function MarketingCallToAction() {
                 Unbeatable performance and speed
               </h1>
               <p className="mt-2">
-                Get started with the cheapest and fastest AI models on the
-                market.
+                Join the waitlist to get early access to our AI-powered
+                platform.
               </p>
               <div className="mt-4 flex justify-center gap-4">
                 <WaitlistForm />

@@ -10,7 +10,7 @@ export function DesktopNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="flex items-center gap-4 text-sm lg:gap-6">
+    <nav className="hidden items-center gap-4 text-sm lg:flex lg:gap-6">
       <Link
         href="/docs"
         className={cn(

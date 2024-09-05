@@ -63,7 +63,7 @@ export function WaitlistForm() {
             }, 5000)
           }}
         >
-          <fieldset className="relative z-50">
+          <fieldset className="relative z-50  min-w-[300px] max-w-full">
             <input
               placeholder="example@email.com"
               type="email"
