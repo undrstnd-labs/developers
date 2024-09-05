@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 
-export function SiteAuthentification() {
+export function SiteNavigation() {
   return (
     <div className="ml-10 flex items-baseline space-x-4">
       <Link
@@ -25,8 +25,4 @@ export function SiteAuthentification() {
       </Link>
     </div>
   )
-}
-
-export function SiteNavigation() {
-  return <div>SiteNavigation</div>
 }

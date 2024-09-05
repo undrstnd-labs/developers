@@ -74,27 +74,25 @@ export function MarketingHero() {
 
       <div className="z-10 flex flex-col">
         <div className="mt-10 grid grid-cols-1 md:mt-20">
-          <div className="flex flex-col items-center gap-6 px-7 pb-8 text-center md:px-10">
+          <div className="flex flex-col items-center gap-6 px-4 pb-8 text-center md:px-10">
             <AnimatedBadge href={news.url} title={news.overview} />
             <div className="relative flex flex-col items-center gap-4 lg:flex-row">
               <h1
                 className={cn(
                   "relative mx-0 max-w-7xl pt-5 md:mx-auto md:px-4 md:py-2",
-                  "text-balance font-semibold tracking-tighter",
+                  "text-balance font-bold tracking-tighter",
                   "text-5xl sm:text-7xl md:text-7xl lg:text-7xl"
                 )}
               >
-                The Fastest and Most Affordable AI for Developers
+                The Fastest and Easiest AI Integration{" "}
+                <span className="hidden md:inline">in Less Than 5 Minutes</span>
               </h1>
             </div>
 
-            <p className="text-muted-foreground max-w-5xl text-balance text-center text-base tracking-tight md:text-lg">
-              Build and scale your AI-powered applications effortlessly,
-              Undrstnd Developers delivers{" "}
-              <b className="text-secondary-foreground">
-                lightning-fast AI inference at unbeatable prices
-              </b>
-              .
+            <p className="text-muted-foreground max-w-6xl text-balance text-center text-base tracking-tight md:text-lg">
+              Build and scale your AI-powered applications effortlessly with our{" "}
+              <b>easy-to-use AI inference and lightning-fast</b> AI integration
+              at <b>unbeatable prices</b>.
             </p>
 
             <div className="mx-auto flex w-full max-w-full flex-col items-center justify-center gap-4 py-1 sm:max-w-xl sm:flex-row md:mx-auto">
