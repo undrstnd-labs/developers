@@ -15,6 +15,12 @@ const nextConfig = {
         pathname: "/**",
         hostname: "github.com",
       },
+      {
+        protocol: "https",
+        port: "",
+        pathname: "/**",
+        hostname: "cdn-avatars.huggingface.co",
+      },
     ],
     domains: ["localhost"],
   },

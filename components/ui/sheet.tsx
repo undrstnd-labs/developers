@@ -68,7 +68,7 @@ const SheetContent = React.forwardRef<
     >
       {children}
       {close && (
-        <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-6 top-6 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
+        <SheetPrimitive.Close className="ring-offset-background data-[state=open]:bg-secondary focus:ring-ring absolute right-6 top-6 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none">
           <X className="size-6" />
           <span className="sr-only">Close</span>
         </SheetPrimitive.Close>

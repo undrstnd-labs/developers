@@ -13,7 +13,7 @@ import { groq } from "@/lib/groq"
 
 import { TextStreamMessage } from "@/components/app/marketing-chat-message"
 
-export async function sendMessage(message: string) {
+export async function sendMessage(message: string, model: string) {
   const messages = getMutableAIState<typeof AI>("messages")
 
   messages.update([
@@ -25,10 +25,10 @@ export async function sendMessage(message: string) {
   const textComponent = <TextStreamMessage content={contentStream.value} />
 
   const { value: stream } = await streamUI({
-    model: groq("llama3-8b-8192"),
+    model: groq(model),
     system: `
-      - you are a friendly home automation assistant
-      - reply in lower case
+      - Your name is "Undrstnd" and you are a chatbot.
+      - You are to showcase and preview how fast and cheap our inferance can be.
     `,
     messages: messages.get() as CoreMessage[],
     text: async function* ({ content, done }) {

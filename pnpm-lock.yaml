@@ -266,6 +266,9 @@ importers:
       prisma:
         specifier: ^5.19.0
         version: 5.19.0
+      tailwind-scrollbar:
+        specifier: ^3.1.0
+        version: 3.1.0(tailwindcss@3.4.3)
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.3
@@ -6475,6 +6478,15 @@ packages:
         integrity: sha512-tWANXsnmJzgw6mQ07nE3aCDkCK4QdT3ThPMCzawoYA2Pws7vSTCvz3Vrjg61jVUGfFZPJzxEP+NimbcW+EdaDw==,
       }
 
+  tailwind-scrollbar@3.1.0:
+    resolution:
+      {
+        integrity: sha512-pmrtDIZeHyu2idTejfV59SbaJyvp1VRjYxAjZBH0jnyrPRo6HL1kD5Glz8VPagasqr6oAx6M05+Tuw429Z8jxg==,
+      }
+    engines: { node: ">=12.13.0" }
+    peerDependencies:
+      tailwindcss: 3.x
+
   tailwindcss-animate@1.0.7:
     resolution:
       {
@@ -11235,6 +11247,10 @@ snapshots:
   tailwind-merge@2.2.2:
     dependencies:
       "@babel/runtime": 7.24.4
+
+  tailwind-scrollbar@3.1.0(tailwindcss@3.4.3):
+    dependencies:
+      tailwindcss: 3.4.3
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.3):
     dependencies:

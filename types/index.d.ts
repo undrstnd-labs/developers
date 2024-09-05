@@ -114,3 +114,9 @@ export type AnimatedBadgeProps = {
   title: string
   href: string
 }
+
+export type Model = {
+  label: string
+  value: string
+  image: (typeof Icons)[keyof typeof Icons]
+}

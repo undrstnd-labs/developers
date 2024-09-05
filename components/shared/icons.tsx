@@ -52,6 +52,7 @@ import {
   PuzzleIcon,
   ScrollIcon,
   Search,
+  SendHorizonalIcon,
   Settings,
   ShieldIcon,
   ShoppingCartIcon,
@@ -93,6 +94,66 @@ function LogoIcon({ className }: { className?: string }) {
   return (
     <Image
       src="/favicons/android-chrome-192x192.png"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
+function DistilWhishper({ className }: { className?: string }) {
+  return (
+    <Image
+      src="https://cdn-avatars.huggingface.co/v1/production/uploads/61f91cf54a8e5a275b2b3e7c/cUNzV7MAYi8lo9LsCYixp.png"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
+function Groq({ className }: { className?: string }) {
+  return (
+    <Image
+      src="https://cdn-avatars.huggingface.co/v1/production/uploads/1673913216963-63115d7864939fabc00f0b45.png"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
+function Meta({ className }: { className?: string }) {
+  return (
+    <Image
+      src="https://cdn-avatars.huggingface.co/v1/production/uploads/646cf8084eefb026fb8fd8bc/oCTqufkdTkjyGodsx1vo1.png"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
+function Mistral({ className }: { className?: string }) {
+  return (
+    <Image
+      src="https://cdn-avatars.huggingface.co/v1/production/uploads/62dac1c7a8ead43d20e3e17a/wrLf5yaGC6ng4XME70w6Z.png"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
+function OpenAi({ className }: { className?: string }) {
+  return (
+    <Image
+      src="https://cdn-avatars.huggingface.co/v1/production/uploads/1620805164087-5ec0135ded25d76864d553f1.png"
       alt="logo"
       className={className}
       width={32}
@@ -185,4 +246,10 @@ export const Icons = {
   questionCircle: MessageCircleQuestionIcon,
   scroll: ScrollIcon,
   album: AlbumIcon,
+  send: SendHorizonalIcon,
+  distilWhisper: DistilWhishper,
+  groq: Groq,
+  meta: Meta,
+  mistral: Mistral,
+  openAi: OpenAi,
 }
