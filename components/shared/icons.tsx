@@ -17,6 +17,8 @@ import {
   CircleCheck,
   CircleIcon,
   ClockIcon,
+  CloudIcon,
+  CodeXmlIcon,
   ConciergeBell,
   CopyIcon,
   CreditCard,
@@ -252,4 +254,6 @@ export const Icons = {
   meta: Meta,
   mistral: Mistral,
   openAi: OpenAi,
+  cloud: CloudIcon,
+  code: CodeXmlIcon
 }
