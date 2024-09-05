@@ -5,6 +5,7 @@ import { MarketingChat } from "@/components/app/marketing-chat"
 import { MarketingHero } from "@/components/app/marketing-hero"
 import { MarketingSocialProof } from "@/components/app/marketing-social-proof"
 import { MarketingStoryTelling } from "@/components/app/marketing-story-telling"
+import { MarketingTestimonial } from "@/components/app/marketing-testimonial"
 
 export default async function MarketingPage() {
   return (
@@ -13,6 +14,7 @@ export default async function MarketingPage() {
       <MarketingSocialProof />
       <MarketingChat />
       <MarketingStoryTelling />
+      <MarketingTestimonial />
       <MarketingCallToAction />
     </>
   )
