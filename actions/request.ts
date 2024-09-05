@@ -11,6 +11,7 @@ export async function createRequest({
   endpoint,
   userId,
   status,
+  apiTokenId,
 }: {
   response: string
   request: any
@@ -18,6 +19,7 @@ export async function createRequest({
   endpoint: string
   userId: string
   status: RequestStatus
+  apiTokenId: string
 }) {
   return await db.request.create({
     data: {
@@ -27,6 +29,7 @@ export async function createRequest({
       parameters,
       endpoint,
       userId,
+      apiTokenId,
     },
   })
 }

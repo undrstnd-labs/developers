@@ -15,10 +15,12 @@ enum RequestStatus {
 }
 
 model Waitlist {
-  id        String   @id @default(cuid())
-  email     String   @unique
+  id    String @id @default(cuid())
+  email String @unique
 
   createdAt DateTime @default(now())
+
+  @@map(name: "waitlist")
 }
 
 model Account {
@@ -137,6 +139,8 @@ model APIToken {
   id    String @id @default(cuid())
   token String @unique
 
+  requests Request[]
+
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -159,6 +163,9 @@ model Request {
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  apiTokenId String
+  apiToken   APIToken @relation(fields: [apiTokenId], references: [id], onDelete: Cascade)
+
   usageId String? @unique
   usage   Usage?  @relation(fields: [usageId], references: [id], onDelete: SetNull)
 
@@ -169,7 +176,7 @@ model Request {
 }
 
 model Usage {
-  id         String @id @default(cuid())
+  id String @id @default(cuid())
 
   tokensUsed Int
   cost       Float

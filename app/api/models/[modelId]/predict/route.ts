@@ -1,6 +1,5 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
-import { createOpenAI } from "@ai-sdk/openai"
 import { RequestStatus } from "@prisma/client"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
@@ -68,6 +67,7 @@ export async function POST(
     },
     endpoint: "predict",
     userId: api_token.userId,
+    apiTokenId: api_token.id,
   })
 
   const funding = await getFunding(api_token.userId, model.id)
@@ -151,7 +151,7 @@ export async function POST(
     await updateRequest({
       id: usuageRequest.id,
       response: "ERROR: Unable to generate text.",
-      status: RequestStatus.SUCCESS,
+      status: RequestStatus.FAILED,
     })
     return returnError({
       error: "ERROR: Unable to generate text.",
