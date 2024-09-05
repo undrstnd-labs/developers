@@ -54,6 +54,8 @@ export function MarketingChat() {
 
   return (
     <div className="from-secondary-foreground/20 relative isolate overflow-hidden bg-gradient-to-b">
+      <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-white sm:h-32 dark:from-black" />
+
       <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
         <div className="px-6 lg:px-0 lg:pt-4">
           <div className="mx-auto max-w-2xl">
@@ -211,7 +213,7 @@ export function MarketingChat() {
           </div>
         </div>
       </div>
-      <div className="from-secondary absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t sm:h-32" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-80 dark:from-black" />
     </div>
   )
 }

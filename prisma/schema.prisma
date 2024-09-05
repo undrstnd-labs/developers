@@ -14,6 +14,13 @@ enum RequestStatus {
   PENDING
 }
 
+model Waitlist {
+  id        String   @id @default(cuid())
+  email     String   @unique
+
+  createdAt DateTime @default(now())
+}
+
 model Account {
   userId String
 
