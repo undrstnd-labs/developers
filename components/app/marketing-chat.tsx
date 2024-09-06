@@ -15,6 +15,32 @@ import { Button } from "@/components/ui/button"
 import { Combobox } from "@/components/ui/combobox"
 import { Input } from "@/components/ui/input"
 
+const suggestedActions = [
+  {
+    title: "Speed Test",
+    label: "Fastest Inference",
+    action: "Test the speed of the inference for my data and model.",
+  },
+  {
+    title: "Efficiency Test",
+    label: "Cost-Effective Inference",
+    action:
+      "Compare the cost of running inference on my current setup versus a more efficient one.",
+  },
+  {
+    title: "Performance Benchmark",
+    label: "Optimized Inference",
+    action:
+      "Identify areas where the inference process can be optimized to improve speed and reduce costs.",
+  },
+  {
+    title: "Latency Analysis",
+    label: "Real-Time Inference",
+    action:
+      "Measure the latency of the inference process and determine if it meets the real-time requirements.",
+  },
+]
+
 export function MarketingChat() {
   const { sendMessage } = useActions()
 
@@ -25,32 +51,6 @@ export function MarketingChat() {
   const inputRef = useRef<HTMLInputElement>(null)
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>()
-
-  const suggestedActions = [
-    {
-      title: "Speed Test",
-      label: "Fastest Inference",
-      action: "Test the speed of the inference for my data and model.",
-    },
-    {
-      title: "Efficiency Test",
-      label: "Cost-Effective Inference",
-      action:
-        "Compare the cost of running inference on my current setup versus a more efficient one.",
-    },
-    {
-      title: "Performance Benchmark",
-      label: "Optimized Inference",
-      action:
-        "Identify areas where the inference process can be optimized to improve speed and reduce costs.",
-    },
-    {
-      title: "Latency Analysis",
-      label: "Real-Time Inference",
-      action:
-        "Measure the latency of the inference process and determine if it meets the real-time requirements.",
-    },
-  ]
 
   return (
     <div className="from-secondary-foreground/20 relative isolate overflow-hidden bg-gradient-to-b">
