@@ -7,7 +7,7 @@ export function SiteNavigation() {
   return (
     <div className="ml-10 flex items-baseline space-x-4">
       <Link
-        href="/login"
+        href="#cta"
         className={buttonVariants({
           variant: "ghost",
           size: "sm",
@@ -16,7 +16,7 @@ export function SiteNavigation() {
         Log in
       </Link>
       <Link
-        href="/register"
+        href="#cta"
         className={buttonVariants({
           size: "sm",
         })}

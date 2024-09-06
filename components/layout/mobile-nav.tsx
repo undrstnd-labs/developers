@@ -65,7 +65,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                     href="/upgrade"
                     className={cn("w-full", buttonVariants())}
                   >
-                    Inscription
+                    Upgrade
                   </Link>
                   <Link
                     href="/support"
@@ -96,7 +96,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                     className="transition-color bg-background text-muted-foreground hover:bg-muted group flex min-w-full items-center justify-between rounded-md p-2 py-4 text-base font-semibold hover:no-underline"
                   >
                     <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
-                      Déconnexion
+                      Logout
                     </span>
                     <Icons.lock className="group-hover:text-primary size-5 group-hover:transition-all group-hover:duration-300" />
                   </Button>
@@ -106,24 +106,24 @@ export function MobileNav({ user }: { user: User | Boolean }) {
             ) : (
               <div className="space-y-3">
                 <Link
-                  href="/register"
+                  href="#cta"
                   className={cn("w-full", buttonVariants())}
                 >
-                  Inscription
+                  Register
                 </Link>
                 <Link
-                  href="/login"
+                  href="#cta"
                   className={cn(
                     "w-full",
                     buttonVariants({ variant: "outline" })
                   )}
                 >
-                  Connexion
+                  Login
                 </Link>
               </div>
             )}
 
-            <Accordion type="single" collapsible className="w-full pt-4">
+            {/* <Accordion type="single" collapsible className="w-full pt-4">
               {navMobileLinks
                 .filter((item) => !item.href)
                 .map((item, index) => (
@@ -169,7 +169,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                     </AccordionContent>
                   </AccordionItem>
                 ))}
-            </Accordion>
+            </Accordion> */}
 
             <div>
               {navMobileLinks
