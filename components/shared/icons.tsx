@@ -255,5 +255,5 @@ export const Icons = {
   mistral: Mistral,
   openAi: OpenAi,
   cloud: CloudIcon,
-  code: CodeXmlIcon
+  code: CodeXmlIcon,
 }

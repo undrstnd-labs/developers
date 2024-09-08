@@ -1,6 +1,7 @@
 "use server"
 
 import { ReactNode } from "react"
+import { createUndrstnd } from "@undrstnd/ai-engine"
 import { CoreMessage, generateId } from "ai"
 import {
   createAI,
@@ -9,7 +10,7 @@ import {
   streamUI,
 } from "ai/rsc"
 
-import { groq } from "@/lib/groq"
+import { env } from "@/env.mjs"
 
 import { TextStreamMessage } from "@/components/app/marketing-chat-message"
 
@@ -24,8 +25,13 @@ export async function sendMessage(message: string, model: string) {
   const contentStream = createStreamableValue("")
   const textComponent = <TextStreamMessage content={contentStream.value} />
 
+  const undrstnd = await createUndrstnd({
+    apiKey: env.UNDRSTND_API_KEY,
+  })
+
   const { value: stream } = await streamUI({
-    model: groq(model),
+    // TODO: Fix type in the SDK
+    model: undrstnd(model) as any,
     system: `
       - Your name is "Undrstnd" and you are a chatbot.
       - You are to showcase and preview how fast and cheap our inferance can be.

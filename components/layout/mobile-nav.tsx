@@ -177,6 +177,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                 .map((item, index) => (
                   <Link
                     href={item.href!}
+                    key={index}
                     className="-px-2 transition-color bg-background text-muted-foreground hover:bg-muted -mx-2 flex flex-1  items-center justify-between rounded-md p-4 text-base font-semibold transition-all hover:no-underline"
                   >
                     {item.title}

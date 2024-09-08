@@ -1,12 +1,12 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 import { RequestStatus } from "@prisma/client"
+import { createUndrstnd } from "@undrstnd/ai-engine"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
 import { models } from "@/config/models"
 import { getFunding, returnError } from "@/lib/api"
-import { groq_client } from "@/lib/groq"
 import { db } from "@/lib/prisma"
 import { getModel } from "@/lib/utils"
 
@@ -87,10 +87,12 @@ export async function POST(
     })
   }
 
-  const groq = groq_client(api_token.token)
+  const undrstnd = await createUndrstnd({
+    apiKey: api_token.token,
+  })
 
-  const groq_data = {
-    model: groq(model.id),
+  const undrstnd_data = {
+    model: undrstnd(model.id),
     system,
     ...(prompt ? { prompt } : {}),
     ...(messages ? { messages: convertToCoreMessages(messages) } : {}),
@@ -99,7 +101,7 @@ export async function POST(
   try {
     let token_used: number
     if (!stream) {
-      const result = await generateText(groq_data)
+      const result = await generateText(undrstnd_data as any)
 
       token_used = result.usage.totalTokens
       const consumption = token_used * (model.pricing / 1000000)
@@ -131,7 +133,7 @@ export async function POST(
     }
 
     if (stream) {
-      const result = await streamText(groq_data)
+      const result = await streamText(undrstnd_data as any)
 
       token_used = (await result.usage).totalTokens
       const consumption = token_used * (model.pricing / 1000000)

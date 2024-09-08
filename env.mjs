@@ -15,6 +15,8 @@ export const env = createEnv({
     NEXTAUTH_SECRET: z.string().min(1),
     GROQ_API_KEY: z.string().min(1),
     GROQ_API_ENDPOINT: z.string().min(1),
+    UNDRSTND_API_KEY: z.string().min(1),
+    UNDRSTND_API_ENDPOINT: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -31,5 +33,7 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     GROQ_API_KEY: process.env.GROQ_API_KEY,
     GROQ_API_ENDPOINT: process.env.GROQ_API_ENDPOINT,
+    UNDRSTND_API_KEY: process.env.UNDRSTND_API_KEY,
+    UNDRSTND_API_ENDPOINT: process.env.UNDRSTND_API_ENDPOINT,
   },
 })
