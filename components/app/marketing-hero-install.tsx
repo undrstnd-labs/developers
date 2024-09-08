@@ -19,7 +19,7 @@ export function MarketingHeroInstall() {
   return (
     <div className="group flex items-center justify-center space-x-3">
       <p className="font-mono">
-        $ ~ <span className="text-muted-foreground">npm</span> install undrstnd
+        $ ~ <span className="text-muted-foreground">npm</span> install @undrstnd/ai-engine
       </p>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -37,22 +37,22 @@ export function MarketingHeroInstall() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-[180px]">
           <DropdownMenuItem
-            onClick={() => copyToClipboard("npm install undrstnd")}
+            onClick={() => copyToClipboard("npm install @undrstnd/ai-engine")}
           >
             npm
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => copyToClipboard("yarn add undrstnd")}
+            onClick={() => copyToClipboard("yarn add @undrstnd/ai-engine")}
           >
             yarn
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => copyToClipboard("pnpm install undrstnd")}
+            onClick={() => copyToClipboard("pnpm install @undrstnd/ai-engine")}
           >
             pnpm
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => copyToClipboard("bun install undrstnd")}
+            onClick={() => copyToClipboard("bun install @undrstnd/ai-engine")}
           >
             bun
           </DropdownMenuItem>
