@@ -6,7 +6,6 @@ import { db } from "@/lib/prisma"
 
 export async function GET(request: NextRequest) {
   const headersList = headers()
-  const body = await request.json()
 
   const req_token = headersList.get("x-api-key") as string
   const api_token = await db.aPIToken.findFirst({
