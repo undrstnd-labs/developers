@@ -118,8 +118,6 @@ export async function POST(request: NextRequest) {
     getFunding(api_token.userId, model.id),
   ])
 
-  console.log(model)
-
   if (!funding || funding.amount <= 0) {
     await updateRequest({
       id: usuageRequest.id,
@@ -148,7 +146,7 @@ export async function POST(request: NextRequest) {
     system,
     ...(prompt ? { prompt } : {}),
     ...(messages ? { messages: convertToCoreMessages(messages) } : {}),
-  }
+  } as any
 
   console.log(undrstnd_data)
 

@@ -116,8 +116,8 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4(tailwindcss@3.4.3)
       "@undrstnd/ai-engine":
-        specifier: ^2.4.4
-        version: 2.4.4(@vue/compiler-sfc@3.4.38)(openai@4.57.0(zod@3.22.4))(prettier@3.2.5)(prisma@5.19.1)(react@18.2.0)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.4.38(typescript@5.4.5))(zod@3.22.4)
+        specifier: ^2.4.7
+        version: 2.4.7(@vue/compiler-sfc@3.4.38)(openai@4.57.0(zod@3.22.4))(prettier@3.2.5)(prisma@5.19.1)(react@18.2.0)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.4.38(typescript@5.4.5))(zod@3.22.4)
       "@vercel/analytics":
         specifier: ^1.2.2
         version: 1.2.2(next@14.2.1(@babel/core@7.24.4)(@opentelemetry/api@1.9.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react@18.2.0)
@@ -2584,10 +2584,10 @@ packages:
       }
     engines: { node: ^18.18.0 || >=20.0.0 }
 
-  "@undrstnd/ai-engine@2.4.4":
+  "@undrstnd/ai-engine@2.4.7":
     resolution:
       {
-        integrity: sha512-5lkJdPK0SE2uWiQxTsTa6gqBxcy7ucI8HjZRfzp7uYzE/JaGl6uSi5M/KGfTaCMrzIRNYucF6m3zz1JM1NpvoA==,
+        integrity: sha512-ADKhx1B0iDuL3aapIuUjc/zKq94YFFn2/Xkw6T8gtAhcaNtuLTWSt50LHHhPA/yrwvSJiBIKFwRE7svGEAnb4Q==,
       }
 
   "@ungap/structured-clone@1.2.0":
@@ -8732,7 +8732,7 @@ snapshots:
       "@typescript-eslint/types": 7.7.0
       eslint-visitor-keys: 3.4.3
 
-  "@undrstnd/ai-engine@2.4.4(@vue/compiler-sfc@3.4.38)(openai@4.57.0(zod@3.22.4))(prettier@3.2.5)(prisma@5.19.1)(react@18.2.0)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.4.38(typescript@5.4.5))(zod@3.22.4)":
+  "@undrstnd/ai-engine@2.4.7(@vue/compiler-sfc@3.4.38)(openai@4.57.0(zod@3.22.4))(prettier@3.2.5)(prisma@5.19.1)(react@18.2.0)(sswr@2.1.0(svelte@4.2.19))(svelte@4.2.19)(vue@3.4.38(typescript@5.4.5))(zod@3.22.4)":
     dependencies:
       "@ai-sdk/openai": 0.0.58(zod@3.22.4)
       "@ai-sdk/provider": 0.0.23

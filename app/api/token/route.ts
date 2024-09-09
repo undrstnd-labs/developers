@@ -1,13 +1,13 @@
-import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 
 import { returnError } from "@/lib/api"
 import { db } from "@/lib/prisma"
 
 export async function GET(request: NextRequest) {
-  const headersList = headers()
+  const url = new URL(request.url)
+  const searchParams = url.searchParams
 
-  const req_token = headersList.get("x-api-key") as string
+  const req_token = searchParams.get("x-api-key") as string
   const api_token = await db.aPIToken.findFirst({
     where: {
       id: req_token,
