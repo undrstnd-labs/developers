@@ -6,10 +6,10 @@ export const faqs = [
         question: "What is Undrstnd Developers API?",
         answer: (
           <span>
-            Undrstnd Developers API is designed to enhance the user experience
-            by providing access to powerful AI models. This documentation will
-            guide you through the process of integrating our API into your
-            projects.
+            Undrstnd Developers API is a powerful tool that allows you to
+            integrate advanced AI models into your applications. This API
+            provides access to a variety of models, from chat functionalities to
+            advanced reasoning tasks.
           </span>
         ),
       },
@@ -18,7 +18,9 @@ export const faqs = [
         answer: (
           <span>
             The API is hosted at:{" "}
-            <a href="http://dev.undrstnd-labs.com">dev.undrstnd-labs.com</a>
+            <a href="https://dev.undrstnd-labs.com/api">
+              <strong>https://dev.undrstnd-labs.com/api</strong>
+            </a>
           </span>
         ),
       },
@@ -26,8 +28,8 @@ export const faqs = [
         question: "Is the API free to use?",
         answer: (
           <span>
-            The API has a pricing structure based on the usage of tokens. You
-            can find the pricing details in the Pricing section of this
+            The API has a pricing structure based on usage. You can find the
+            pricing details in the <strong>Pricing</strong> section of this
             documentation.
           </span>
         ),
@@ -36,11 +38,13 @@ export const faqs = [
         question: "How can I get started with the API?",
         answer: (
           <span>
-            To get started, you can refer to the documentation which provides
-            detailed instructions on how to integrate the API into your
-            projects. You will need an API key, which you can request by sending
-            a message to{" "}
-            <a href="mailto:info@undrstnd-labs.com">info@undrstnd-labs.com</a>.
+            To get started, you&apos;ll need an API key. You can request an API
+            key by contacting us at{" "}
+            <a href="mailto:info@undrstnd-labs.com">
+              <strong>info@undrstnd-labs.com</strong>
+            </a>
+            . Once you have your API key, you can start making requests to our
+            endpoints.
           </span>
         ),
       },
@@ -53,16 +57,17 @@ export const faqs = [
         question: "What types of endpoints are available?",
         answer: (
           <span>
-            We have three types of endpoints:
+            We have two types of endpoints:
             <ul>
               <li>
-                <strong>Predict</strong> - The AI endpoint.
+                <strong>Model Information Endpoints</strong>: These endpoints
+                allow you to retrieve information about the models available in
+                the API.
               </li>
               <li>
-                <strong>Models</strong> - Retrieve all models we support.
-              </li>
-              <li>
-                <strong>Info</strong> - Get information about a specific model.
+                <strong>Chat Compilation Endpoint</strong>: This is the main
+                endpoint that enables you to interact with our AI models through
+                chat.
               </li>
             </ul>
           </span>
@@ -71,49 +76,50 @@ export const faqs = [
     ],
   },
   {
-    section: "Predict Endpoint",
+    section: "Chat Compilation Endpoint",
     qa: [
       {
-        question: "How do I access the Predict endpoint?",
+        question: "How do I access the Chat Compilation endpoint?",
         answer: (
           <span>
-            The predict endpoint is used to generate AI responses based on a
-            given model. You can access it with a POST request to the following
-            URL:
+            The Chat Compilation endpoint is used to interact with our AI
+            models. You can access it with a POST request to the following URL:
             <pre>
-              https://dev.undrstnd-labs.com/api/models/{"MODEL_ID"}/predict
+              <code>POST https://dev.undrstnd-labs.com/api</code>
             </pre>
-            You can get the <code>MODEL_ID</code> from the models endpoint:{" "}
-            <a href="https://dev.undrstnd-labs.com/api/models/info">
-              https://dev.undrstnd-labs.com/api/models/info
-            </a>
+            In the headers <code>{"x-api-key"}</code> should be set to your API
+            key.
           </span>
         ),
       },
       {
-        question: "What parameters can I use in the Predict endpoint?",
+        question: "What parameters can I use in the Chat Compilation endpoint?",
         answer: (
           <span>
-            Here are the parameters you can use in the predict endpoint:
+            Here are the parameters you can use in the Chat Compilation
+            endpoint:
             <ul>
               <li>
                 <strong>stream</strong>: Boolean (<code>true</code> or{" "}
-                <code>false</code>). If <code>true</code>, the response will be
+                <code>false</code>). Indicates whether the response should be
                 streamed.
               </li>
               <li>
-                <strong>system</strong>: A system message that will be part of
-                the prompt.
+                <strong>modelId</strong>: The ID of the model you wish to use.
               </li>
               <li>
-                <strong>prompt</strong>: A simple text prompt. You can either
-                use <code>prompt</code> or <code>messages</code> but not both.
+                <strong>system</strong>: A system message that is part of the
+                prompt context (optional).
               </li>
               <li>
-                <strong>messages</strong>: A list of messages. You can either
-                use <code>prompt</code> or <code>messages</code> but not both.
-                This supports full consciousness conversations without any
-                hallucinations.
+                <strong>prompt</strong>: A simple text input. You can either use{" "}
+                <code>prompt</code> or <code>messages</code>, but not both.
+              </li>
+              <li>
+                <strong>messages</strong>: A list of message objects for a
+                conversational history. Supports full conversation context
+                without hallucinations. You can either use <code>prompt</code>{" "}
+                or <code>messages</code>, but not both.
               </li>
             </ul>
           </span>
@@ -122,7 +128,7 @@ export const faqs = [
     ],
   },
   {
-    section: "Models Endpoint",
+    section: "Model Information Endpoints",
     qa: [
       {
         question: "How do I retrieve a list of all supported models?",
@@ -130,15 +136,12 @@ export const faqs = [
           <span>
             To retrieve a list of all supported models, make a GET request to
             the following URL:
-            <pre>https://dev.undrstnd-labs.com/api/models</pre>
+            <pre>
+              <code>GET https://dev.undrstnd-labs.com/api/models/info</code>
+            </pre>
           </span>
         ),
       },
-    ],
-  },
-  {
-    section: "Info Endpoint",
-    qa: [
       {
         question: "How do I get information about a specific model?",
         answer: (
@@ -146,8 +149,12 @@ export const faqs = [
             To get information about a specific model, make a GET request to the
             following URL:
             <pre>
-              https://dev.undrstnd-labs.com/api/models/{"MODEL_ID"}/info
+              <code>
+                GET https://dev.undrstnd-labs.com/api/models/{"MODEL_ID"}/info
+              </code>
             </pre>
+            Replace <code>{"MODEL_ID"}</code> with the specific model&apos;s ID
+            to get more details.
           </span>
         ),
       },
@@ -160,8 +167,8 @@ export const faqs = [
         question: "What is the pricing structure for the models?",
         answer: (
           <span>
-            Each model has a pricing structure. The prices below are per 1
-            million tokens.
+            Here is the pricing structure for each model, based on usage per 1
+            million tokens:
             <table>
               <thead>
                 <tr>
@@ -224,48 +231,6 @@ export const faqs = [
                 </tr>
               </tbody>
             </table>
-          </span>
-        ),
-      },
-      {
-        question: "How do I know how many tokens I have used?",
-        answer: (
-          <span>
-            The response from the Predict endpoint includes a <code>usage</code>{" "}
-            field that indicates the number of tokens used by the request.
-          </span>
-        ),
-      },
-    ],
-  },
-  {
-    section: "Security and Support",
-    qa: [
-      {
-        question: "How do you ensure the security of transactions?",
-        answer: (
-          <span>
-            We use secure payment gateways and an escrow system to protect funds
-            until the transaction is successfully completed.
-          </span>
-        ),
-      },
-      {
-        question: "What happens in case of a dispute?",
-        answer: (
-          <span>
-            In case of a dispute, Undrstnd Developers offers mediation to
-            resolve issues between the client and the agency, ensuring that
-            funds are handled fairly.
-          </span>
-        ),
-      },
-      {
-        question: "How can I contact support?",
-        answer: (
-          <span>
-            You can contact our support team by sending an email to{" "}
-            <a href="mailto:info@undrstnd-labs.com">info@undrstnd-labs.com</a>.
           </span>
         ),
       },

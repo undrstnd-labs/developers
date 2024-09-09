@@ -31,7 +31,7 @@ export async function MarketingFAQs() {
               <Accordion
                 type="single"
                 collapsible
-                className="flex w-full flex-col items-center justify-center"
+                className="flex w-full flex-col items-center justify-center text-left"
               >
                 {faq.qa.map((faq, idx) => (
                   <AccordionItem
@@ -39,8 +39,12 @@ export async function MarketingFAQs() {
                     value={faq.question}
                     className="w-full max-w-[600px]"
                   >
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
+                    <AccordionTrigger className="text-left">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-left">
+                      {faq.answer}
+                    </AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
