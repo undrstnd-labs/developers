@@ -3,7 +3,7 @@ import React from "react"
 import { env } from "@/env.mjs"
 
 async function getStream() {
-  const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/openai`, {
+  const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

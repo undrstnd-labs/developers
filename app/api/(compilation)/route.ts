@@ -1,7 +1,7 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
+import { createOpenAI } from "@ai-sdk/openai"
 import { RequestStatus } from "@prisma/client"
-import { createUndrstnd } from "@undrstnd/ai-engine"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
@@ -99,7 +99,6 @@ export async function POST(request: NextRequest) {
   }
 
   const model = getModel(modelId)
-  console.log(model)
 
   const [usuageRequest, funding] = await Promise.all([
     createRequest({
@@ -133,13 +132,10 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  console.log(model)
-
-  const undrstnd = await createUndrstnd({
-    apiKey: api_token.id,
+  const undrstnd = createOpenAI({
+    baseURL: process.env.GROQ_API_ENDPOINT,
+    apiKey: api_token.token,
   })
-
-  console.log("undrstnd", undrstnd)
 
   const undrstnd_data = {
     model: undrstnd(model.id),
@@ -148,17 +144,14 @@ export async function POST(request: NextRequest) {
     ...(messages ? { messages: convertToCoreMessages(messages) } : {}),
   } as any
 
-  console.log(undrstnd_data)
+  let token_used: number
+  if (stream === false) {
+    const result = await generateText(undrstnd_data)
 
-  try {
-    let token_used: number
-    if (stream === false) {
-      const result = await generateText(undrstnd_data)
-      console.log(result)
+    token_used = result.usage.totalTokens
+    const consumption = token_used * (model.pricing / 1000000)
 
-      token_used = result.usage.totalTokens
-      const consumption = token_used * (model.pricing / 1000000)
-
+    try {
       const [funding, usage] = await Promise.all([
         updateFunding(api_token.userId, model.id, consumption),
         createUsage(
@@ -173,7 +166,6 @@ export async function POST(request: NextRequest) {
           status: RequestStatus.SUCCESS,
         }),
       ])
-
       return NextResponse.json({
         output: result.text,
         funding: {
@@ -185,13 +177,26 @@ export async function POST(request: NextRequest) {
           date: usage.createdAt,
         },
       })
+    } catch (error) {
+      await updateRequest({
+        id: usuageRequest.id,
+        response: "ERROR: Unable to generate text.",
+        status: RequestStatus.FAILED,
+      })
+
+      return returnError({
+        error: "ERROR: Unable to generate text.",
+        status: 500,
+        modelId,
+      })
     }
-    if (stream === true) {
-      const result = await streamText(undrstnd_data)
+  } else if (stream === true) {
+    const result = await streamText(undrstnd_data)
 
-      token_used = (await result.usage).totalTokens
-      const consumption = token_used * (model.pricing / 1000000)
+    token_used = (await result.usage).totalTokens
+    const consumption = token_used * (model.pricing / 1000000)
 
+    try {
       await Promise.all([
         updateFunding(api_token.userId, model.id, consumption),
         createUsage(
@@ -206,20 +211,20 @@ export async function POST(request: NextRequest) {
           status: RequestStatus.SUCCESS,
         }),
       ])
+    } catch (error) {
+      await updateRequest({
+        id: usuageRequest.id,
+        response: "ERROR: Unable to generate text.",
+        status: RequestStatus.FAILED,
+      })
 
-      return result.toDataStreamResponse()
+      return returnError({
+        error: "ERROR: Unable to generate text.",
+        status: 500,
+        modelId,
+      })
     }
-  } catch (error) {
-    await updateRequest({
-      id: usuageRequest.id,
-      response: "ERROR: Unable to generate text.",
-      status: RequestStatus.FAILED,
-    })
 
-    return returnError({
-      error: "ERROR: Unable to generate text.",
-      status: 500,
-      modelId,
-    })
+    return result.toDataStreamResponse()
   }
 }
