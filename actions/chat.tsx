@@ -1,7 +1,8 @@
 "use server"
 
 import { ReactNode } from "react"
-import { createUndrstnd } from "@undrstnd/ai-engine"
+import { faqs } from "@/data/faqs"
+import { createOpenAI } from "@ai-sdk/openai"
 import { CoreMessage, generateId } from "ai"
 import {
   createAI,
@@ -25,17 +26,30 @@ export async function sendMessage(message: string, model: string) {
   const contentStream = createStreamableValue("")
   const textComponent = <TextStreamMessage content={contentStream.value} />
 
-  const undrstnd = await createUndrstnd({
-    apiKey: env.UNDRSTND_API_KEY,
+  const undrstnd = createOpenAI({
+    apiKey: env.GROQ_API_KEY,
+    baseURL: env.GROQ_API_ENDPOINT,
   })
 
   const { value: stream } = await streamUI({
-    // TODO: Fix type in the SDK
     model: undrstnd(model) as any,
     system: `
       - Your name is "Undrstnd" and you are a chatbot.
-      - You are to showcase and preview how fast and cheap our inferance can be.
-    `,
+      - You are to showcase and preview how fast and cheap our inference can be.
+        These are the frequently asked questions, and you are to provide answers to them.
+        ${faqs
+          .map(
+            (faq) => `
+            ${faq.qa
+              .map(
+                (q) => `
+              - Question: ${q.question}
+                Answer: ${q.answer.toString().replace(/<[^>]*>?/gm, "")}
+            `
+              )
+              .join("\n")}`
+          )
+          .join("\n")}`,
     messages: messages.get() as CoreMessage[],
     text: async function* ({ content, done }) {
       if (done) {
