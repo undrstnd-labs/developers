@@ -19,7 +19,8 @@ export function MarketingHeroInstall() {
   return (
     <div className="group flex items-center justify-center space-x-3">
       <p className="font-mono">
-        $ ~ <span className="text-muted-foreground">npm</span> install @undrstnd/ai-engine
+        $ ~ <span className="text-muted-foreground">npm</span> install
+        @undrstnd/ai-engine
       </p>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

@@ -101,7 +101,7 @@ export async function POST(
   try {
     let token_used: number
     if (!stream) {
-      const result = await generateText(undrstnd_data as any)
+      const result = await generateText(undrstnd_data)
 
       token_used = result.usage.totalTokens
       const consumption = token_used * (model.pricing / 1000000)
@@ -133,7 +133,7 @@ export async function POST(
     }
 
     if (stream) {
-      const result = await streamText(undrstnd_data as any)
+      const result = await streamText(undrstnd_data)
 
       token_used = (await result.usage).totalTokens
       const consumption = token_used * (model.pricing / 1000000)

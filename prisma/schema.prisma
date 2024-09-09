@@ -160,14 +160,13 @@ model Request {
   response   String
   endpoint   String
 
+  usage Usage?
+
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   apiTokenId String
   apiToken   APIToken @relation(fields: [apiTokenId], references: [id], onDelete: Cascade)
-
-  usageId String? @unique
-  usage   Usage?  @relation(fields: [usageId], references: [id], onDelete: SetNull)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
@@ -181,7 +180,8 @@ model Usage {
   tokensUsed Int
   cost       Float
 
-  request Request?
+  requestId String?  @unique
+  request   Request? @relation(fields: [requestId], references: [id], onDelete: SetNull)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

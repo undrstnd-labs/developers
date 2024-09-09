@@ -38,12 +38,10 @@ export async function updateRequest({
   id,
   response,
   status,
-  usageId,
 }: {
   id: string
   response: string
   status: RequestStatus
-  usageId?: string
 }) {
   return await db.request.update({
     where: {
@@ -52,7 +50,6 @@ export async function updateRequest({
     data: {
       status,
       response,
-      usageId,
     },
   })
 }

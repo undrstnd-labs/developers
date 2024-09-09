@@ -12,6 +12,7 @@ export async function getUsage(userId: string) {
 
 export async function createUsage(
   userId: string,
+  requestId: string,
   tokensUsed: number,
   cost: number
 ) {
@@ -20,6 +21,7 @@ export async function createUsage(
       tokensUsed,
       userId,
       cost,
+      requestId,
     },
   })
 }
