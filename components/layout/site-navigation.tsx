@@ -3,10 +3,11 @@ import Link from "next/link"
 
 import { buttonVariants } from "@/components/ui/button"
 
+// TODO: Login & Register
 export function SiteNavigation() {
   return (
     <div className="ml-10 flex items-baseline space-x-4">
-      <Link
+      {/*      <Link
         href="/login"
         className={buttonVariants({
           variant: "ghost",
@@ -22,7 +23,7 @@ export function SiteNavigation() {
         })}
       >
         Register
-      </Link>
+      </Link> */}
     </div>
   )
 }

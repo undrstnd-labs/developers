@@ -97,7 +97,7 @@ export function MarketingHero() {
 
             <div className="mx-auto flex w-full max-w-full flex-col items-center justify-center gap-4 py-1 sm:max-w-xl sm:flex-row md:mx-auto">
               <Link
-                href="/dashboard"
+                href="/#cta"
                 className={cn(
                   buttonVariants({
                     variant: "default",
@@ -106,7 +106,7 @@ export function MarketingHero() {
                   "w-full sm:w-auto"
                 )}
               >
-                Get started
+                Join our waitlist
               </Link>
               <Link
                 href="/docs"
