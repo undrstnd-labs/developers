@@ -13,16 +13,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+// TODO: Copy SDK
 export function MarketingHeroInstall() {
   const { isCopied, copyToClipboard } = useCopyToClipboard({})
 
   return (
     <div className="group flex items-center justify-center space-x-3">
-      <p className="font-mono">
-        $ ~ <span className="text-muted-foreground">npm</span> install
-        @undrstnd/ai-engine
-      </p>
-      <DropdownMenu>
+      <div className="group flex flex-col">
+        <p className="font-mono leading-tight transition-opacity duration-300 group-hover:hidden group-hover:opacity-0">
+          $ ~ <span className="text-muted-foreground">npm</span> install
+          @undrstnd/ai-engine
+        </p>
+        <p className="text-destructive leading-tight opacity-0 transition-opacity duration-300 group-hover:inline group-hover:opacity-100">
+          Our SDK is currently under development. Stay tuned for updates!
+        </p>
+      </div>
+
+      {/*   <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
@@ -58,7 +65,7 @@ export function MarketingHeroInstall() {
             bun
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
     </div>
   )
 }

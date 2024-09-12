@@ -7,7 +7,6 @@ import { useActions } from "ai/rsc"
 import { motion } from "framer-motion"
 
 import { siteConfig } from "@/config/site"
-import { useScrollToBottom } from "@/hooks/use-scroll-to-bottom"
 
 import { Message } from "@/components/app/marketing-chat-message"
 import { Icons } from "@/components/shared/icons"
@@ -44,13 +43,11 @@ const suggestedActions = [
 export function MarketingChat() {
   const { sendMessage } = useActions()
 
-  const [input, setInput] = useState<string>("")
-  const [messages, setMessages] = useState<Array<ReactNode>>([])
-  const [model, setModel] = useState<string>("llama3-8b-8192")
-
   const inputRef = useRef<HTMLInputElement>(null)
-  const [messagesContainerRef, messagesEndRef] =
-    useScrollToBottom<HTMLDivElement>()
+
+  const [input, setInput] = useState<string>("")
+  const [model, setModel] = useState<string>("llama3-8b-8192")
+  const [messages, setMessages] = useState<Array<ReactNode>>([])
 
   return (
     <div className="from-secondary-foreground/20 relative isolate overflow-hidden bg-gradient-to-b">
@@ -98,10 +95,7 @@ export function MarketingChat() {
               />
               <div className="bg-muted flex h-full flex-row justify-center px-2 pb-20 sm:px-8">
                 <div className="border-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-secondary flex h-[640px] flex-col justify-between gap-4 overflow-y-scroll p-6">
-                  <div
-                    ref={messagesContainerRef}
-                    className="flex flex-col items-center justify-center gap-3 pt-4"
-                  >
+                  <div className="flex flex-col items-center justify-center gap-3 pt-4">
                     {messages.length === 0 && (
                       <motion.div className="h-[350px] px-4 md:w-[500px] md:px-0">
                         <div className="text-secondary-foreground dark:border-muted-foreground/40 flex flex-col gap-4 rounded-lg border p-6 text-sm">
@@ -129,7 +123,6 @@ export function MarketingChat() {
                       </motion.div>
                     )}
                     {messages.map((message) => message)}
-                    <div ref={messagesEndRef} />
                   </div>
 
                   <div className="mx-auto mb-4 grid w-full gap-2 px-4 sm:grid-cols-2 md:px-0">
