@@ -16,6 +16,7 @@ export function TikTokSignIn() {
   return (
     <Button
       onClick={handleSignIn}
+      disabled
       className="bg-primary text-secondary flex h-[40px] w-full space-x-2 px-6 py-4 font-medium active:scale-[0.98]"
     >
       {isLoading ? (
@@ -23,7 +24,7 @@ export function TikTokSignIn() {
       ) : (
         <>
           <Icons.tiktok />
-          <span>Continue avec TikTok</span>
+          <span>Continue with TikTok</span>
         </>
       )}
     </Button>

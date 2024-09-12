@@ -107,7 +107,6 @@ const Card = (card: { icon: JSX.Element; bg: JSX.Element }) => {
   )
 }
 
-// TODO: Add whitelist e-mails
 export function MarketingCallToAction() {
   const [randomTiles1, setRandomTiles1] = useState<typeof tiles>([])
   const [randomTiles2, setRandomTiles2] = useState<typeof tiles>([])

@@ -14,6 +14,11 @@ enum RequestStatus {
   PENDING
 }
 
+enum UserType {
+  ORGANIZATION
+  DEVELOPER
+}
+
 model Waitlist {
   id    String @id @default(cuid())
   email String @unique
@@ -66,9 +71,10 @@ model User {
   id String @id @default(cuid())
 
   username String?
-  phone    String? @unique
-  email    String  @unique
-  image    String  @default("https://dev.undrstnd-labs.com/placeholder.svg")
+  phone    String?  @unique
+  email    String   @unique
+  type     UserType @default(DEVELOPER)
+  image    String   @default("https://dev.undrstnd-labs.com/placeholder.svg")
 
   verified      Boolean   @default(false)
   emailVerified DateTime? @map("email_verified")

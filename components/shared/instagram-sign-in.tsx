@@ -16,6 +16,7 @@ export function InstagramSignIn() {
   return (
     <Button
       onClick={handleSignIn}
+      disabled
       className="bg-primary text-secondary flex h-[40px] w-full space-x-2 px-6 py-4 font-medium active:scale-[0.98]"
     >
       {isLoading ? (
@@ -23,7 +24,7 @@ export function InstagramSignIn() {
       ) : (
         <>
           <Icons.instagram />
-          <span>Continue avec Instagram</span>
+          <span>Continue with Instagram</span>
         </>
       )}
     </Button>

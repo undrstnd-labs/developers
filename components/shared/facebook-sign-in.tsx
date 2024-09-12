@@ -16,6 +16,7 @@ export function FacebookSignIn() {
   return (
     <Button
       onClick={handleSignIn}
+      disabled
       className="bg-primary text-secondary flex h-[40px] w-full space-x-2 px-6 py-4 font-medium active:scale-[0.98]"
     >
       {isLoading ? (
@@ -23,7 +24,7 @@ export function FacebookSignIn() {
       ) : (
         <>
           <Icons.facebook />
-          <span>Continue avec Facebook</span>
+          <span>Continue with Facebook</span>
         </>
       )}
     </Button>

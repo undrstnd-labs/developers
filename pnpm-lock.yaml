@@ -184,6 +184,9 @@ importers:
       react-markdown:
         specifier: ^9.0.1
         version: 9.0.1(@types/react@18.2.79)(react@18.2.0)
+      react-phone-number-input:
+        specifier: ^3.4.5
+        version: 3.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-resizable-panels:
         specifier: ^2.1.2
         version: 2.1.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -3100,6 +3103,12 @@ packages:
         integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==,
       }
 
+  classnames@2.5.1:
+    resolution:
+      {
+        integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==,
+      }
+
   cli-cursor@4.0.0:
     resolution:
       {
@@ -3251,6 +3260,12 @@ packages:
         integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==,
       }
     engines: { node: ">= 0.6" }
+
+  country-flag-icons@1.5.13:
+    resolution:
+      {
+        integrity: sha512-4JwHNqaKZ19doQoNcBjsoYA+I7NqCH/mC/6f5cBWvdKzcK5TMmzLpq3Z/syVHMHJuDGFwJ+rPpGizvrqJybJow==,
+      }
 
   cross-spawn@7.0.3:
     resolution:
@@ -4409,6 +4424,12 @@ packages:
         integrity: sha512-qlD8YNDqyTKTyuITrDOffsl6Tdhv+UC4hcdAVuQsK4IMQ99nSgd1MIA/Q+jQYoh9r3hVUXhYh7urSRmXPkW04g==,
       }
 
+  input-format@0.3.10:
+    resolution:
+      {
+        integrity: sha512-5cFv/kOZD7Ch0viprVkuYPDkAU7HBZYBx8QrIpQ6yXUWbAQ0+RQ8IIojDJOf/RO6FDJLL099HDSK2KoVZ2zevg==,
+      }
+
   input-otp@1.2.4:
     resolution:
       {
@@ -4854,6 +4875,12 @@ packages:
         integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==,
       }
     engines: { node: ">= 0.8.0" }
+
+  libphonenumber-js@1.11.8:
+    resolution:
+      {
+        integrity: sha512-0fv/YKpJBAgXKy0kaS3fnqoUVN8901vUYAKIGD/MWZaDfhJt1nZjPL3ZzdZBt/G8G8Hw2J1xOIrXWdNHFHPAvg==,
+      }
 
   lilconfig@2.1.0:
     resolution:
@@ -6022,6 +6049,15 @@ packages:
     peerDependencies:
       "@types/react": ">=18"
       react: ">=18"
+
+  react-phone-number-input@3.4.5:
+    resolution:
+      {
+        integrity: sha512-IlLTG0F/2P+72drqGNiYaguV3KOD4EVxQWGJ7YSofbOb6vyCWWLJqQIQsFFNpfrMrXzYtB3G+aHL9tprGfisFw==,
+      }
+    peerDependencies:
+      react: ">=16.8"
+      react-dom: ">=16.8"
 
   react-promise-suspense@0.3.4:
     resolution:
@@ -9103,6 +9139,8 @@ snapshots:
     dependencies:
       clsx: 2.0.0
 
+  classnames@2.5.1: {}
+
   cli-cursor@4.0.0:
     dependencies:
       restore-cursor: 4.0.0
@@ -9181,6 +9219,8 @@ snapshots:
   convert-source-map@2.0.0: {}
 
   cookie@0.6.0: {}
+
+  country-flag-icons@1.5.13: {}
 
   cross-spawn@7.0.3:
     dependencies:
@@ -10004,6 +10044,10 @@ snapshots:
 
   inline-style-parser@0.2.3: {}
 
+  input-format@0.3.10:
+    dependencies:
+      prop-types: 15.8.1
+
   input-otp@1.2.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       react: 18.2.0
@@ -10229,6 +10273,8 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  libphonenumber-js@1.11.8: {}
 
   lilconfig@2.1.0: {}
 
@@ -11059,6 +11105,16 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  react-phone-number-input@3.4.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      classnames: 2.5.1
+      country-flag-icons: 1.5.13
+      input-format: 0.3.10
+      libphonenumber-js: 1.11.8
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   react-promise-suspense@0.3.4:
     dependencies:

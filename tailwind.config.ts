@@ -141,7 +141,7 @@ const config = {
             transform: "translateY(0)",
           },
         },
-        spin: {
+        "animate-spin": {
           "0%": {
             rotate: "0deg",
           },
@@ -200,7 +200,7 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "loading-ellipsis": "loading-ellipsis 2s infinite",
         "text-gradient": "text-gradient 1.5s linear infinite",
-        spin: "spin calc(var(--speed) * 2) infinite linear",
+        "animate-spin": "spin calc(var(--speed) * 2) infinite linear",
         slide: "slide var(--speed) ease-in-out infinite alternate",
         grid: "grid 15s linear infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",

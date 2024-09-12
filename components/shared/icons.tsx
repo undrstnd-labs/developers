@@ -164,9 +164,52 @@ function OpenAi({ className }: { className?: string }) {
   )
 }
 
+function Undrstnd(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 205.86 204.91"
+      {...props}
+    >
+      <rect
+        y="4.91"
+        width="200"
+        height="200"
+        rx="23.83"
+        ry="23.83"
+        fill="#0ea5e9"
+      />
+      <circle
+        cx="100"
+        cy="102.96"
+        r="79.59"
+        fill="#fff"
+        stroke="#fff"
+        stroke-miterlimit="10"
+        stroke-width="12"
+      />
+      <text
+        transform="translate(43.76 97.27) rotate(45) scale(.86 1)"
+        fill="#fff"
+        font-family="MyriadPro-Regular, 'Myriad Pro'"
+        font-size="164.35"
+      >
+        <tspan x="0" y="0">
+          U
+        </tspan>
+      </text>
+      <path
+        d="m100.09,25.63h45.78v91.46c0,12.63-10.26,22.89-22.89,22.89h0c-12.63,0-22.89-10.26-22.89-22.89V25.63h0Z"
+        transform="translate(94.57 -62.71) rotate(45)"
+        fill="#0ea5e9"
+      />
+    </svg>
+  )
+}
+
 export const Icons = {
   logo: LogoIcon,
-  logoLucide: LogoIcon,
+  logoLucide: Undrstnd,
   close: X,
   spinner: Loader2,
   chevronLeft: ChevronLeft,

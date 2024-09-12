@@ -23,7 +23,7 @@ export function GoogleSignIn() {
       ) : (
         <>
           <Icons.google />
-          <span>Continue avec Google</span>
+          <span>Continue with Google</span>
         </>
       )}
     </Button>
