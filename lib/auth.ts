@@ -3,7 +3,6 @@ import NextAuth from "next-auth"
 import { Adapter } from "next-auth/adapters"
 import { JWT } from "next-auth/jwt"
 import EmailProvider from "next-auth/providers/email"
-import FacebookProvider from "next-auth/providers/facebook"
 import GoogleProvider from "next-auth/providers/google"
 
 import { env } from "@/env.mjs"
@@ -24,6 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   providers: [
+    //TODO: Upgrade 'EmailProvider' to 'providers/nodemailer'
     EmailProvider({
       from: env.FROM_EMAIL,
       server: {
@@ -53,6 +53,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           passCode: passCode as string,
         })
       },
+    }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
   ],
   callbacks: {

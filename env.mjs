@@ -17,6 +17,8 @@ export const env = createEnv({
     GROQ_API_ENDPOINT: z.string().min(1),
     UNDRSTND_API_KEY: z.string().min(1),
     UNDRSTND_API_ENDPOINT: z.string().min(1),
+    GOOGLE_CLIENT_ID: z.string().min(1),
+    GOOGLE_CLIENT_SECRET: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -35,5 +37,7 @@ export const env = createEnv({
     GROQ_API_ENDPOINT: process.env.GROQ_API_ENDPOINT,
     UNDRSTND_API_KEY: process.env.UNDRSTND_API_KEY,
     UNDRSTND_API_ENDPOINT: process.env.UNDRSTND_API_ENDPOINT,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   },
 })

@@ -9,7 +9,10 @@ export function GoogleSignIn() {
 
   const handleSignIn = async () => {
     setLoading(true)
-    // signIn("google")
+    signIn("google", {
+      redirect: false,
+      callbackUrl: "/dashboard",
+    })
     setLoading(false)
   }
 
