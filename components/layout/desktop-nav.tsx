@@ -12,7 +12,7 @@ export function DesktopNav() {
   return (
     <nav className="hidden items-center gap-4 text-sm lg:flex lg:gap-6">
       <Link
-        href="/docs"
+        href="https://docs.undrstnd-labs.com/"
         className={cn(
           "hover:text-foreground/80 transition-colors",
           pathname === "/docs" ? "text-foreground" : "text-foreground/60"
