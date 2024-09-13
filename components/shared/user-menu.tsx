@@ -1,8 +1,10 @@
+import { Span } from "next/dist/trace"
 import Link from "next/link"
 import { User } from "@prisma/client"
 
 import { signOut } from "@/lib/auth"
 
+import { ThemeSwitch } from "@/components/layout/theme-switch"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -38,6 +40,10 @@ export function UserMenu({
             Profile
           </Link>
         </DropdownMenuItem>
+        <div className="flex items-center justify-between px-2 text-sm">
+          <span className="w-full">Theme</span>
+          <ThemeSwitch />
+        </div>
         <DropdownMenuSeparator />
         <form action={handleSignOut}>
           <DropdownMenuItem className="text-destructive hover:bg-destructive/30 hover:text-destructive-foreground cursor-pointer">
@@ -70,6 +76,10 @@ export function UserMenuIconDropdown({ user }: { user: User }) {
             Profile
           </Link>
         </DropdownMenuItem>
+        <div className="flex items-center justify-between px-2 text-sm">
+          <span className="w-full">Theme</span>
+          <ThemeSwitch />
+        </div>
         <DropdownMenuSeparator />
         <form action={handleSignOut}>
           <DropdownMenuItem className="text-destructive hover:bg-destructive/30 hover:text-destructive-foreground cursor-pointer">
