@@ -12,7 +12,6 @@ import { toast } from "@/hooks/use-toast"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -28,7 +27,7 @@ import { getVerificationToken } from "@/actions/token"
 
 function OTPform({ email }: { email: string }) {
   const router = useRouter()
-  const [otp, setOtp] = useState("")
+  const [otp, setOtp] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
   const form = useForm<z.infer<typeof OTPCodeSchema>>({

@@ -11,12 +11,16 @@ import { buttonVariants } from "@/components/ui/button"
 
 export default async function OTPCodePage({
   params: { email },
+  searchParams,
 }: {
   params: { email: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }) {
   if (!z.string().email().safeParse(decodeURIComponent(email)).success) {
     return redirect("/login")
   }
+
+  console.log(searchParams)
 
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
@@ -34,7 +38,10 @@ export default async function OTPCodePage({
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <Icons.logo className="mx-auto size-10" />
         <AuthOTPCode email={decodeURIComponent(email)} />
-        <AuthResend email={decodeURIComponent(email)} />
+        <AuthResend
+          email={decodeURIComponent(email)}
+          searchParams={searchParams}
+        />
       </div>
     </div>
   )

@@ -7,11 +7,16 @@ import { toast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 
 import { isBanned } from "@/actions/user"
 
-export function AuthResend({ email }: { email: string }) {
+export function AuthResend({
+  email,
+  searchParams,
+}: {
+  email: string
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   const [loading, setLoading] = useState<boolean>(false)
 
   return (
@@ -32,7 +37,7 @@ export function AuthResend({ email }: { email: string }) {
           await signIn("email", {
             email: email.toLowerCase(),
             redirect: false,
-            callbackUrl: "/dashboard",
+            callbackUrl: `/dashboard?name=${searchParams.name}&type=${searchParams.type}`,
           })
 
           return toast({

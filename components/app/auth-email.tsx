@@ -37,6 +37,7 @@ function SubmitButton() {
 
 export function AuthEmail({ data }: { data: AuthDetailsType }) {
   const router = useRouter()
+  const url = `?name=${data.name}&type=${data.type}`
 
   return (
     <div className="flex justify-center">
@@ -56,10 +57,12 @@ export function AuthEmail({ data }: { data: AuthDetailsType }) {
             await signIn("email", {
               email: email.toLowerCase(),
               redirect: false,
-              callbackUrl: "/dashboard",
+              callbackUrl: `/dashboard?name=${data.name}&type=${data.type}`,
             })
 
-            router.push("/otp-code/" + email.toLowerCase())
+            router.push(
+              `/otp-code/${email.toLowerCase()}?name=${data.name}&type=${data.type}`
+            )
             return toast({
               title: "Please check your inbox",
               description: "We've sent you a link to sign in",
