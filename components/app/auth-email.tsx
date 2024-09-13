@@ -57,7 +57,7 @@ export function AuthEmail({ data }: { data: AuthDetailsType }) {
             await signIn("email", {
               email: email.toLowerCase(),
               redirect: false,
-              callbackUrl: `/dashboard?name=${data.name}&type=${data.type}`,
+              callbackUrl: `/onboarding?name=${data.name}&type=${data.type}`,
             })
 
             router.push(

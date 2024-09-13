@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { User } from "@prisma/client"
+import { redirect } from "next/navigation"
+import { User, UserType } from "@prisma/client"
 
 import { siteConfig } from "@/config/site"
 
@@ -21,6 +22,9 @@ export default async function DashboardLayout({
   children: React.ReactNode
 }) {
   const user = await getAuthedUser()
+  if (!user) {
+    return redirect("/login")
+  }
 
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">

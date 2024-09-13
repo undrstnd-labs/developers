@@ -37,7 +37,7 @@ export function AuthResend({
           await signIn("email", {
             email: email.toLowerCase(),
             redirect: false,
-            callbackUrl: `/dashboard?name=${searchParams.name}&type=${searchParams.type}`,
+            callbackUrl: `/onboarding?name=${searchParams.name}&type=${searchParams.type}`,
           })
 
           return toast({

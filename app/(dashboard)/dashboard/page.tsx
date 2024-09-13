@@ -1,4 +1,5 @@
 import React from "react"
+import { redirect } from "next/navigation"
 import { BarChart3, CreditCard, Key } from "lucide-react"
 
 import {
@@ -10,7 +11,14 @@ import {
 } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 
-export default function DashboardPage() {
+import { getAuthedUser } from "@/actions/session"
+
+export default async function DashboardPage() {
+  const user = await getAuthedUser()
+  if (!user) {
+    return redirect("/login")
+  }
+
   return (
     <>
       <div className="flex items-center">
