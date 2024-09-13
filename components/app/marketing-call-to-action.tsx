@@ -155,8 +155,8 @@ export function MarketingCallToAction() {
             ))}
           </Marquee>
           <div className="container absolute z-10">
-            <div className="mx-auto size-24 rounded-[2rem] border bg-white/10 p-3 shadow-2xl backdrop-blur-md lg:size-32 dark:bg-black/10">
-              <Icons.logoLucide className="text-primary mx-auto size-16 lg:size-24 " />
+            <div className="mx-auto flex size-24 items-center justify-center rounded-[2rem] border bg-white/10 p-3 shadow-2xl backdrop-blur-md lg:size-32 dark:bg-black/10">
+              <Icons.logoLucide className="text-primary size-16 lg:size-20" />
             </div>
             <div className="text-secondary-foreground z-10 mt-4 flex flex-col items-center text-center">
               <h1 className="text-3xl font-bold lg:text-4xl">

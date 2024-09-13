@@ -21,6 +21,12 @@ const nextConfig = {
         pathname: "/**",
         hostname: "cdn-avatars.huggingface.co",
       },
+      {
+        protocol: "https",
+        port: "",
+        pathname: "/**",
+        hostname: "dev.undrstnd-labs.com",
+      },
     ],
     domains: ["localhost"],
   },

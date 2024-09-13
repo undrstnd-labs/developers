@@ -20,8 +20,6 @@ export default async function OTPCodePage({
     return redirect("/login")
   }
 
-  console.log(searchParams)
-
   return (
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Link

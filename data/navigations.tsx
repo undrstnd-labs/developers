@@ -22,3 +22,31 @@ export const navUserLinks: userNavLink[] = [
     href: "/account",
   },
 ]
+
+export const navDashboardLinks: userNavLink[] = [
+  {
+    name: "Dashboard",
+    icon: Icons.dashboard,
+    href: "/dashboard",
+  },
+  {
+    name: "API Keys",
+    icon: Icons.key,
+    href: "/dashboard/api-keys",
+  },
+  {
+    name: "Usage",
+    icon: Icons.chart,
+    href: "/dashboard/usage",
+  },
+  {
+    name: "Logs",
+    icon: Icons.logs,
+    href: "/dashboard/logs",
+  },
+  {
+    name: "Settings",
+    icon: Icons.settings,
+    href: "/dashboard/settings",
+  },
+]
