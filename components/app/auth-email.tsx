@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation"
 import { signIn } from "next-auth/react"
 import { useFormStatus } from "react-dom"
 
+import { AuthDetailsType } from "@/types/auth"
+
 import { toast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
@@ -33,7 +35,7 @@ function SubmitButton() {
   )
 }
 
-export function AuthEmail() {
+export function AuthEmail({ data }: { data: AuthDetailsType }) {
   const router = useRouter()
 
   return (

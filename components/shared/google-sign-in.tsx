@@ -1,10 +1,12 @@
 import React, { useState } from "react"
 import { signIn } from "next-auth/react"
 
+import { AuthDetailsType } from "@/types/auth"
+
 import { Icons } from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 
-export function GoogleSignIn() {
+export function GoogleSignIn({ data }: { data: AuthDetailsType }) {
   const [isLoading, setLoading] = useState<boolean>(false)
 
   const handleSignIn = async () => {

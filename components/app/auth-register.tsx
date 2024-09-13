@@ -1,16 +1,13 @@
 "use client"
 
 import * as React from "react"
-import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { UserType } from "@prisma/client"
-import { signIn } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { AuthDetailsType } from "@/types/auth"
 
-import { siteConfig } from "@/config/site"
 import { authRegisterSchema } from "@/config/validation"
 import { cn } from "@/lib/utils"
 
@@ -39,7 +36,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Separator } from "@/components/ui/separator"
 
 export function AuthRegister() {
-  const router = useRouter()
   const [details, setDetails] = React.useState<AuthDetailsType>()
 
   const form = useForm<z.infer<typeof authRegisterSchema>>({
@@ -57,7 +53,7 @@ export function AuthRegister() {
       {details ? (
         <div className="flex w-full flex-col gap-4 space-y-8 pt-4">
           <div className="pointer-events-auto my-6 flex flex-col">
-            <AuthEmail /* data={details} */ />
+            <AuthEmail data={details} />
             <Accordion type="single" collapsible className="mt-6 border-t pt-2">
               <AccordionItem value="item-1" className="border-0">
                 <AccordionTrigger className="flex justify-center space-x-2 text-sm">
@@ -65,7 +61,7 @@ export function AuthRegister() {
                 </AccordionTrigger>
                 <AccordionContent className="mt-4">
                   <div className="flex flex-col space-y-4">
-                    <AuthRegisterProviders />
+                    <AuthRegisterProviders data={details} />
                     <Separator />
                     <AuthPhoneNumber />
                   </div>

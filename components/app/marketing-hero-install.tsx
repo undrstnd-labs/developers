@@ -24,7 +24,7 @@ export function MarketingHeroInstall() {
           $ ~ <span className="text-muted-foreground">npm</span> install
           @undrstnd/ai-engine
         </p>
-        <p className="text-destructive leading-tight opacity-0 transition-opacity duration-300 group-hover:inline group-hover:opacity-100">
+        <p className="text-destructive hidden leading-tight opacity-0 transition-opacity duration-300 group-hover:inline group-hover:opacity-100">
           Our SDK is currently under development. Stay tuned for updates!
         </p>
       </div>
