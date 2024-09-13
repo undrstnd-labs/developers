@@ -45,8 +45,8 @@ export const navDashboardLinks: userNavLink[] = [
     href: "/dashboard/logs",
   },
   {
-    name: "Settings",
+    name: "Support",
     icon: Icons.settings,
-    href: "/dashboard/settings",
+    href: "mailto:info@undrstnd-labs.com",
   },
 ]
