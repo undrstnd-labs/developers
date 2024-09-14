@@ -23,6 +23,7 @@ import {
   ConciergeBell,
   CopyIcon,
   CreditCard,
+  CreditCardIcon,
   DatabaseZapIcon,
   ExternalLinkIcon,
   File,
@@ -305,4 +306,5 @@ export const Icons = {
   logs: FileTextIcon,
   chart: BarChart3,
   key: KeyIcon,
+  creditCard: CreditCardIcon,
 }

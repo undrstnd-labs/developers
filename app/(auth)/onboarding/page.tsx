@@ -14,7 +14,6 @@ export default async function OnboardingPage({
   if (!user) {
     return redirect("/login")
   }
-  console.log(searchParams)
 
   if (searchParams?.name || searchParams?.type) {
     console.log(searchParams)

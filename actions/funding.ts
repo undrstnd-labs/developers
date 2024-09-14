@@ -22,6 +22,14 @@ export async function getFunding(userId: string, modelId: string) {
   return funding
 }
 
+export async function getFunds(userId: string) {
+  return await db.funding.findFirst({
+    where: {
+      userId: userId,
+    },
+  })
+}
+
 export async function updateFunding(
   userId: string,
   modelId: string,

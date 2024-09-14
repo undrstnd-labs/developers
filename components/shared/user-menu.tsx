@@ -1,4 +1,3 @@
-import { Span } from "next/dist/trace"
 import Link from "next/link"
 import { User } from "@prisma/client"
 
@@ -47,7 +46,7 @@ export function UserMenu({
         <DropdownMenuSeparator />
         <form action={handleSignOut}>
           <DropdownMenuItem className="text-destructive hover:bg-destructive/30 hover:text-destructive-foreground cursor-pointer">
-            Logout
+            <button type="submit">Logout</button>
           </DropdownMenuItem>
         </form>
       </DropdownMenuContent>
@@ -83,7 +82,7 @@ export function UserMenuIconDropdown({ user }: { user: User }) {
         <DropdownMenuSeparator />
         <form action={handleSignOut}>
           <DropdownMenuItem className="text-destructive hover:bg-destructive/30 hover:text-destructive-foreground cursor-pointer">
-            Logout
+            <button type="submit">Logout</button>
           </DropdownMenuItem>
         </form>
       </DropdownMenuContent>

@@ -1,7 +1,8 @@
 import React from "react"
 import { redirect } from "next/navigation"
-import { BarChart3, CreditCard, Key } from "lucide-react"
 
+import { DashboardKeyUsage } from "@/components/app/dashboard-key-usage"
+import { Icons } from "@/components/shared/icons"
 import {
   Card,
   CardContent,
@@ -9,8 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
 
+import { getFunds } from "@/actions/funding"
+import { getKeys } from "@/actions/key"
+import { getRequests } from "@/actions/request"
 import { getAuthedUser } from "@/actions/session"
 
 export default async function DashboardPage() {
@@ -19,6 +22,10 @@ export default async function DashboardPage() {
     return redirect("/login")
   }
 
+  const keys = await getKeys(user.id)
+  const funds = await getFunds(user.id)
+  const requests = await getRequests(user.id, 60 * 60 * 24)
+
   return (
     <>
       <div className="flex items-center">
@@ -26,18 +33,20 @@ export default async function DashboardPage() {
           Dashboard Overview
         </h1>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Funds Available
             </CardTitle>
-            <CreditCard className="text-muted-foreground size-4" />
+            <Icons.creditCard className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$4,231.89</div>
+            <div className="text-2xl font-bold">
+              {funds ? `€${funds.amount}` : "€0.00"}
+            </div>
             <p className="text-muted-foreground text-xs">
-              +20.1% from last month
+              {funds ? "Available balance" : "No funds available"}
             </p>
           </CardContent>
         </Card>
@@ -46,12 +55,20 @@ export default async function DashboardPage() {
             <CardTitle className="text-sm font-medium">
               API Calls (24h)
             </CardTitle>
-            <BarChart3 className="text-muted-foreground size-4" />
+            <Icons.chart className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573,234</div>
+            <div className="text-2xl font-bold">+ {requests.length}</div>
             <p className="text-muted-foreground text-xs">
-              +201 since last hour
+              +{" "}
+              {
+                requests.filter(
+                  (request) =>
+                    new Date(request.createdAt) >
+                    new Date(Date.now() - 60 * 60 * 1000)
+                ).length
+              }{" "}
+              since last hour
             </p>
           </CardContent>
         </Card>
@@ -60,43 +77,18 @@ export default async function DashboardPage() {
             <CardTitle className="text-sm font-medium">
               Active API Keys
             </CardTitle>
-            <Key className="text-muted-foreground size-4" />
+            <Icons.key className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">7</div>
+            <div className="text-2xl font-bold">{keys.length}</div>
             <p className="text-muted-foreground text-xs">
-              2 keys expiring soon
+              {keys.filter((key) => key.deletedAt).length} keys expired
             </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Funds Consumed
-            </CardTitle>
-            <CreditCard className="text-muted-foreground size-4" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">68.2%</div>
-            <Progress value={68.2} className="mt-2" />
           </CardContent>
         </Card>
       </div>
       <Card className="col-span-4">
-        <CardHeader>
-          <CardTitle>API Key Usage</CardTitle>
-          <CardDescription>
-            Number of API calls per key in the last 30 days
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[200px]">
-            {/* Replace this div with an actual chart component */}
-            <div className="text-muted-foreground flex h-full items-center justify-center">
-              Chart placeholder: API calls per key
-            </div>
-          </div>
-        </CardContent>
+        <DashboardKeyUsage />
       </Card>
     </>
   )

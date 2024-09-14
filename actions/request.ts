@@ -53,3 +53,14 @@ export async function updateRequest({
     },
   })
 }
+
+export async function getRequests(userId: string, period: number) {
+  return await db.request.findMany({
+    where: {
+      userId,
+      createdAt: {
+        gte: new Date(Date.now() - period),
+      },
+    },
+  })
+}

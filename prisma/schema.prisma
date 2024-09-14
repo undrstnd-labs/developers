@@ -142,8 +142,9 @@ model Funding {
 }
 
 model APIToken {
-  id    String @id @default(cuid())
-  token String @unique
+  id    String  @id @default(cuid())
+  token String  @unique
+  name  String?
 
   requests Request[]
 
