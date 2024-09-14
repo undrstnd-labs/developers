@@ -99,6 +99,14 @@ export async function POST(request: NextRequest) {
   }
 
   const model = getModel(modelId)
+  if (!model) {
+    return returnError({
+      error: "ERROR: Invalid model or model is offline.",
+      status: 400,
+      userId: api_token.userId,
+      modelId,
+    })
+  }
 
   const [usuageRequest, funding] = await Promise.all([
     createRequest({

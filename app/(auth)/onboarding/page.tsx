@@ -16,10 +16,10 @@ export default async function OnboardingPage({
   }
 
   if (searchParams?.name || searchParams?.type) {
-    console.log(searchParams)
     await updateUser(user.email, {
       username: searchParams.name as string,
       type: searchParams.type as UserType,
+      verified: true,
     })
   }
 

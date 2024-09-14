@@ -3,17 +3,11 @@ import { redirect } from "next/navigation"
 
 import { DashboardKeyUsage } from "@/components/app/dashboard-key-usage"
 import { Icons } from "@/components/shared/icons"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 import { getFunds } from "@/actions/funding"
 import { getKeys } from "@/actions/key"
-import { getRequests } from "@/actions/request"
+import { getChartData, getRequests } from "@/actions/request"
 import { getAuthedUser } from "@/actions/session"
 
 export default async function DashboardPage() {
@@ -24,7 +18,22 @@ export default async function DashboardPage() {
 
   const keys = await getKeys(user.id)
   const funds = await getFunds(user.id)
-  const requests = await getRequests(user.id, 60 * 60 * 24)
+  const requestsMonth = await getRequests(
+    user.id,
+    new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
+    new Date()
+  )
+
+  const requestsWeek = requestsMonth.filter(
+    (request) =>
+      new Date(request.createdAt) >
+      new Date(Date.now() - 60 * 60 * 24 * 7 * 1000)
+  )
+  const chartData = await getChartData(
+    requestsMonth,
+    new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
+    new Date()
+  )
 
   return (
     <>
@@ -58,14 +67,14 @@ export default async function DashboardPage() {
             <Icons.chart className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+ {requests.length}</div>
+            <div className="text-2xl font-bold">+ {requestsWeek.length}</div>
             <p className="text-muted-foreground text-xs">
               +{" "}
               {
-                requests.filter(
+                requestsWeek.filter(
                   (request) =>
-                    new Date(request.createdAt) >
-                    new Date(Date.now() - 60 * 60 * 1000)
+                    request.createdAt >
+                    new Date(Date.now() - 60 * 60 * 24 * 1000)
                 ).length
               }{" "}
               since last hour
@@ -88,7 +97,7 @@ export default async function DashboardPage() {
         </Card>
       </div>
       <Card className="col-span-4">
-        <DashboardKeyUsage />
+        <DashboardKeyUsage chartData={chartData} />
       </Card>
     </>
   )

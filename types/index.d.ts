@@ -122,3 +122,9 @@ export type Model = {
   href: string
   image: (typeof Icons)[keyof typeof Icons]
 }
+
+export type ChartDataType = {
+  date: string
+  success: number
+  failed: number
+}

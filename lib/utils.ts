@@ -14,5 +14,5 @@ export function generateAPIToken() {
 }
 
 export function getModel(modelId: string): Model {
-  return models.find((model) => model.id === modelId)!
+  return models.find((model) => model.id === modelId && model.active)!
 }

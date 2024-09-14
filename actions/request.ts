@@ -1,6 +1,6 @@
 "use server"
 
-import { RequestStatus } from "@prisma/client"
+import { Request, RequestStatus } from "@prisma/client"
 
 import { db } from "@/lib/prisma"
 
@@ -54,13 +54,55 @@ export async function updateRequest({
   })
 }
 
-export async function getRequests(userId: string, period: number) {
+export async function getRequests(
+  userId: string,
+  startDate: Date,
+  endDate: Date
+) {
   return await db.request.findMany({
     where: {
       userId,
       createdAt: {
-        gte: new Date(Date.now() - period),
+        gte: startDate,
+        lte: endDate,
       },
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   })
+}
+
+export async function getChartData(
+  requests: Request[],
+  startDate: Date,
+  endDate: Date
+) {
+  const chartData: {
+    date: string
+    success: number
+    failed: number
+  }[] = []
+
+  for (
+    let date = new Date(startDate);
+    date <= endDate;
+    date.setDate(date.getDate() + 1)
+  ) {
+    const dateString = date.toISOString().split("T")[0]
+    const dailyRequests = requests.filter(
+      (request) => request.createdAt.toISOString().split("T")[0] === dateString
+    )
+
+    const success = dailyRequests.filter(
+      (request) => request.status === "SUCCESS"
+    ).length
+    const failed = dailyRequests.filter(
+      (request) => request.status === "FAILED" || request.status === "PENDING"
+    ).length
+
+    chartData.push({ date: dateString, success, failed })
+  }
+
+  return chartData
 }

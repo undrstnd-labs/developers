@@ -39,13 +39,6 @@ export const models: Model[] = [
     href: "https://www.groq.com/",
   },
   {
-    label: "llama-3.1-405b",
-    value: "Llama 3.1 405B",
-    image: Icons.meta,
-    company: "Meta",
-    href: "https://www.meta.com/",
-  },
-  {
     label: "llama-3.1-70b-versatile",
     value: "Llama 3.1 70B Versatile",
     image: Icons.meta,
