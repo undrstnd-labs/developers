@@ -10,23 +10,43 @@ import { cn } from "@/lib/utils"
 export function DashboardSiteNavigation() {
   const pathname = usePathname()
 
+  const mainLinks = navDashboardLinks.filter((link) => link.name !== "Support")
+  const supportLink = navDashboardLinks.find((link) => link.name === "Support")
+
   return (
-    <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-      {navDashboardLinks.map((link) => (
+    <nav className="flex h-full flex-col px-2 text-sm font-medium lg:px-4">
+      <div className="grow">
+        {mainLinks.map((link) => (
+          <Link
+            key={link.name}
+            href={link.href}
+            className={cn(
+              "text-muted-foreground hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
+              pathname === link.href
+                ? "bg-muted text-primary"
+                : "text-muted-foreground"
+            )}
+          >
+            <link.icon className="size-4" />
+            {link.name}
+          </Link>
+        ))}
+      </div>
+      {supportLink && (
         <Link
-          key={link.href}
-          href={link.href}
+          key={supportLink.name}
+          href={supportLink.href}
           className={cn(
             "text-muted-foreground hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
-            pathname === link.href
+            pathname === supportLink.href
               ? "bg-muted text-primary"
               : "text-muted-foreground"
           )}
         >
-          <link.icon className="size-4" />
-          {link.name}
+          <supportLink.icon className="size-4" />
+          {supportLink.name}
         </Link>
-      ))}
+      )}
     </nav>
   )
 }

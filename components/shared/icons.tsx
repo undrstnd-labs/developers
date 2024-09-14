@@ -61,6 +61,7 @@ import {
   SendHorizonalIcon,
   Settings,
   ShieldIcon,
+  ShieldQuestionIcon,
   ShoppingCartIcon,
   StarIcon,
   SunMedium,
@@ -307,4 +308,5 @@ export const Icons = {
   chart: BarChart3,
   key: KeyIcon,
   creditCard: CreditCardIcon,
+  support: ShieldQuestionIcon
 }

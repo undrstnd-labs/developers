@@ -46,7 +46,7 @@ export const navDashboardLinks: userNavLink[] = [
   },
   {
     name: "Support",
-    icon: Icons.settings,
+    icon: Icons.support,
     href: "mailto:info@undrstnd-labs.com",
   },
 ]
