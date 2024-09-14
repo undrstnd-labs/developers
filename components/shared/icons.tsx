@@ -25,6 +25,7 @@ import {
   CreditCard,
   CreditCardIcon,
   DatabaseZapIcon,
+  EllipsisIcon,
   ExternalLinkIcon,
   File,
   FileText,
@@ -308,5 +309,6 @@ export const Icons = {
   chart: BarChart3,
   key: KeyIcon,
   creditCard: CreditCardIcon,
-  support: ShieldQuestionIcon
+  support: ShieldQuestionIcon,
+  more: EllipsisIcon,
 }

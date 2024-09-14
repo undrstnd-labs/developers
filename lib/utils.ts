@@ -16,3 +16,8 @@ export function generateAPIToken() {
 export function getModel(modelId: string): Model {
   return models.find((model) => model.id === modelId && model.active)!
 }
+
+// make a function that takes type Date and make it like this "XX, month year"
+export function formatDate(date: Date) {
+  return date.toDateString().slice(4)
+}

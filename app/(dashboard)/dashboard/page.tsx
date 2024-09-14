@@ -10,6 +10,14 @@ import { getKeys } from "@/actions/key"
 import { getChartData, getRequests } from "@/actions/request"
 import { getAuthedUser } from "@/actions/session"
 
+export function generateMetadata() {
+  return {
+    title: "Overview",
+    description:
+      "View an overview of your account, including funds, API keys, and usage.",
+  }
+}
+
 export default async function DashboardPage() {
   const user = await getAuthedUser()
   if (!user) {
@@ -38,9 +46,7 @@ export default async function DashboardPage() {
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">
-          Dashboard Overview
-        </h1>
+        <h1 className="text-lg font-bold md:text-2xl">Dashboard Overview</h1>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>

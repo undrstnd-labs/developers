@@ -10,7 +10,7 @@ import { MobileNav } from "@/components/layout/mobile-nav"
 import { SiteNavigation } from "@/components/layout/site-navigation"
 import { Icons } from "@/components/shared/icons"
 import { UserMenu } from "@/components/shared/user-menu"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 
 export function SiteHeader({ user }: { user: User | Boolean }) {
   return (
@@ -30,31 +30,15 @@ export function SiteHeader({ user }: { user: User | Boolean }) {
         <MobileNav user={user} />
         <div className="hidden lg:block">
           {user ? (
-            <div className="flex items-center">
-              <Button
-                variant="ghost"
-                size="small-icon"
-                className="mr-4"
-                aria-label="Notifications"
-              >
-                <Icons.bell className="text-muted-foreground size-6" />
-              </Button>
-              <UserMenu user={user as User}>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  className="rounded-full"
-                >
-                  <Image
-                    src={(user as User).image}
-                    alt={(user as User).username!}
-                    width={36}
-                    height={36}
-                    className="rounded-full"
-                  />
-                </Button>
-              </UserMenu>
-            </div>
+            <Link
+              href="/dashboard"
+              className={buttonVariants({
+                size: "sm",
+                variant: "secondary",
+              })}
+            >
+              Dashboard
+            </Link>
           ) : (
             <SiteNavigation />
           )}

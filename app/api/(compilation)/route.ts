@@ -14,6 +14,8 @@ import { updateFunding } from "@/actions/funding"
 import { createRequest, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
+export const maxDuration = 60
+
 const ConvertibleMessage = z.object({
   role: z.enum(["system", "user", "assistant", "function", "data", "tool"]),
   content: z.string(),
