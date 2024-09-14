@@ -37,7 +37,6 @@ function SubmitButton() {
 
 export function AuthEmail({ data }: { data: AuthDetailsType }) {
   const router = useRouter()
-  const url = `?name=${data.name}&type=${data.type}`
 
   return (
     <div className="flex justify-center">

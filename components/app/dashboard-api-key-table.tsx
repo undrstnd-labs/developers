@@ -46,13 +46,12 @@ export function DashboardApiKeyTable({ tokens }: { tokens: APIToken[] }) {
               <TableRow key={token.id}>
                 <TableCell className="font-medium">{token.name}</TableCell>
                 <TableCell>
-                  <div className="flex items-center gap-2">
-                    <span>{token.id.slice(0, 3)}...</span>
-                    <span>{token.id.slice(-3)}</span>
+                  <div className="bg-muted flex w-fit items-center gap-2 rounded-md px-2 font-mono">
+                    {token.id.slice(0, 4)}...{token.id.slice(-6)}
                   </div>
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
-                  <Tooltip>
+                  <Tooltip delayDuration={0}>
                     <TooltipTrigger>
                       {token.createdAt.toISOString().split("T")[0]}
                     </TooltipTrigger>

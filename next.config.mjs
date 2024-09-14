@@ -7,7 +7,7 @@ const nextConfig = {
         protocol: "https",
         port: "",
         pathname: "/**",
-        hostname: "avatars.jakerunzer.com",
+        hostname: "avatar.vercel.sh",
       },
       {
         protocol: "https",

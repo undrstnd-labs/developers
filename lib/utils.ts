@@ -17,7 +17,11 @@ export function getModel(modelId: string): Model {
   return models.find((model) => model.id === modelId && model.active)!
 }
 
-// make a function that takes type Date and make it like this "XX, month year"
-export function formatDate(date: Date) {
-  return date.toDateString().slice(4)
+export function formatDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }
+  return new Intl.DateTimeFormat("en-US", options).format(date)
 }

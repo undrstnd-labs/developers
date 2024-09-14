@@ -1,5 +1,8 @@
 "use server"
 
+import { env } from "@/env.mjs"
+
+import { generateId } from "@/lib/api"
 import { db } from "@/lib/prisma"
 
 export async function getKeys(userId: string) {
@@ -10,11 +13,13 @@ export async function getKeys(userId: string) {
   })
 }
 
-export async function createKey(userId: string) {
+export async function createKey(userId: string, name: string) {
   return await db.aPIToken.create({
     data: {
       userId: userId,
-      token: `udsk_${Math.random().toString(36).substring(2)}`,
+      token: env.GROQ_API_KEY_DEFAULT,
+      id: generateId(38),
+      name: name,
     },
   })
 }

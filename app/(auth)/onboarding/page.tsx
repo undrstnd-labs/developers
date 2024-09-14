@@ -1,4 +1,3 @@
-import React from "react"
 import { redirect } from "next/navigation"
 import { UserType } from "@prisma/client"
 
@@ -20,6 +19,7 @@ export default async function OnboardingPage({
       username: searchParams.name as string,
       type: searchParams.type as UserType,
       verified: true,
+      image: `https://avatar.vercel.sh/${searchParams.name}.svg?text=${searchParams.name![0].toUpperCase()}`,
     })
   }
 
