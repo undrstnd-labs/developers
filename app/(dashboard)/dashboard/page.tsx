@@ -37,6 +37,7 @@ export default async function DashboardPage() {
       new Date(request.createdAt) >
       new Date(Date.now() - 60 * 60 * 24 * 7 * 1000)
   )
+
   const chartData = await getChartData(
     requestsMonth,
     new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
@@ -73,14 +74,22 @@ export default async function DashboardPage() {
             <Icons.chart className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+ {requestsWeek.length}</div>
-            <p className="text-muted-foreground text-xs">
+            <div className="text-2xl font-bold">
               +{" "}
               {
                 requestsWeek.filter(
                   (request) =>
                     request.createdAt >
                     new Date(Date.now() - 60 * 60 * 24 * 1000)
+                ).length
+              }
+            </div>
+            <p className="text-muted-foreground text-xs">
+              +{" "}
+              {
+                requestsWeek.filter(
+                  (request) =>
+                    request.createdAt > new Date(Date.now() - 60 * 60 * 1000)
                 ).length
               }{" "}
               since last hour

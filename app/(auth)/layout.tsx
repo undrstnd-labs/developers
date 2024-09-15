@@ -10,7 +10,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   const user = await getAuthedUser()
 
   if (user && user.verified) {
-    return redirect("/")
+    return redirect("/dashboard")
   }
 
   return (

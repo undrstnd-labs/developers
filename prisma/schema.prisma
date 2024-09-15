@@ -4,8 +4,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
+  url       = env("DATABASE_URL")
 }
 
 enum RequestStatus {
@@ -17,6 +17,7 @@ enum RequestStatus {
 enum UserType {
   ORGANIZATION
   DEVELOPER
+  ADMIN
 }
 
 model Waitlist {
@@ -142,9 +143,11 @@ model Funding {
 }
 
 model APIToken {
-  id    String  @id @default(cuid())
+  id    String @id @default(cuid())
   token String
-  name  String?
+
+  name     String?
+  verified Boolean? @default(false)
 
   requests Request[]
 
