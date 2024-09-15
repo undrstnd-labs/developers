@@ -191,13 +191,13 @@ function Undrstnd(props: React.SVGProps<SVGSVGElement>) {
         r="79.59"
         fill="#fff"
         stroke="#fff"
-        stroke-miterlimit="10"
-        stroke-width="12"
+        strokeMiterlimit="10"
+        strokeWidth="12"
       />
       <text
         transform="translate(43.76 97.27) rotate(45) scale(.86 1)"
         fill="#fff"
-        font-family="MyriadPro-Regular, 'Myriad Pro'"
+        fontFamily="MyriadPro-Regular, 'Myriad Pro'"
         font-size="164.35"
       >
         <tspan x="0" y="0">

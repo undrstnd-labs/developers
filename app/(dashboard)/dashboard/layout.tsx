@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { User, UserType } from "@prisma/client"
+import { User } from "@prisma/client"
 
 import { siteConfig } from "@/config/site"
 

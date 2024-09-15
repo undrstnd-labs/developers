@@ -84,15 +84,15 @@ export function MarketingHero() {
                   "text-5xl sm:text-7xl md:text-7xl lg:text-7xl"
                 )}
               >
-                The Fastest and Easiest AI Integration{" "}
-                <span className="hidden md:inline">in Less Than 5 Minutes</span>
+                Build Your High Performance, Easy, and Fast AI-Powered Project
               </h1>
             </div>
 
             <p className="text-muted-foreground max-w-6xl text-balance text-center text-base tracking-tight md:text-lg">
-              Build and scale your AI-powered applications effortlessly with our{" "}
-              <b>easy-to-use AI inference and lightning-fast</b> AI integration
-              at <b>unbeatable prices</b>.
+              Scale your applications efficiently with our easy-to-use AI
+              inference. Our Large Language Models (LLMs) are{" "}
+              <b>lightning-fast</b> and consume <b>significantly less energy</b>
+              , providing you with unbeatable performance and sustainability.
             </p>
 
             <div className="mx-auto flex w-full max-w-full flex-col items-center justify-center gap-4 py-1 sm:max-w-xl sm:flex-row md:mx-auto">

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { APIToken, User } from "@prisma/client"
 
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
+import { useToast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -22,7 +23,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { createKey, getKeys } from "@/actions/key"
-import { useToast } from "@/hooks/use-toast"
 
 export function DashboardApiKeyCreate({
   user,

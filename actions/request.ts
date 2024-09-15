@@ -2,6 +2,8 @@
 
 import { Request, RequestStatus } from "@prisma/client"
 
+import { ChartDataType } from "types"
+
 import { db } from "@/lib/prisma"
 
 export async function createRequest({
@@ -78,28 +80,41 @@ export async function getChartData(
   startDate: Date,
   endDate: Date
 ) {
-  const chartData: {
-    date: string
-    success: number
-    failed: number
-  }[] = []
+  const dailyRequestsMap = new Map<string, Request[]>()
+
+  // Group requests by date
+  for (const request of requests) {
+    const dateString = request.createdAt.toLocaleDateString()
+    if (!dailyRequestsMap.has(dateString)) {
+      dailyRequestsMap.set(dateString, [])
+    }
+    dailyRequestsMap.get(dateString)?.push(request)
+  }
+
+  const chartData: ChartDataType[] = []
 
   for (
     let date = new Date(startDate);
     date <= endDate;
     date.setDate(date.getDate() + 1)
   ) {
-    const dateString = date.toISOString().split("T")[0]
-    const dailyRequests = requests.filter(
-      (request) => request.createdAt.toISOString().split("T")[0] === dateString
-    )
+    const dateString = date.toLocaleDateString()
+    const dailyRequests = dailyRequestsMap.get(dateString) || []
 
-    const success = dailyRequests.filter(
-      (request) => request.status === "SUCCESS"
-    ).length
-    const failed = dailyRequests.filter(
-      (request) => request.status === "FAILED" || request.status === "PENDING"
-    ).length
+    const { success, failed } = dailyRequests.reduce(
+      (acc, request) => {
+        if (request.status === "SUCCESS") {
+          acc.success++
+        } else if (
+          request.status === "FAILED" ||
+          request.status === "PENDING"
+        ) {
+          acc.failed++
+        }
+        return acc
+      },
+      { success: 0, failed: 0 }
+    )
 
     chartData.push({ date: dateString, success, failed })
   }

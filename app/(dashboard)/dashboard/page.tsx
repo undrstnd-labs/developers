@@ -75,7 +75,6 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              +{" "}
               {
                 requestsWeek.filter(
                   (request) =>
