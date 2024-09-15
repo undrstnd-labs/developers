@@ -21,7 +21,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import { createKey } from "@/actions/key"
+import { createKey, getKeys } from "@/actions/key"
+import { useToast } from "@/hooks/use-toast"
 
 export function DashboardApiKeyCreate({
   user,
@@ -31,6 +32,7 @@ export function DashboardApiKeyCreate({
   length: number
 }) {
   const router = useRouter()
+  const { toast } = useToast()
   const [loading, setLoading] = useState<boolean>(false)
   const [token, setToken] = useState<APIToken | null>(null)
 
@@ -81,6 +83,20 @@ export function DashboardApiKeyCreate({
             className="space-y-4 py-4"
             action={async (formData) => {
               setLoading(true)
+
+              const keys = (await getKeys(user.id)).filter(
+                (key) => !key.deletedAt
+              )
+
+              if (keys.length >= 3) {
+                setLoading(false)
+                return toast({
+                  title: "API Key Limit",
+                  description: "You have reached the maximum number of keys.",
+                  variant: "destructive",
+                })
+              }
+
               const apikey_name = formData.get("apikey-name") as string
 
               try {
