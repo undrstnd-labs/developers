@@ -2,12 +2,13 @@ import { APIToken } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
 
+import { DashboardApiKeyDelete } from "@/components/app/dashboard-api-key-delete"
+import { DashboardApiKeyEdit } from "@/components/app/dashboard-api-key-edit"
 import { Icons } from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -68,8 +69,14 @@ export function DashboardApiKeyTable({ tokens }: { tokens: APIToken[] }) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Delete</DropdownMenuItem>
+                      <DashboardApiKeyEdit
+                        token={token}
+                        userId={token.userId}
+                      />
+                      <DashboardApiKeyDelete
+                        token={token}
+                        userId={token.userId}
+                      />
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

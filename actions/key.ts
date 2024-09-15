@@ -39,7 +39,7 @@ export async function deleteKey(userId: string, tokenId: string) {
 export async function updateKey(
   userId: string,
   tokenId: string,
-  data: { name: string; deletedAt: Date }
+  data: { name?: string; deletedAt?: Date; verified?: boolean }
 ) {
   return await db.aPIToken.update({
     where: {
@@ -49,6 +49,7 @@ export async function updateKey(
     data: {
       name: data.name,
       deletedAt: data.deletedAt,
+      verified: data.verified,
     },
   })
 }

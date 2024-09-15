@@ -21,7 +21,7 @@ export default async function APIKeysPage() {
     return redirect("/login")
   }
 
-  const keys = await getKeys(user.id)
+  const keys = (await getKeys(user.id)).filter((key) => !key.deletedAt)
 
   return (
     <>
