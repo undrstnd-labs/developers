@@ -27,9 +27,12 @@ export default async function APIKeysPage() {
     <>
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-bold md:text-2xl">API Keys</h1>
-        <DashboardApiKeyCreate user={user} length={keys.length} />
+        <DashboardApiKeyCreate
+          user={user}
+          length={keys.filter((key) => !key.deletedAt).length}
+        />
       </div>
-      <DashboardApiKeyTable tokens={keys} />
+      <DashboardApiKeyTable tokens={keys.filter((key) => !key.deletedAt)} />
     </>
   )
 }
