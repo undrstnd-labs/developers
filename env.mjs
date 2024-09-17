@@ -21,6 +21,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     GROQ_API_KEY_DEFAULT: z.string().min(1),
     NODE_ENV: z.string().min(1),
+    PINECON_API_KEY: z.string().min(1),
+    PINECON_API_ENDPOINT: z.string().min(1),
   },
   client: {},
   runtimeEnv: {
@@ -43,5 +45,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GROQ_API_KEY_DEFAULT: process.env.GROQ_API_KEY_DEFAULT,
     NODE_ENV: process.env.NODE_ENV,
+    PINECON_API_KEY: process.env.PINECON_API_KEY,
+    PINECON_API_ENDPOINT: process.env.PINECON_API_ENDPOINT,
   },
 })

@@ -24,6 +24,7 @@ import {
   CopyIcon,
   CreditCard,
   CreditCardIcon,
+  DatabaseIcon,
   DatabaseZapIcon,
   EllipsisIcon,
   ExternalLinkIcon,
@@ -198,7 +199,7 @@ function Undrstnd(props: React.SVGProps<SVGSVGElement>) {
         transform="translate(43.76 97.27) rotate(45) scale(.86 1)"
         fill="#fff"
         fontFamily="MyriadPro-Regular, 'Myriad Pro'"
-        font-size="164.35"
+        fontSize="164.35"
       >
         <tspan x="0" y="0">
           U
@@ -311,4 +312,5 @@ export const Icons = {
   creditCard: CreditCardIcon,
   support: ShieldQuestionIcon,
   more: EllipsisIcon,
+  database: DatabaseIcon,
 }
