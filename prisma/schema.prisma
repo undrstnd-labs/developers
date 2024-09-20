@@ -210,9 +210,10 @@ model Resource {
   name        String
   description String
 
-  size Int
-  type String
-  url  String
+  size   Int
+  handle String
+  type   String
+  url    String
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

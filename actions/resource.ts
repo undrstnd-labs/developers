@@ -30,11 +30,13 @@ interface CreateResourceProps {
   type: string
   url: string
   size: number
+  handle: string
 }
 
 export async function createResource({
   userId,
   name,
+  handle,
   description,
   type,
   url,
@@ -44,6 +46,7 @@ export async function createResource({
     data: {
       id: generateDataSourceId(),
       name,
+      handle,
       description,
       userId,
       type,

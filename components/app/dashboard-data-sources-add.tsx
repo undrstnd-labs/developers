@@ -8,6 +8,8 @@ import { DropzoneOptions } from "react-dropzone"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { env } from "@/env.mjs"
+
 import { uploadDataSource } from "@/lib/storage"
 import { generateUUID } from "@/lib/utils"
 import { toast } from "@/hooks/use-toast"
@@ -38,9 +40,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Progress } from "@/components/ui/progress"
-import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
-import { env } from "@/env.mjs"
+import { Textarea } from "@/components/ui/textarea"
 
 import { vectorizedDocument } from "@/actions/pinecone"
 import { createResource } from "@/actions/resource"
@@ -89,6 +90,7 @@ const uploadFileSchema = z.object({
     }),
 })
 
+//TODO: After generating the resource open a Dialog for the datasource
 export function DashboardDataSourcesAdd({ user }: { user: User }) {
   const id = generateUUID()
   const router = useRouter()
@@ -148,7 +150,8 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
         }),
         createResource({
           userId: user.id,
-          name: file.name,
+          name: data.name,
+          handle: file.name,
           description: data.description as string,
           type: file.type,
           url: `${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadedFile.fullPath}`,
@@ -213,9 +216,11 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
                 <FormItem>
                   <FormLabel>Overview</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Describe the use of your data source"
+                    <Textarea
+                      placeholder="Describe the use of your data source"
                       className="resize-none"
-                      {...field} />
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

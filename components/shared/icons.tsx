@@ -29,6 +29,7 @@ import {
   EllipsisIcon,
   ExternalLinkIcon,
   File,
+  FileJson,
   FileText,
   FileTextIcon,
   FlagIcon,
@@ -63,6 +64,7 @@ import {
   Search,
   SendHorizonalIcon,
   Settings,
+  SheetIcon,
   ShieldIcon,
   ShieldQuestionIcon,
   ShoppingCartIcon,
@@ -315,4 +317,6 @@ export const Icons = {
   more: EllipsisIcon,
   database: DatabaseIcon,
   attachement: PaperclipIcon,
+  sheet: SheetIcon,
+  json: FileJson,
 }
