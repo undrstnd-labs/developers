@@ -41,7 +41,7 @@ export function TypographyP({ children }: { children: React.ReactNode }) {
 }
 
 export function TypographyLead({ children }: { children: React.ReactNode }) {
-  return <p className="text-muted-foreground text-xl">{children}</p>
+  return <p className="text-xl text-muted-foreground">{children}</p>
 }
 
 export function TypographyBlockquote({
@@ -67,7 +67,7 @@ export function TypographyAnchor({
     <Link
       href={href}
       target={target}
-      className="after:bg-secondary-foreground after:text-secondary-foreground relative inline-flex flex-1 justify-center gap-1 leading-4 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 after:transition-transform after:duration-300 after:ease-in-out hover:font-medium hover:after:origin-bottom-left hover:after:scale-x-100"
+      className="relative inline-flex flex-1 justify-center gap-1 leading-4 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 after:bg-secondary-foreground after:text-secondary-foreground after:transition-transform after:duration-300 after:ease-in-out hover:font-medium hover:after:origin-bottom-left hover:after:scale-x-100"
     >
       <span>{children}</span>
       <svg

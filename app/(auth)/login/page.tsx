@@ -44,18 +44,18 @@ export default async function LoginPage() {
           <h1 className="text-2xl font-semibold tracking-tight">
             Login to your account
           </h1>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             Login to your account to access all the features and functionality.
           </p>
 
           <AuthUserEmail />
         </div>
 
-        <p className="text-muted-foreground px-8 text-center text-sm">
+        <p className="px-8 text-center text-sm text-muted-foreground">
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="hover:text-primary underline underline-offset-4"
+            className="underline underline-offset-4 hover:text-primary"
           >
             Create an account
           </Link>

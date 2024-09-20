@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react"
 import { faqs } from "@/data/faqs"
-import { createOpenAI } from "@ai-sdk/openai"
 import { CoreMessage, generateId } from "ai"
 import {
   createAI,
@@ -11,7 +10,7 @@ import {
   streamUI,
 } from "ai/rsc"
 
-import { env } from "@/env.mjs"
+import { demo_client as undrstnd } from "@/lib/undrstnd"
 
 import { TextStreamMessage } from "@/components/app/marketing-chat-message"
 
@@ -25,11 +24,6 @@ export async function sendMessage(message: string, model: string) {
 
   const contentStream = createStreamableValue("")
   const textComponent = <TextStreamMessage content={contentStream.value} />
-
-  const undrstnd = createOpenAI({
-    apiKey: env.GROQ_API_KEY,
-    baseURL: env.GROQ_API_ENDPOINT,
-  })
 
   const { value: stream } = await streamUI({
     model: undrstnd(model) as any,

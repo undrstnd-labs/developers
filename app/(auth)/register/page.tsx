@@ -35,7 +35,7 @@ export default async function RegisterPage() {
       >
         Login
       </Link>
-      <div className="bg-muted relative hidden h-full flex-col p-10 lg:flex dark:border-r">
+      <div className="relative hidden h-full flex-col bg-muted p-10 dark:border-r lg:flex">
         <div className="absolute inset-0" />
         <Link
           href="/"
@@ -66,7 +66,7 @@ export default async function RegisterPage() {
             </h1>
 
             <AuthRegister />
-            <p className="text-secondary-foreground/65 text-xs">
+            <p className="text-xs text-secondary-foreground/65">
               By clicking continue, you agree to our{" "}
               <Link href="/post/terms" className="underline">
                 Terms of Service

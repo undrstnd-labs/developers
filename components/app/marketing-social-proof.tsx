@@ -11,7 +11,7 @@ export function MarketingSocialProof() {
   )
 
   return (
-    <div className="bg-background relative flex w-full flex-col items-center justify-center overflow-hidden md:shadow-xl">
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background md:shadow-xl">
       <Marquee pauseOnHover className="[--duration:20s]">
         {companies.map((company) => (
           <Link
@@ -20,15 +20,15 @@ export function MarketingSocialProof() {
             className="flex items-center space-x-1 px-4"
           >
             <company.image className="size-8" />
-            <p className="text-muted-foreground text-lg font-semibold">
+            <p className="text-lg font-semibold text-muted-foreground">
               {company.company}
             </p>
           </Link>
         ))}
       </Marquee>
 
-      <div className="dark:from-background pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white"></div>
-      <div className="dark:from-background pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white"></div>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
     </div>
   )
 }

@@ -21,7 +21,7 @@ export function DashboardSiteNavigation() {
             key={link.name}
             href={link.href}
             className={cn(
-              "text-muted-foreground hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
               pathname === link.href
                 ? "bg-muted text-primary"
                 : "text-muted-foreground"
@@ -37,7 +37,7 @@ export function DashboardSiteNavigation() {
           key={supportLink.name}
           href={supportLink.href}
           className={cn(
-            "text-muted-foreground hover:text-primary flex items-center gap-3 rounded-lg px-3 py-2 transition-all",
+            "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
             pathname === supportLink.href
               ? "bg-muted text-primary"
               : "text-muted-foreground"
@@ -61,9 +61,9 @@ export function DashboardSiteNavigationMobile() {
           key={link.href}
           href={link.href}
           className={cn(
-            "hover:text-foreground mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-lg",
+            "mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-lg hover:text-foreground",
             pathname === link.href
-              ? "bg-muted/40 text-primary font-semibold"
+              ? "bg-muted/40 font-semibold text-primary"
               : "text-muted-foreground"
           )}
         >

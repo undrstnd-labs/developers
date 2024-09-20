@@ -1,13 +1,11 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider   = "postgresql"
-  directUrl  = env("DIRECT_URL")
-  url        = env("DATABASE_URL")
-  extensions = [pgvector(map: "vector", schema: "extensions")]
+  provider  = "postgresql"
+  directUrl = env("DIRECT_URL")
+  url       = env("DATABASE_URL")
 }
 
 enum RequestStatus {
@@ -207,15 +205,21 @@ model Usage {
 }
 
 model Resource {
-  id        String                 @id @default(cuid())
-  content   String
-  embedding Unsupported("vector")?
+  id String @id @default(cuid())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  name        String
+  description String
+
+  size Int
+  type String
+  url  String
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  deletedAt DateTime? @map(name: "deleted_at")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @default(now()) @map(name: "updated_at")
 
   @@map(name: "resources")
 }

@@ -44,10 +44,10 @@ export function MobileNav({ user }: { user: User | Boolean }) {
           side="top"
           close={false}
         >
-          <div className="bg-background sticky top-0 z-50 p-4">
+          <div className="sticky top-0 z-50 bg-background p-4">
             <Link href="/" className="flex shrink-0 items-center">
               <Icons.logo className="h-8 w-auto" />
-              <span className="text-secondary-foreground ml-2 mt-2 font-bold">
+              <span className="ml-2 mt-2 font-bold text-secondary-foreground">
                 {siteConfig.name}
               </span>
             </Link>
@@ -82,23 +82,23 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                   <Link
                     href={item.href}
                     key={index}
-                    className="transition-color bg-background text-muted-foreground hover:bg-muted group flex min-w-full items-center justify-between rounded-md p-2 py-4 text-base font-semibold hover:no-underline"
+                    className="transition-color group flex min-w-full items-center justify-between rounded-md bg-background p-2 py-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline"
                   >
                     <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
                       {item.name}
                     </span>
-                    <item.icon className="group-hover:text-primary size-5 group-hover:transition-all group-hover:duration-300" />
+                    <item.icon className="size-5 group-hover:text-primary group-hover:transition-all group-hover:duration-300" />
                   </Link>
                 ))}
                 <form action={handleSignOut}>
                   <Button
                     type="submit"
-                    className="transition-color bg-background text-muted-foreground hover:bg-muted group flex min-w-full items-center justify-between rounded-md p-2 py-4 text-base font-semibold hover:no-underline"
+                    className="transition-color group flex min-w-full items-center justify-between rounded-md bg-background p-2 py-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline"
                   >
                     <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
                       Déconnexion
                     </span>
-                    <Icons.lock className="group-hover:text-primary size-5 group-hover:transition-all group-hover:duration-300" />
+                    <Icons.lock className="size-5 group-hover:text-primary group-hover:transition-all group-hover:duration-300" />
                   </Button>
                 </form>
                 <Separator className="my-3" />
@@ -132,7 +132,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                     value={`item-${index}`}
                     className="-px-2 -mx-2 border-b-0"
                   >
-                    <AccordionTrigger className="transition-color bg-background text-muted-foreground hover:bg-muted rounded-md px-4 text-base font-semibold hover:no-underline">
+                    <AccordionTrigger className="transition-color rounded-md bg-background px-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline">
                       {item.title}
                     </AccordionTrigger>
                     <AccordionContent>
@@ -142,10 +142,10 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                           <Link
                             href={link.href}
                             key={linkIndex}
-                            className="transition-color bg-background text-muted-foreground hover:bg-muted group flex min-w-full items-center justify-between space-x-2 rounded-md p-4 text-base font-semibold hover:no-underline"
+                            className="transition-color group flex min-w-full items-center justify-between space-x-2 rounded-md bg-background p-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline"
                           >
                             <div className="flex items-center space-x-2">
-                              <link.icon className="group-hover:text-primary size-5 group-hover:transition-all group-hover:duration-300" />
+                              <link.icon className="size-5 group-hover:text-primary group-hover:transition-all group-hover:duration-300" />
                               <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
                                 {link.name}
                               </span>
@@ -154,12 +154,12 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                               <span className="relative flex size-2">
                                 <span
                                   className={
-                                    "bg-primary absolute inline-flex size-full animate-ping rounded-full opacity-50"
+                                    "absolute inline-flex size-full animate-ping rounded-full bg-primary opacity-50"
                                   }
                                 />
                                 <span
                                   className={
-                                    "bg-primary relative inline-flex size-2 rounded-full"
+                                    "relative inline-flex size-2 rounded-full bg-primary"
                                   }
                                 />
                               </span>
@@ -178,7 +178,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                   <Link
                     href={item.href!}
                     key={index}
-                    className="-px-2 transition-color bg-background text-muted-foreground hover:bg-muted -mx-2 flex flex-1  items-center justify-between rounded-md p-4 text-base font-semibold transition-all hover:no-underline"
+                    className="-px-2 transition-color -mx-2 flex flex-1 items-center justify-between rounded-md  bg-background p-4 text-base font-semibold text-muted-foreground transition-all hover:bg-muted hover:no-underline"
                   >
                     {item.title}
                   </Link>
@@ -188,7 +188,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
             <div className="mt-3 flow-root space-y-6 px-2">
               <Separator className="my-5" />
               <div className="flex items-center justify-between">
-                <span className="transition-color text-muted-foreground hover:text-secondary-foreground text-base font-semibold duration-300">
+                <span className="transition-color text-base font-semibold text-muted-foreground duration-300 hover:text-secondary-foreground">
                   Theme
                 </span>
                 <ThemeSwitch />

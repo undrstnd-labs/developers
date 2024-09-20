@@ -109,7 +109,7 @@ export function AuthOTPCode({ email }: { email: string }) {
       <h1 className="text-2xl font-semibold tracking-tight">
         Verify your email
       </h1>
-      <p className="text-muted-foreground text-sm">
+      <p className="text-sm text-muted-foreground">
         We&apos;ve sent a 6-digit code to your email address. Please enter it
         below.
       </p>

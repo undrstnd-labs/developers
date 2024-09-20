@@ -14,7 +14,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   }
 
   return (
-    <main className="bg-background min-h-screen font-sans antialiased">
+    <main className="min-h-screen bg-background font-sans antialiased">
       {children}
     </main>
   )

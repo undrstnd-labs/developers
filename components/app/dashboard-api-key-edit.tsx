@@ -39,7 +39,7 @@ export function DashboardApiKeyEdit({
         onClick={() => {
           setIsOpen(true)
         }}
-        className="hover:bg-secondary focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+        className="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 hover:bg-secondary focus:bg-accent focus:text-accent-foreground"
       >
         Edit
       </DialogTrigger>

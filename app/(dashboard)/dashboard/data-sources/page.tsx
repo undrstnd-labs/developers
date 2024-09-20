@@ -1,8 +1,8 @@
 import React from "react"
 import { redirect } from "next/navigation"
 
+import { DashboardDataSourcesAdd } from "@/components/app/dashboard-data-sources-add"
 import { DashboardDataSourcesCards } from "@/components/app/dashboard-data-sources-cards"
-import { Button } from "@/components/ui/button"
 
 import { getAuthedUser } from "@/actions/session"
 
@@ -24,7 +24,7 @@ export default async function DataSourcesPage() {
     <>
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-bold md:text-2xl">Data Sources</h1>
-        <Button>Add Data Source</Button>
+        <DashboardDataSourcesAdd user={user} />
       </div>
       <DashboardDataSourcesCards />
     </>

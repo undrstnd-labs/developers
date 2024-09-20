@@ -50,8 +50,8 @@ export function MarketingChat() {
   const [messages, setMessages] = useState<Array<ReactNode>>([])
 
   return (
-    <div className="from-secondary-foreground/20 relative isolate overflow-hidden bg-gradient-to-b">
-      <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-white sm:h-32 dark:from-black" />
+    <div className="relative isolate overflow-hidden bg-gradient-to-b from-secondary-foreground/20">
+      <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-white dark:from-black sm:h-32" />
 
       <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
         <div className="px-6 lg:px-0 lg:pt-4">
@@ -60,12 +60,12 @@ export function MarketingChat() {
               <h1 className="mt-10 text-4xl font-bold tracking-tight sm:text-6xl">
                 Chat with our AI-powered Chatbot
               </h1>
-              <p className="text-muted-foreground mt-6 text-lg leading-8">
+              <p className="mt-6 text-lg leading-8 text-muted-foreground">
                 Get started with our AI-powered chatbot to test the speed,
                 efficiency, and performance of your models.
               </p>
               <div className="mt-10">
-                <h2 className="text-muted-foreground text-lg font-medium">
+                <h2 className="text-lg font-medium text-muted-foreground">
                   Select a model to start
                 </h2>
                 <Combobox
@@ -84,21 +84,21 @@ export function MarketingChat() {
         </div>
         <div className="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
           <div
-            className="ring-primary-50 shadow-secondary-foreground/10 absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl ring-1 md:-mr-20 lg:-mr-36 dark:bg-black"
+            className="ring-primary-50 absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-secondary-foreground/10 ring-1 dark:bg-black md:-mr-20 lg:-mr-36"
             aria-hidden="true"
           />
           <div className="shadow-lg md:rounded-3xl">
             <div className="[clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
               <div
-                className="bg-primary-foreground ring-primary-foreground absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] opacity-20 ring-1 ring-inset md:ml-20 lg:ml-36"
+                className="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-primary-foreground opacity-20 ring-1 ring-inset ring-primary-foreground md:ml-20 lg:ml-36"
                 aria-hidden="true"
               />
-              <div className="bg-muted flex h-full flex-row justify-center px-2 pb-20 sm:px-8">
-                <div className="border-1 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-secondary flex h-[640px] flex-col justify-between gap-4 overflow-y-scroll p-6">
+              <div className="flex h-full flex-row justify-center bg-muted px-2 pb-20 sm:px-8">
+                <div className="border-1 flex h-[640px] flex-col justify-between gap-4 overflow-y-scroll p-6 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-secondary">
                   <div className="flex flex-col items-center justify-center gap-3 pt-4">
                     {messages.length === 0 && (
                       <motion.div className="h-[350px] px-4 md:w-[500px] md:px-0">
-                        <div className="text-secondary-foreground dark:border-muted-foreground/40 flex flex-col gap-4 rounded-lg border p-6 text-sm">
+                        <div className="flex flex-col gap-4 rounded-lg border p-6 text-sm text-secondary-foreground dark:border-muted-foreground/40">
                           <p className="flex flex-row items-center justify-center gap-4">
                             <Icons.logo className="size-8" />
                             <span className="text-lg font-medium">
@@ -151,7 +151,7 @@ export function MarketingChat() {
                               )
                               setMessages((messages) => [...messages, response])
                             }}
-                            className="border-secondary text-secondary-foreground hover:bg-muted flex w-full flex-col rounded-lg border p-2 text-left text-sm transition-colors"
+                            className="flex w-full flex-col rounded-lg border border-secondary p-2 text-left text-sm text-secondary-foreground transition-colors hover:bg-muted"
                           >
                             <span className="font-medium">{action.title}</span>
                             <span className="text-muted-foreground/70">
@@ -199,7 +199,7 @@ export function MarketingChat() {
                         variant={"ghost"}
                         className="absolute right-0 top-0 h-full px-3 "
                       >
-                        <Icons.send className="text-primary size-5" />
+                        <Icons.send className="size-5 text-primary" />
                       </Button>
                     </div>
                   </form>
@@ -209,7 +209,7 @@ export function MarketingChat() {
           </div>
         </div>
       </div>
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-80 dark:from-black" />
+      <div className="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white dark:from-black sm:h-80" />
     </div>
   )
 }

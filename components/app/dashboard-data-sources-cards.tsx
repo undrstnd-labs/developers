@@ -111,7 +111,7 @@ export function DashboardDataSourcesCards() {
           </div>
           <input
             type="text"
-            className="focus:border-primary focus:ring-primary block w-full rounded-md border-gray-300 pl-10"
+            className="block w-full rounded-md border-gray-300 pl-10 focus:border-primary focus:ring-primary"
             placeholder="Search data sources..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -172,14 +172,14 @@ export function DashboardDataSourcesCards() {
               </div>
               <div className="mt-4 flex items-center justify-between">
                 <div
-                  className="text-primary cursor-pointer text-sm font-medium hover:underline"
+                  className="cursor-pointer text-sm font-medium text-primary hover:underline"
                   onClick={() => handleCopyId(ds.id)}
                 >
                   {ds.id}
                 </div>
                 <Link
                   href="#"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-1 rounded-md px-3 py-1 text-sm font-medium"
+                  className="inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                   prefetch={false}
                 >
                   <span>View File</span>
@@ -203,7 +203,7 @@ export function DashboardDataSourcesCards() {
                 <input
                   type="text"
                   id="filename"
-                  className="focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                   placeholder="Enter filename"
                 />
               </div>
@@ -214,7 +214,7 @@ export function DashboardDataSourcesCards() {
                 <input
                   type="text"
                   id="fileType"
-                  className="focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                   placeholder="Enter file type"
                 />
               </div>
@@ -225,7 +225,7 @@ export function DashboardDataSourcesCards() {
                 <input
                   type="number"
                   id="score"
-                  className="focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                   placeholder="Enter score"
                 />
               </div>
@@ -235,7 +235,7 @@ export function DashboardDataSourcesCards() {
                 </label>
                 <select
                   id="status"
-                  className="focus:border-primary focus:ring-primary mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
                 >
                   <option value="Live">Live</option>
                   <option value="Pending">Pending</option>

@@ -1,6 +1,5 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
-import { createOpenAI } from "@ai-sdk/openai"
 import { RequestStatus } from "@prisma/client"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
@@ -8,6 +7,7 @@ import * as z from "zod"
 import { models } from "@/config/models"
 import { getFunding, returnError } from "@/lib/api"
 import { db } from "@/lib/prisma"
+import { undrstnd_client } from "@/lib/undrstnd"
 import { getModel } from "@/lib/utils"
 
 import { updateFunding } from "@/actions/funding"
@@ -142,10 +142,7 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  const undrstnd = createOpenAI({
-    baseURL: process.env.GROQ_API_ENDPOINT,
-    apiKey: api_token.token,
-  })
+  const undrstnd = undrstnd_client(api_token.token)
 
   const undrstnd_data = {
     model: undrstnd(model.id),

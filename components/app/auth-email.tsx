@@ -28,7 +28,7 @@ function SubmitButton() {
   return (
     <button
       type="submit"
-      className="bg-primary text-primary-foreground absolute right-2 top-2 z-10 h-7 rounded-md px-4 text-sm font-medium"
+      className="absolute right-2 top-2 z-10 h-7 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
     >
       <Icons.chevronRight className="size-4 stroke-[3px]" />
     </button>

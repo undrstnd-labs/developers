@@ -15,7 +15,7 @@ export function MarketingHero() {
       className="relative h-full overflow-hidden py-5 md:py-14"
     >
       <svg
-        className="stroke-muted-foreground/20 absolute inset-0 -z-10 size-full"
+        className="absolute inset-0 -z-10 size-full stroke-muted-foreground/20"
         aria-hidden="true"
       >
         <defs>
@@ -88,7 +88,7 @@ export function MarketingHero() {
               </h1>
             </div>
 
-            <p className="text-muted-foreground max-w-6xl text-balance text-center text-base tracking-tight md:text-lg">
+            <p className="max-w-6xl text-balance text-center text-base tracking-tight text-muted-foreground md:text-lg">
               Scale your applications efficiently with our easy-to-use AI
               inference. Our Large Language Models (LLMs) are{" "}
               <b>lightning-fast</b> and consume <b>significantly less energy</b>

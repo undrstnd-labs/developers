@@ -17,7 +17,7 @@ export async function MarketingFAQs() {
           <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
             Frequently Asked Questions
           </h2>
-          <p className="text-secondary-foreground mt-6 text-xl leading-8">
+          <p className="mt-6 text-xl leading-8 text-secondary-foreground">
             Here are some of the most frequently asked questions about our
             services.
           </p>
@@ -25,7 +25,7 @@ export async function MarketingFAQs() {
         <div className="container mx-auto my-12 max-w-[600px] space-y-12">
           {faqs.map((faq, idx) => (
             <section key={idx} id={"faq-" + faq.section}>
-              <h2 className="text-foreground/60 mb-4 text-left text-base font-semibold tracking-tight">
+              <h2 className="mb-4 text-left text-base font-semibold tracking-tight text-foreground/60">
                 {faq.section}
               </h2>
               <Accordion
@@ -51,7 +51,7 @@ export async function MarketingFAQs() {
             </section>
           ))}
         </div>
-        <h4 className="text-foreground/80 mb-12 text-center text-sm font-medium tracking-tight">
+        <h4 className="mb-12 text-center text-sm font-medium tracking-tight text-foreground/80">
           If you have any other questions, feel free to reach out to us at{" "}
           <a href={"mailto:" + siteConfig.agency?.email} className="underline">
             {siteConfig.agency?.email}

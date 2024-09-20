@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { v4 as uuidv4 } from "uuid"
 
 import { Model } from "@/types/model"
 
@@ -24,4 +25,8 @@ export function formatDate(date: Date): string {
     year: "numeric",
   }
   return new Intl.DateTimeFormat("en-US", options).format(date)
+}
+
+export function generateUUID(): string {
+  return uuidv4()
 }

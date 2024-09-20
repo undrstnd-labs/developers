@@ -13,7 +13,7 @@ export function SiteFooter() {
           </h2>
         </div>
         <div className="flex items-center justify-center text-sm md:justify-start">
-          <p className="text-muted-foreground  mr-2 leading-loose">
+          <p className="mr-2  leading-loose text-muted-foreground">
             Brought by
           </p>
           {siteConfig.agency && (

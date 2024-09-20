@@ -47,7 +47,7 @@ export function DashboardApiKeyTable({ tokens }: { tokens: APIToken[] }) {
               <TableRow key={token.id}>
                 <TableCell className="font-medium">{token.name}</TableCell>
                 <TableCell>
-                  <div className="bg-muted flex w-fit items-center gap-2 rounded-md px-2 font-mono">
+                  <div className="flex w-fit items-center gap-2 rounded-md bg-muted px-2 font-mono">
                     {token.id.slice(0, 4)}...{token.id.slice(-6)}
                   </div>
                 </TableCell>

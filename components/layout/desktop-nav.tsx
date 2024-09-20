@@ -14,7 +14,7 @@ export function DesktopNav() {
       <Link
         href="https://docs.undrstnd-labs.com/"
         className={cn(
-          "hover:text-foreground/80 transition-colors",
+          "transition-colors hover:text-foreground/80",
           pathname === "/docs" ? "text-foreground" : "text-foreground/60"
         )}
       >

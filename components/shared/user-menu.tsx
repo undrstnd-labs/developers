@@ -32,7 +32,7 @@ export function UserMenu({
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[250px]">
         <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
-        <p className="text-muted-foreground px-2 text-sm">{user.email}</p>
+        <p className="px-2 text-sm text-muted-foreground">{user.email}</p>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Link href="/account" className="w-full">
@@ -45,7 +45,7 @@ export function UserMenu({
         </div>
         <DropdownMenuSeparator />
         <form action={handleSignOut}>
-          <DropdownMenuItem className="text-destructive hover:bg-destructive/30 hover:text-destructive-foreground cursor-pointer">
+          <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/30 hover:text-destructive-foreground">
             <button type="submit">Logout</button>
           </DropdownMenuItem>
         </form>
@@ -68,7 +68,7 @@ export function UserMenuIconDropdown({ user }: { user: User }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-[250px]">
         <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
-        <p className="text-muted-foreground px-2 text-sm">{user.email}</p>
+        <p className="px-2 text-sm text-muted-foreground">{user.email}</p>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Link href="/account" className="w-full">
@@ -81,7 +81,7 @@ export function UserMenuIconDropdown({ user }: { user: User }) {
         </div>
         <DropdownMenuSeparator />
         <form action={handleSignOut}>
-          <DropdownMenuItem className="text-destructive hover:bg-destructive/30 hover:text-destructive-foreground cursor-pointer">
+          <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/30 hover:text-destructive-foreground">
             <button type="submit">Logout</button>
           </DropdownMenuItem>
         </form>
@@ -95,7 +95,7 @@ export function UserMenuDropdown({ user }: { user: User }) {
     <div className="flex items-center justify-between px-2 pb-4">
       <div>
         <p className="text-base font-medium leading-none">{user.username}</p>
-        <p className="text-muted-foreground text-sm font-light">{user.email}</p>
+        <p className="text-sm font-light text-muted-foreground">{user.email}</p>
       </div>
       <Avatar className="size-5">
         <AvatarImage src={user.image} />

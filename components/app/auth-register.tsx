@@ -88,22 +88,22 @@ export function AuthRegister() {
                   >
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <Label className="hover:bg-secondary [&:has(:checked)]:border-primary relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all duration-300">
+                        <Label className="relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all duration-300 hover:bg-secondary [&:has(:checked)]:border-primary">
                           <RadioGroupItem
                             value={UserType.DEVELOPER}
                             className="peer sr-only"
                           />
                           <div className="space-y-1 text-left">
                             <h4 className="font-medium">Developer</h4>
-                            <p className="text-muted-foreground text-sm">
+                            <p className="text-sm text-muted-foreground">
                               For personal projects and learning
                             </p>
                           </div>
                           <div className="absolute right-2 top-2 rounded-full p-1">
                             {form.watch("type") === UserType.DEVELOPER ? (
-                              <Icons.circleCheck className="text-primary size-4" />
+                              <Icons.circleCheck className="size-4 text-primary" />
                             ) : (
-                              <Icons.circle className="text-muted size-4" />
+                              <Icons.circle className="size-4 text-muted" />
                             )}
                           </div>
                         </Label>
@@ -111,22 +111,22 @@ export function AuthRegister() {
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <Label className="hover:bg-secondary [&:has(:checked)]:border-primary relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all duration-300">
+                        <Label className="relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all duration-300 hover:bg-secondary [&:has(:checked)]:border-primary">
                           <RadioGroupItem
                             value={UserType.ORGANIZATION}
                             className="peer sr-only"
                           />
                           <div className="space-y-1 text-left">
                             <h4 className="font-medium">Organization</h4>
-                            <p className="text-muted-foreground text-sm">
+                            <p className="text-sm text-muted-foreground">
                               For teams and entreprises
                             </p>
                           </div>
                           <div className="absolute right-2 top-2 rounded-full p-1">
                             {form.watch("type") === UserType.ORGANIZATION ? (
-                              <Icons.circleCheck className="text-primary size-4" />
+                              <Icons.circleCheck className="size-4 text-primary" />
                             ) : (
-                              <Icons.circle className="text-muted size-4" />
+                              <Icons.circle className="size-4 text-muted" />
                             )}
                           </div>
                         </Label>
@@ -160,7 +160,7 @@ export function AuthRegister() {
             className={cn(
               "w-full",
               !form.formState.isValid &&
-                "bg-secondary-foreground text-secondary cursor-not-allowed"
+                "cursor-not-allowed bg-secondary-foreground text-secondary"
             )}
             disabled={!form.formState.isValid}
           >

@@ -55,13 +55,13 @@ export default async function DashboardPage() {
             <CardTitle className="text-sm font-medium">
               Funds Available
             </CardTitle>
-            <Icons.creditCard className="text-muted-foreground size-4" />
+            <Icons.creditCard className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {funds ? `€${funds.amount}` : "€0.00"}
             </div>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               {funds ? "Available balance" : "No funds available"}
             </p>
           </CardContent>
@@ -71,7 +71,7 @@ export default async function DashboardPage() {
             <CardTitle className="text-sm font-medium">
               API Calls (24h)
             </CardTitle>
-            <Icons.chart className="text-muted-foreground size-4" />
+            <Icons.chart className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -83,7 +83,7 @@ export default async function DashboardPage() {
                 ).length
               }
             </div>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               +{" "}
               {
                 requestsWeek.filter(
@@ -100,11 +100,11 @@ export default async function DashboardPage() {
             <CardTitle className="text-sm font-medium">
               Active API Keys
             </CardTitle>
-            <Icons.key className="text-muted-foreground size-4" />
+            <Icons.key className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{keys.length}</div>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-xs text-muted-foreground">
               {keys.filter((key) => key.deletedAt).length} keys expired
             </p>
           </CardContent>

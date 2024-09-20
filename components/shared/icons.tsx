@@ -52,6 +52,7 @@ import {
   Moon,
   MoreVertical,
   PanelsTopLeft,
+  PaperclipIcon,
   PartyPopperIcon,
   PencilIcon,
   PhoneIcon,
@@ -313,4 +314,5 @@ export const Icons = {
   support: ShieldQuestionIcon,
   more: EllipsisIcon,
   database: DatabaseIcon,
+  attachement: PaperclipIcon,
 }

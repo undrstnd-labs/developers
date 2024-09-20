@@ -29,7 +29,7 @@ export function MarketingTestimonial() {
             aria-hidden="true"
           />
         </div>
-        <blockquote className="text-secondary-foreground mt-10 text-xl font-semibold leading-8 tracking-tight sm:text-2xl sm:leading-9">
+        <blockquote className="mt-10 text-xl font-semibold leading-8 tracking-tight text-secondary-foreground sm:text-2xl sm:leading-9">
           <p>
             “I&apos;m integrating Undrstnd Developers API for business data
             analysis, works great and the models are very fast.”
@@ -37,10 +37,10 @@ export function MarketingTestimonial() {
         </blockquote>
         <figcaption className="mt-6 flex items-center gap-x-6">
           <div className="text-sm leading-6">
-            <div className="text-secondary-foreground font-semibold">
+            <div className="font-semibold text-secondary-foreground">
               Massimiliano Della Sala
             </div>
-            <div className="text-secondary-foreground/70 mt-0.5">
+            <div className="mt-0.5 text-secondary-foreground/70">
               Business Analyst Specialized in Marketing Management
             </div>
           </div>

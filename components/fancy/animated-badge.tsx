@@ -28,7 +28,7 @@ export function AnimatedBadge({ title, href }: AnimatedBadgeProps) {
         >
           {title}
         </span>
-        <Icons.chevronRight className="text-muted-foreground ml-1 size-4" />
+        <Icons.chevronRight className="ml-1 size-4 text-muted-foreground" />
       </GradientText>
     </Link>
   )

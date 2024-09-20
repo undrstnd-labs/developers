@@ -21,7 +21,7 @@ function SubmitButton() {
   return (
     <button
       type="submit"
-      className="bg-primary text-primary-foreground absolute right-2 top-2 z-10 h-7 rounded-md px-4 text-sm font-medium"
+      className="absolute right-2 top-2 z-10 h-7 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
     >
       <Icons.chevronRight className="inline-block size-4" />
     </button>
@@ -34,7 +34,7 @@ export function WaitlistForm() {
   return (
     <div className="flex justify-center">
       {isSubmitted ? (
-        <div className="font-sm text-primary flex h-11 w-full items-center justify-between rounded-lg border border-[#2C2C2C] px-3 py-1 sm:max-w-[330px]">
+        <div className="font-sm flex h-11 w-full items-center justify-between rounded-lg border border-[#2C2C2C] px-3 py-1 text-primary sm:max-w-[330px]">
           <p>Subscribed</p>
 
           <svg
@@ -72,7 +72,7 @@ export function WaitlistForm() {
               autoComplete="email"
               aria-label="Email address"
               required
-              className="font-sm border-border text-primary h-11 w-full rounded-lg border bg-transparent px-3 py-1 outline-none sm:max-w-[360px]"
+              className="font-sm h-11 w-full rounded-lg border border-border bg-transparent px-3 py-1 text-primary outline-none sm:max-w-[360px]"
             />
             <SubmitButton />
           </fieldset>
