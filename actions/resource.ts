@@ -1,6 +1,7 @@
 "use server"
 
 import { db } from "@/lib/prisma"
+import { generateDataSourceId } from "@/lib/utils"
 
 export async function getResources(userId: string) {
   return await db.resource.findMany({
@@ -41,6 +42,7 @@ export async function createResource({
 }: CreateResourceProps) {
   return await db.resource.create({
     data: {
+      id: generateDataSourceId(),
       name,
       description,
       userId,

@@ -14,6 +14,10 @@ export function generateAPIToken() {
   return `udsk_${Math.random().toString(36).substring(2)}`
 }
 
+export function generateDataSourceId() {
+  return `udds_${Math.random().toString(36).substring(2)}`
+}
+
 export function getModel(modelId: string): Model {
   return models.find((model) => model.id === modelId && model.active)!
 }

@@ -31,7 +31,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -40,6 +39,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Progress } from "@/components/ui/progress"
 import { Textarea } from "@/components/ui/textarea"
+import { Separator } from "@/components/ui/separator"
+import { env } from "@/env.mjs"
 
 import { vectorizedDocument } from "@/actions/pinecone"
 import { createResource } from "@/actions/resource"
@@ -135,12 +136,14 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
         fileId: id,
         userId: user.id,
       })
+      setProgress(80)
+
       await Promise.all([
         vectorizedDocument({
           props: {
             id,
             type: file.type,
-            url: uploadedFile.fullPath,
+            url: `${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadedFile.fullPath}`,
           },
         }),
         createResource({
@@ -148,12 +151,12 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
           name: file.name,
           description: data.description as string,
           type: file.type,
-          url: uploadedFile.fullPath,
+          url: `${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadedFile.fullPath}`,
           size: file.size,
         }),
       ])
-      router.refresh()
 
+      router.refresh()
       setProgress(100)
       toast({
         title: "Upload successful",
@@ -189,35 +192,38 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Data Source Name" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
               control={form.control}
-              name="name"
+              name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Overview</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="shadcn" {...field} />
+                    <Textarea placeholder="Describe the use of your data source"
+                      className="resize-none"
+                      {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
             />
+
+            <Separator className="my-2" />
+
             <div
               className={`flex w-full flex-col items-center justify-center gap-x-2 rounded-md px-2 pb-1 outline outline-1 outline-border ${form.watch("files") ? "pt-4" : "pt-2"}`}
             >
