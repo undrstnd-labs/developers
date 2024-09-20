@@ -3,7 +3,7 @@ import React from "react"
 import { env } from "@/env.mjs"
 
 async function getStream() {
-  const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/`, {
+  const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/rag`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,8 +11,9 @@ async function getStream() {
     },
     body: JSON.stringify({
       stream: false,
-      system: "groq",
       modelId: "mixtral-8x7b-32768",
+      datasourceToken: "udds_kj82oqy6bo",
+      similaritySearchLength: "1",
       messages: [
         {
           name: "system",
@@ -21,7 +22,7 @@ async function getStream() {
         },
         {
           name: "user",
-          content: "What is the weather like in San Francisco?",
+          content: "What is the unit of Calcium",
           role: "user",
         },
       ],

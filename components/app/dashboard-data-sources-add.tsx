@@ -11,7 +11,7 @@ import { z } from "zod"
 import { env } from "@/env.mjs"
 
 import { uploadDataSource } from "@/lib/storage"
-import { generateUUID } from "@/lib/utils"
+import { generateDataSourceId } from "@/lib/utils"
 import { toast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
@@ -92,7 +92,7 @@ const uploadFileSchema = z.object({
 
 //TODO: After generating the resource open a Dialog for the datasource
 export function DashboardDataSourcesAdd({ user }: { user: User }) {
-  const id = generateUUID()
+  const id = generateDataSourceId()
   const router = useRouter()
 
   const [progress, setProgress] = React.useState<number>(0)
@@ -140,6 +140,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
       })
       setProgress(80)
 
+      // TODO: Add usage here and remove from their fundings
       await Promise.all([
         vectorizedDocument({
           props: {
@@ -149,6 +150,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
           },
         }),
         createResource({
+          id,
           userId: user.id,
           name: data.name,
           handle: file.name,

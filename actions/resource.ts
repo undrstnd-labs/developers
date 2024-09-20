@@ -24,6 +24,7 @@ export async function getResource(userId: string, resourceId: string) {
 }
 
 interface CreateResourceProps {
+  id: string
   userId: string
   name: string
   description: string
@@ -34,6 +35,7 @@ interface CreateResourceProps {
 }
 
 export async function createResource({
+  id,
   userId,
   name,
   handle,
@@ -44,7 +46,7 @@ export async function createResource({
 }: CreateResourceProps) {
   return await db.resource.create({
     data: {
-      id: generateDataSourceId(),
+      id,
       name,
       handle,
       description,
