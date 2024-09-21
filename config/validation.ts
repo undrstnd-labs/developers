@@ -24,3 +24,7 @@ export const authRegisterSchema = z.object({
     message: "Your name is required",
   }),
 })
+
+export const apiTokenSchema = z.object({
+  name: z.string().min(2).max(50),
+})

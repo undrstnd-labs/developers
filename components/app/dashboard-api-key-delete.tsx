@@ -3,7 +3,8 @@
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import { APIToken } from "@prisma/client"
-import { useFormStatus } from "react-dom"
+
+import { useToast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -28,8 +29,10 @@ export function DashboardApiKeyDelete({
   userId: string
 }) {
   const router = useRouter()
-  const { pending } = useFormStatus()
+  const { toast } = useToast()
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -59,15 +62,28 @@ export function DashboardApiKeyDelete({
           </DialogClose>
           <Button
             type="submit"
-            disabled={pending}
+            disabled={isLoading}
             variant={"destructive"}
             onClick={async () => {
-              await deleteKey(userId, token.id)
-              router.refresh()
-              setIsOpen(false)
+              setIsLoading(true)
+              try {
+                await deleteKey(userId, token.id)
+                router.refresh()
+              } catch (error) {
+                return toast({
+                  title: "Error",
+                  description: "Cannot perform action",
+                  variant: "destructive",
+                })
+              } finally {
+                setIsLoading(false)
+                setIsOpen(false)
+              }
             }}
           >
-            {pending && <Icons.spinner className="mr-2 size-4 animate-spin" />}
+            {isLoading && (
+              <Icons.spinner className="mr-2 size-4 animate-spin" />
+            )}
             Confirm
           </Button>
         </DialogFooter>

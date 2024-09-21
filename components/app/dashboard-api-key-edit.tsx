@@ -2,8 +2,13 @@
 
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { APIToken } from "@prisma/client"
-import { useFormStatus } from "react-dom"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { apiTokenSchema } from "@/config/validation"
+import { useToast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -17,8 +22,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import { updateKey } from "@/actions/key"
 
@@ -30,8 +42,38 @@ export function DashboardApiKeyEdit({
   userId: string
 }) {
   const router = useRouter()
-  const { pending } = useFormStatus()
+  const { toast } = useToast()
+
   const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const form = useForm<z.infer<typeof apiTokenSchema>>({
+    resolver: zodResolver(apiTokenSchema),
+    defaultValues: {
+      name: "",
+    },
+  })
+
+  async function onSubmit(values: z.infer<typeof apiTokenSchema>) {
+    setLoading(true)
+
+    try {
+      await updateKey(userId, token.id, {
+        name: values.name,
+      })
+      router.refresh()
+    } catch (error) {
+      console.log(error)
+      return toast({
+        title: "Error",
+        description: "Cannot perform this actions",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+      setIsOpen(false)
+    }
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -51,35 +93,29 @@ export function DashboardApiKeyEdit({
             update it.
           </DialogDescription>
         </DialogHeader>
-        <form
-          className="space-y-4 py-4"
-          action={async (formData) => {
-            const apikey_name = formData.get("apikey-name") as string
-
-            try {
-              await updateKey(userId, token.id, {
-                name: apikey_name,
-              })
-              router.refresh()
-              setIsOpen(false)
-            } catch (error) {
-              console.log(error)
-            }
-          }}
-        >
-          <fieldset className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="apikey-name"
-                placeholder="Enter a name"
-                name="apikey-name"
-                autoComplete="apikey-name"
-                aria-label="API Key Name"
-                defaultValue={token.name as string}
-                required
-              />
-            </div>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 py-4"
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter a name for the API token"
+                      autoComplete="apikey-name"
+                      defaultValue={token.name as string}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <DialogFooter>
               <DialogClose
                 className={buttonVariants({
@@ -88,15 +124,15 @@ export function DashboardApiKeyEdit({
               >
                 Cancel
               </DialogClose>
-              <Button type="submit" disabled={pending}>
-                {pending && (
+              <Button type="submit" disabled={loading}>
+                {loading && (
                   <Icons.spinner className="mr-2 size-4 animate-spin" />
                 )}
                 Save
               </Button>
             </DialogFooter>
-          </fieldset>
-        </form>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   )

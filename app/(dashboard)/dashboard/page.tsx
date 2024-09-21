@@ -103,9 +103,12 @@ export default async function DashboardPage() {
             <Icons.key className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{keys.length}</div>
+            <div className="text-2xl font-bold">
+              {keys.filter((key) => !key.deletedAt).length}
+            </div>
             <p className="text-xs text-muted-foreground">
-              {keys.filter((key) => key.deletedAt).length} keys expired
+              {keys.filter((key) => key.deletedAt).length} keys expired or
+              deleted
             </p>
           </CardContent>
         </Card>

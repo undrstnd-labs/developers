@@ -2,8 +2,12 @@
 
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { APIToken, User } from "@prisma/client"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
+import { apiTokenSchema } from "@/config/validation"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { useToast } from "@/hooks/use-toast"
 
@@ -19,8 +23,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 import { createKey, getKeys } from "@/actions/key"
 
@@ -37,6 +48,42 @@ export function DashboardApiKeyCreate({
   const [token, setToken] = useState<APIToken | null>(null)
 
   const { copyToClipboard, isCopied } = useCopyToClipboard({ timeout: 2000 })
+
+  const form = useForm<z.infer<typeof apiTokenSchema>>({
+    resolver: zodResolver(apiTokenSchema),
+    defaultValues: {
+      name: "",
+    },
+  })
+
+  async function onSubmit(values: z.infer<typeof apiTokenSchema>) {
+    setLoading(true)
+    const keys = (await getKeys(user.id)).filter((key) => !key.deletedAt)
+
+    if (keys.length >= 3) {
+      setLoading(false)
+      return toast({
+        title: "API Key Limit",
+        description: "You have reached the maximum number of keys.",
+        variant: "destructive",
+      })
+    }
+
+    try {
+      const key = await createKey(user.id, values.name)
+      setToken(key)
+      router.refresh()
+    } catch (error) {
+      console.log(error)
+      return toast({
+        title: "Error",
+        description: "Cannot perform this actions",
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <Dialog>
@@ -79,54 +126,34 @@ export function DashboardApiKeyCreate({
             </div>
           </>
         ) : (
-          <form
-            className="space-y-4 py-4"
-            action={async (formData) => {
-              setLoading(true)
-
-              const keys = (await getKeys(user.id)).filter(
-                (key) => !key.deletedAt
-              )
-
-              if (keys.length >= 3) {
-                setLoading(false)
-                return toast({
-                  title: "API Key Limit",
-                  description: "You have reached the maximum number of keys.",
-                  variant: "destructive",
-                })
-              }
-
-              const apikey_name = formData.get("apikey-name") as string
-
-              try {
-                const key = await createKey(user.id, apikey_name)
-                setToken(key)
-                router.refresh()
-              } catch (error) {
-                console.log(error)
-              } finally {
-                setLoading(false)
-              }
-            }}
-          >
-            <fieldset className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="apikey-name"
-                  placeholder="Enter a name"
-                  name="apikey-name"
-                  autoComplete="apikey-name"
-                  aria-label="API Key Name"
-                  required
-                />
-              </div>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-4 py-4"
+            >
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter a name for the API token"
+                        autoComplete="apikey-name"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <DialogFooter>
                 <DialogClose
                   className={buttonVariants({
                     variant: "secondary",
                   })}
+                  disabled={loading}
                 >
                   Cancel
                 </DialogClose>
@@ -137,8 +164,8 @@ export function DashboardApiKeyCreate({
                   Continue
                 </Button>
               </DialogFooter>
-            </fieldset>
-          </form>
+            </form>
+          </Form>
         )}
       </DialogContent>
     </Dialog>
