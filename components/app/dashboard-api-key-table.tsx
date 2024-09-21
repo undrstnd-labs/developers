@@ -1,7 +1,7 @@
 import { APIToken } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
-
+import { SecretCopy } from "@/components/shared/secret-copy"
 import { DashboardApiKeyDelete } from "@/components/app/dashboard-api-key-delete"
 import { DashboardApiKeyEdit } from "@/components/app/dashboard-api-key-edit"
 import { Icons } from "@/components/shared/icons"
@@ -48,9 +48,7 @@ export function DashboardApiKeyTable({ tokens }: { tokens: APIToken[] }) {
               <TableRow key={token.id}>
                 <TableCell className="font-medium">{token.name}</TableCell>
                 <TableCell>
-                  <div className="flex w-fit items-center gap-2 rounded-md bg-muted px-2 font-mono">
-                    {token.id.slice(0, 4)}...{token.id.slice(-6)}
-                  </div>
+                  <SecretCopy secret={token.id} />
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
                   <Tooltip delayDuration={0}>

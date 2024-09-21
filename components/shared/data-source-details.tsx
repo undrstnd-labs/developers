@@ -4,6 +4,7 @@ import { getFileTypeIcon } from "@/data/file-icons"
 import { Resource } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
+import { SecretCopy } from "@/components/shared/secret-copy"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -48,9 +49,7 @@ export function DataSourceDetails({
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Token</span>
             <div className="flex items-center gap-2">
-              <code className="rounded-md bg-muted px-2 py-0.5 font-mono text-xs">
-                {resource.id}
-              </code>
+              <SecretCopy secret={resource.id} />
             </div>
           </div>
           <div className="flex items-center justify-between">
