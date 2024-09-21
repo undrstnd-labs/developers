@@ -1,10 +1,11 @@
 import { APIToken } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
-import { SecretCopy } from "@/components/shared/secret-copy"
+
 import { DashboardApiKeyDelete } from "@/components/app/dashboard-api-key-delete"
 import { DashboardApiKeyEdit } from "@/components/app/dashboard-api-key-edit"
 import { Icons } from "@/components/shared/icons"
+import { SecretCopy } from "@/components/shared/secret-copy"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,

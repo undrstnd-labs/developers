@@ -4,8 +4,8 @@ import { getFileTypeIcon } from "@/data/file-icons"
 import { Resource } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
-import { SecretCopy } from "@/components/shared/secret-copy"
 
+import { SecretCopy } from "@/components/shared/secret-copy"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,

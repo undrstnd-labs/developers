@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { User } from "@prisma/client"
+import { Resource, User } from "@prisma/client"
 import { DropzoneOptions } from "react-dropzone"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -14,6 +14,7 @@ import { uploadDataSource } from "@/lib/storage"
 import { generateDataSourceId } from "@/lib/utils"
 import { toast } from "@/hooks/use-toast"
 
+import { DataSourceDetails } from "@/components/shared/data-source-details"
 import { Icons } from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import {
@@ -90,13 +91,13 @@ const uploadFileSchema = z.object({
     }),
 })
 
-//TODO: After generating the resource open a Dialog for the datasource
 export function DashboardDataSourcesAdd({ user }: { user: User }) {
   const id = generateDataSourceId()
   const router = useRouter()
 
   const [progress, setProgress] = React.useState<number>(0)
   const [loading, setLoading] = React.useState<boolean>(false)
+  const [finish, setFinish] = React.useState<Resource>({} as Resource)
 
   const form = useForm<z.infer<typeof uploadFileSchema>>({
     resolver: zodResolver(uploadFileSchema),
@@ -141,7 +142,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
       setProgress(80)
 
       // TODO: Add usage here and remove from their fundings
-      await Promise.all([
+      const [_, resource] = await Promise.all([
         vectorizedDocument({
           props: {
             id,
@@ -169,6 +170,8 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
 
       await new Promise((resolve) => setTimeout(resolve, 500))
       form.reset({ files: [] })
+
+      setFinish(resource)
     } catch (error) {
       console.error(error)
       toast({
@@ -184,6 +187,17 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
       setLoading(false)
     }
   }
+
+  if (finish.id) {
+    return (
+      <DataSourceDetails
+        resource={finish}
+        isModalOpen={true}
+        handleModalClose={() => setFinish({} as Resource)}
+      />
+    )
+  }
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -196,6 +210,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
             Select a file to upload as your data source
           </DialogDescription>
         </DialogHeader>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
