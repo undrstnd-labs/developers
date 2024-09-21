@@ -26,7 +26,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-// TODO: Add empty state of no API keys
 export function DashboardApiKeyTable({ tokens }: { tokens: APIToken[] }) {
   return (
     <div className="flex flex-col gap-6">

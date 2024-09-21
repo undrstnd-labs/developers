@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 
 import { DashboardApiKeyCreate } from "@/components/app/dashboard-api-key-create"
 import { DashboardApiKeyTable } from "@/components/app/dashboard-api-key-table"
+import { EmptyPlaceholder } from "@/components/shared/empty-placeholder"
 
 import { getKeys } from "@/actions/key"
 import { getAuthedUser } from "@/actions/session"
@@ -32,7 +33,16 @@ export default async function APIKeysPage() {
           length={keys.filter((key) => !key.deletedAt).length}
         />
       </div>
-      <DashboardApiKeyTable tokens={keys.filter((key) => !key.deletedAt)} />
+      {keys.filter((key) => !key.deletedAt).length === 0 ? (
+        <EmptyPlaceholder
+          title="Create your first API key"
+          overview="API keys are used to authenticate and access the API. Create your first key to get started."
+        >
+          <DashboardApiKeyCreate user={user} length={0} />
+        </EmptyPlaceholder>
+      ) : (
+        <DashboardApiKeyTable tokens={keys.filter((key) => !key.deletedAt)} />
+      )}
     </>
   )
 }

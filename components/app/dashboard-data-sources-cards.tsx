@@ -8,7 +8,6 @@ import { DataSourceDetails } from "@/components/shared/data-source-details"
 import { Icons } from "@/components/shared/icons"
 import { Card, CardContent } from "@/components/ui/card"
 
-// TODO:; Add empty state of no data sources
 export function DashboardDataSourcesCards({
   resources,
 }: {

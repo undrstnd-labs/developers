@@ -68,6 +68,7 @@ import {
   ShieldIcon,
   ShieldQuestionIcon,
   ShoppingCartIcon,
+  SquarePlusIcon,
   StarIcon,
   SunMedium,
   TagIcon,
@@ -319,4 +320,5 @@ export const Icons = {
   attachement: PaperclipIcon,
   sheet: SheetIcon,
   json: FileJson,
+  plus: SquarePlusIcon,
 }

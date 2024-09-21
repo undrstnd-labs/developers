@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 
 import { DashboardDataSourcesAdd } from "@/components/app/dashboard-data-sources-add"
 import { DashboardDataSourcesCards } from "@/components/app/dashboard-data-sources-cards"
+import { EmptyPlaceholder } from "@/components/shared/empty-placeholder"
 
 import { getResources } from "@/actions/resource"
 import { getAuthedUser } from "@/actions/session"
@@ -30,7 +31,16 @@ export default async function DataSourcesPage() {
         <DashboardDataSourcesAdd user={user} />
       </div>
 
-      <DashboardDataSourcesCards resources={resources} />
+      {resources.filter((resource) => !resource.deletedAt).length === 0 ? (
+        <EmptyPlaceholder
+          title="Create your first data source"
+          overview="Data sources are used to access the API and integrate with your RAG applications. Create your first data source to get started."
+        >
+          <DashboardDataSourcesAdd user={user} />
+        </EmptyPlaceholder>
+      ) : (
+        <DashboardDataSourcesCards resources={resources} />
+      )}
     </>
   )
 }
