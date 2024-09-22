@@ -12,6 +12,22 @@ const routeContextSchema = z.object({
   }),
 })
 
+/**
+ * This function updates the verification token.
+ *
+ * @param context - The context object containing the email and url.
+ *
+ * @returns The updated verification token.
+ *
+ * ### Explanation:
+ * - The function takes the following parameter: `context`.
+ * - It updates the verification token with a new pass code and verification URL.
+ * - It returns the updated verification token.
+ *
+ * ### Types:
+ * - `context` is the context object containing the email and url.
+ * - The function returns the updated verification token.
+ */
 export async function updateVerificationToken(
   context: z.infer<typeof routeContextSchema>
 ) {
@@ -48,6 +64,22 @@ export async function updateVerificationToken(
   return verifiedToken.passCode
 }
 
+/**
+ * This function gets the verification token.
+ *
+ * @param form - The form object containing the email and pin.
+ *
+ * @returns The status and URL of the verification token.
+ *
+ * ### Explanation:
+ * - The function takes the following parameter: `form`.
+ * - It gets the verification token from the database.
+ * - It returns the status and URL of the verification token.
+ *
+ * ### Types:
+ * - `form` is the form object containing the email and pin.
+ * - The function returns the status and URL of the verification token.
+ */
 export async function getVerificationToken(
   form: z.infer<typeof authOTPCodeSchema>
 ) {

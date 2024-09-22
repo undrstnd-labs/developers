@@ -7,33 +7,41 @@ import { ChartDataType } from "types"
 import { db } from "@/lib/prisma"
 
 interface CreateRequestAPIProps {
-  request: any // Request sent to the API 'JSON'
-  response: string // Response from the API: 'string'
-  userId: string // User ID: 'string'
-  status: RequestStatus // Status of the request: 'RequestStatus'
-  parameters: any // Parameters sent to the API 'JSON'
-  endpoint: string // Endpoint of the API: 'string'
-  apiTokenId: string // API Token ID: 'string'
+  request: any
+  response: string
+  userId: string
+  status: RequestStatus
+  parameters: any
+  endpoint: string
+  apiTokenId: string
 }
 
 /**
- * This function creates a new API request entry in the database.
+ * This function creates a new request for an API, used when calling an API.
  *
- * @param response:
+ * @param request - The request sent to the API.
+ * @param response - The response from the API.
+ * @param parameters - The parameters sent to the API.
+ * @param endpoint - The endpoint of the API.
+ * @param userId - The unique identifier of the user.
+ * @param status - The status of the request.
+ * @param apiTokenId - The unique identifier of the API token.
  *
- * @returns A promise that resolves to the updated API key.
+ * @returns A promise that resolves to the newly created request.
  *
  * ### Explanation:
- * - The function takes three parameters: `userId` (a string), `tokenId` (a string), and `data` (an object).
- * - It updates the API key in the database with the specified fields.
+ * - The function takes the following parameters: `request`, `response`, `parameters`, `endpoint`, `userId`, `status`, and `apiTokenId`.
+ * - It creates a new request in the database with the specified fields.
+ * - It returns the newly created request.
  *
  * ### Types:
- * - `userId`: A string representing the unique identifier of the user.
- * - `tokenId`: A string representing the unique identifier of the API key.
- * - `data`: An object containing the fields to update; possible fields are `name`, `deletedAt`, and `verified`.
- *  -- `name`: A string representing the name of the API key.
- *  -- `deletedAt`: A date representing the deletion date of the API key.
- *  -- `verified`: A boolean indicating whether the API key is verified.
+ * - `request` is the request sent to the API, in JSON format.
+ * - `response` is the response from the API, in string format.
+ * - `parameters` are the parameters sent to the API, in JSON format.
+ * - `endpoint` is the endpoint of the API, in string format.
+ * - `userId` is the unique identifier of the user, in string format.
+ * - `status` is the status of the request, in RequestStatus format.
+ * - `apiTokenId` is the unique identifier of the API token, in string format.
  * - The function returns a promise that resolves to the updated API key.
  */
 export async function createRequestAPI({
@@ -68,6 +76,34 @@ interface CreateRequestActionProps {
   resourceTokenId: string
 }
 
+/**
+ * This function creates a new request for an action used when performing an action.
+ *
+ * @param response - The response from the action.
+ * @param request - The request sent to the action.
+ * @param parameters - The parameters sent to the action.
+ * @param action - The action performed.
+ * @param userId - The unique identifier of the user.
+ * @param status - The status of the request.
+ * @param resourceTokenId - The unique identifier of the resource token.
+ *
+ * @returns A promise that resolves to the newly created request.
+ *
+ * ### Explanation:
+ * - The function takes the following parameters: `response`, `request`, `parameters`, `action`, `userId`, `status`, and `resourceTokenId`.
+ * - It creates a new request in the database with the specified fields.
+ * - It returns the newly created request.
+ *
+ * ### Types:
+ * - `response` is the response from the action, in string format.
+ * - `request` is the request sent to the action, in JSON format.
+ * - `parameters` are the parameters sent to the action, in JSON format.
+ * - `action` is the action performed, in string format.
+ * - `userId` is the unique identifier of the user, in string format.
+ * - `status` is the status of the request, in RequestStatus format.
+ * - `resourceTokenId` is the unique identifier of the resource token, in string format.
+ * - The function returns a promise that resolves to the updated API key.
+ */
 export async function createRequestAction({
   response,
   request,
@@ -90,7 +126,27 @@ export async function createRequestAction({
   })
 }
 
-export async function updateRequestAPI({
+/**
+ * This function updates a request with the specified response and status.
+ *
+ * @param id - The unique identifier of the request.
+ * @param response - The response to update the request with.
+ * @param status - The status to update the request with.
+ *
+ * @returns A promise that resolves to the updated request.
+ *
+ * ### Explanation:
+ * - The function takes the following parameters: `id`, `response`, and `status`.
+ * - It updates the request in the database with the specified response and status.
+ * - It returns the updated request.
+ *
+ * ### Types:
+ * - `id` is the unique identifier of the request, in string format.
+ * - `response` is the response to update the request with, in string format.
+ * - `status` is the status to update the request with, in RequestStatus format.
+ * - The function returns a promise that resolves to the updated request.
+ */
+export async function updateRequest({
   id,
   response,
   status,
@@ -110,6 +166,26 @@ export async function updateRequestAPI({
   })
 }
 
+/**
+ * This function retrieves all requests made by a user within a specified date range.
+ *
+ * @param userId - The unique identifier of the user.
+ * @param startDate - The start date of the date range.
+ * @param endDate - The end date of the date range.
+ *
+ * @returns A promise that resolves to an array of requests made by the user within the specified date range.
+ *
+ * ### Explanation:
+ * - The function takes the following parameters: `userId`, `startDate`, and `endDate`.
+ * - It retrieves all requests made by the user within the specified date range from the database.
+ * - It returns an array of requests made by the user within the specified date range.
+ *
+ * ### Types:
+ * - `userId` is the unique identifier of the user, in string format.
+ * - `startDate` is the start date of the date range, in Date format.
+ * - `endDate` is the end date of the date range, in Date format.
+ * - The function returns a promise that resolves to an array of requests made by the user within the specified date range.
+ */
 export async function getRequests(
   userId: string,
   startDate: Date,
@@ -129,6 +205,27 @@ export async function getRequests(
   })
 }
 
+/**
+ * This function retrieves the chart data for the requests made by a user within a specified date range.
+ *
+ * @param requests - An array of requests made by the user.
+ * @param startDate - The start date of the date range.
+ * @param endDate - The end date of the date range.
+ *
+ * @returns An array of objects representing the chart data for the requests made by the user within the specified date range.
+ *
+ * ### Explanation:
+ * - The function takes the following parameters: `requests`, `startDate`, and `endDate`.
+ * - It maps the requests to daily requests based on the date of creation.
+ * - It calculates the number of successful and failed requests for each day within the specified date range.
+ * - It returns an array of objects representing the chart data for the requests made by the user within the specified date range.
+ *
+ * ### Types:
+ * - `requests` is an array of requests made by the user.
+ * - `startDate` is the start date of the date range, in Date format.
+ * - `endDate` is the end date of the date range, in Date format.
+ * - The function returns an array of objects representing the chart data for the requests made by the user within the specified date range.
+ */
 export async function getChartData(
   requests: Request[],
   startDate: Date,
