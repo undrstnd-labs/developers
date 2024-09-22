@@ -142,7 +142,7 @@ export function AuthUserEmail() {
             onClick={() => {
               setIsFacebookLoading(true)
               signIn("facebook", {
-                callbackUrl: `/`,
+                callbackUrl: `/dashboard`,
               })
             }}
           >
@@ -156,12 +156,11 @@ export function AuthUserEmail() {
 
           <button
             type="button"
-            //disabled={isLoading || isFacebookLoading || isGoogleLoading}
-            disabled
+            disabled={isLoading || isFacebookLoading || isGoogleLoading}
             className={cn(buttonVariants({ variant: "outline" }))}
             onClick={() => {
               setIsGoogleLoading(true)
-              signIn("google", { callbackUrl: "/" })
+              signIn("google", { callbackUrl: "/dashboard" })
             }}
           >
             {isGoogleLoading ? (
