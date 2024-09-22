@@ -18,6 +18,7 @@ export function generateMetadata() {
   }
 }
 
+// TODO: use promise.all
 export default async function DashboardPage() {
   const user = await getAuthedUser()
   if (!user) {

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { db } from "@/lib/prisma"
+import { getFunds } from "@/actions/funding"
 
 export function returnError({
   error,
@@ -29,11 +29,7 @@ export async function getFunding(
   modelId: string = "",
   shouldReturn: boolean = true
 ) {
-  const funding = await db.funding.findFirst({
-    where: {
-      userId: userId,
-    },
-  })
+  const funding = await getFunds(userId)
 
   if (!funding) {
     return (

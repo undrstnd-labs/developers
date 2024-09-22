@@ -26,6 +26,7 @@ import { Label } from "@/components/ui/label"
 
 import { isBanned, isRegisteredUser } from "@/actions/user"
 
+// TODO: add google auth
 export function AuthUserEmail() {
   const router = useRouter()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)

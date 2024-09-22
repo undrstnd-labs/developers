@@ -77,12 +77,12 @@ model User {
   type     UserType @default(DEVELOPER)
   image    String   @default("https://dev.undrstnd-labs.com/placeholder.svg")
 
+  fundings      Funding?
   verified      Boolean   @default(false)
   emailVerified DateTime? @map("email_verified")
 
   usages    Usage[]
   requests  Request[]
-  fundings  Funding[]
   accounts  Account[]
   sessions  Session[]
   apiTokens APIToken[]
@@ -134,11 +134,11 @@ model Funding {
   amount   Float
   currency String
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map(name: "fundings")
 }

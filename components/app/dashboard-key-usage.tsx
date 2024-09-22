@@ -32,6 +32,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
+// TODO: in each day u can see the total spent in 'eur'
 export function DashboardKeyUsage({
   chartData,
 }: {

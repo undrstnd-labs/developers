@@ -1,5 +1,7 @@
 "use server"
 
+import { Funding } from "@prisma/client"
+
 import { returnError } from "@/lib/api"
 import { db } from "@/lib/prisma"
 
@@ -23,11 +25,7 @@ import { db } from "@/lib/prisma"
  * - The function returns a promise that resolves to either the funding object or an error object.
  */
 export async function getFunding(userId: string, shouldReturn: boolean = true) {
-  const funding = await db.funding.findFirst({
-    where: {
-      userId: userId,
-    },
-  })
+  const funding = await getFunds(userId)
 
   if (!funding) {
     return (
@@ -98,11 +96,7 @@ export async function updateFunding(
   amount: number,
   shouldReturn: boolean = true
 ) {
-  const funding = await db.funding.findFirst({
-    where: {
-      userId: userId,
-    },
-  })
+  const funding = await getFunds(userId)
 
   if (!funding) {
     return (
@@ -135,6 +129,40 @@ export async function updateFunding(
     },
     data: {
       amount: funding.amount - amount,
+    },
+  })
+}
+
+/**
+ * This function creates a funding record for a user.
+ *
+ * @param userId - The unique identifier of the user.
+ * @param amount - The amount of funding to create.
+ * @param currency - The currency of the funding to create.
+ *
+ * @returns A promise that resolves to the created funding.
+ *
+ * ### Explanation:
+ * - The function takes three parameters: `userId` (a string), `amount` (a number) and `currency` (a string).
+ * - It creates a funding record in the database with the specified parameters.
+ * - It returns the created funding.
+ *
+ * ### Types:
+ * - `userId`: A string representing the unique identifier of the user.
+ * - `amount`: A number representing the amount of funding to create.
+ * - `currency`: A string representing the currency of the funding to create.
+ * - The function returns a promise that resolves to the created funding.
+ */
+export async function createFunding(
+  userId: string,
+  amount: number,
+  currency: string
+) {
+  return await db.funding.create({
+    data: {
+      userId,
+      amount,
+      currency,
     },
   })
 }

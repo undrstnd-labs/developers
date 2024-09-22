@@ -1,8 +1,7 @@
 import Link from "next/link"
 import { User } from "@prisma/client"
 
-import { signOut } from "@/lib/auth"
-
+import { SiteSignoutButton } from "@/components/layout/site-signout-button"
 import { ThemeSwitch } from "@/components/layout/theme-switch"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -14,11 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
-async function handleSignOut() {
-  "use server"
-  await signOut()
-}
 
 export function UserMenu({
   user,
@@ -44,11 +38,9 @@ export function UserMenu({
           <ThemeSwitch />
         </div>
         <DropdownMenuSeparator />
-        <form action={handleSignOut}>
-          <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/30 hover:text-destructive-foreground">
-            <button type="submit">Logout</button>
-          </DropdownMenuItem>
-        </form>
+        <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/30 hover:text-destructive-foreground">
+          <SiteSignoutButton />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -80,11 +72,9 @@ export function UserMenuIconDropdown({ user }: { user: User }) {
           <ThemeSwitch />
         </div>
         <DropdownMenuSeparator />
-        <form action={handleSignOut}>
-          <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/30 hover:text-destructive-foreground">
-            <button type="submit">Logout</button>
-          </DropdownMenuItem>
-        </form>
+        <DropdownMenuItem className="cursor-pointer text-destructive hover:bg-destructive/30 hover:text-destructive-foreground">
+          <SiteSignoutButton />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
