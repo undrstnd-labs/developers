@@ -1,7 +1,7 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
 import { PineconeStore } from "@langchain/pinecone"
-import { RequestStatus } from "@prisma/client"
+import { Funding, RequestStatus } from "@prisma/client"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
@@ -13,7 +13,7 @@ import { embeddingModel, undrstnd_client } from "@/lib/undrstnd"
 import { getModel } from "@/lib/utils"
 
 import { updateFunding } from "@/actions/funding"
-import { createRequest, updateRequest } from "@/actions/request"
+import { createRequestAPI, updateRequestAPI } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
 export const maxDuration = 60
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
   }
 
   const [usuageRequest, funding] = await Promise.all([
-    createRequest({
+    createRequestAPI({
       response: "PENDING: Request in progress.",
       status: RequestStatus.PENDING,
       request: JSON.stringify(body),
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
   ])
 
   if (!funding || funding.amount <= 0) {
-    await updateRequest({
+    await updateRequestAPI({
       id: usuageRequest.id,
       response: "ERROR: Insufficient balance.",
       status: RequestStatus.FAILED,
@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
           token_used,
           consumption
         ),
-        updateRequest({
+        updateRequestAPI({
           id: usuageRequest.id,
           response: result.text,
           status: RequestStatus.SUCCESS,
@@ -211,8 +211,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         output: result.text,
         funding: {
-          amount: funding?.amount.toString(),
-          currency: funding?.currency,
+          amount: (funding as Funding).amount.toString(),
+          currency: (funding as Funding).currency,
         },
         usage: {
           tokensUsed: usage.tokensUsed,
@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
         },
       })
     } catch (error) {
-      await updateRequest({
+      await updateRequestAPI({
         id: usuageRequest.id,
         response: "ERROR: Unable to generate text.",
         status: RequestStatus.FAILED,
@@ -247,14 +247,14 @@ export async function POST(request: NextRequest) {
           token_used,
           consumption
         ),
-        updateRequest({
+        updateRequestAPI({
           id: usuageRequest.id,
           response: await result.text,
           status: RequestStatus.SUCCESS,
         }),
       ])
     } catch (error) {
-      await updateRequest({
+      await updateRequestAPI({
         id: usuageRequest.id,
         response: "ERROR: Unable to generate text.",
         status: RequestStatus.FAILED,

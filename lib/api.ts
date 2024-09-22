@@ -24,7 +24,11 @@ export function returnError({
   )
 }
 
-export async function getFunding(userId: string, modelId: string) {
+export async function getFunding(
+  userId: string,
+  modelId: string = "",
+  shouldReturn: boolean = true
+) {
   const funding = await db.funding.findFirst({
     where: {
       userId: userId,
@@ -32,12 +36,15 @@ export async function getFunding(userId: string, modelId: string) {
   })
 
   if (!funding) {
-    return returnError({
-      error: "ERROR: Funding not found.",
-      status: 404,
-      userId: userId,
-      modelId,
-    })
+    return (
+      shouldReturn &&
+      returnError({
+        error: "ERROR: Funding not found.",
+        status: 404,
+        userId: userId,
+        modelId,
+      })
+    )
   }
 
   return funding

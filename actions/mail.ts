@@ -11,6 +11,26 @@ import { siteConfig } from "@/config/site"
 import { EmailMagicLink } from "@/components/app/email-magic-link"
 import { EmailNewUser } from "@/components/app/email-new-user"
 
+/**
+ * This function sends an email to a user.
+ *
+ * @param type - The type of email to send.
+ * @param body - The data to include in the email.
+ *
+ * @returns A promise that resolves to true if the email was sent successfully, or false if there was an error.
+ *
+ * ### Explanation:
+ * - The function takes two parameters: `type` (a `MailType` enum) and `body` (a `MagicLinkData` or `NewUserData` object).
+ * - It creates a nodemailer transporter using the SMTP server and credentials from the environment variables.
+ * - It generates the HTML content for the email based on the email type and data.
+ * - It sends the email using the nodemailer transporter.
+ * - It returns true if the email was sent successfully, or false if there was an error.
+ *
+ * ### Types:
+ * - `type`: A `MailType` enum representing the type of email to send.
+ * - `body`: A `MagicLinkData` or `NewUserData` object containing the data to include in the email.
+ * - The function returns a promise that resolves to a boolean value.
+ */
 export async function sendMail(
   type: MailType,
   body: MagicLinkData | NewUserData

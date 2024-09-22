@@ -1,6 +1,6 @@
 import { headers } from "next/headers"
 import { NextRequest, NextResponse } from "next/server"
-import { RequestStatus } from "@prisma/client"
+import { Funding, RequestStatus } from "@prisma/client"
 import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const [funding, usage] = await Promise.all([
-        updateFunding(api_token.userId, model.id, consumption),
+        updateFunding(api_token.userId, model.id, consumption, true),
         createUsage(
           api_token.userId,
           usuageRequest.id,
@@ -176,8 +176,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         output: result.text,
         funding: {
-          amount: funding?.amount.toString(),
-          currency: funding?.currency,
+          amount: (funding as Funding).amount.toString(),
+          currency: (funding as Funding).currency,
         },
         usage: {
           tokensUsed: usage.tokensUsed,

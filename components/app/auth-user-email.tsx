@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { signIn } from "next-auth/react"
@@ -23,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import { isBanned } from "@/actions/user"
+import { isBanned, isRegisteredUser } from "@/actions/user"
 
 export function AuthUserEmail() {
   const router = useRouter()
@@ -41,12 +42,24 @@ export function AuthUserEmail() {
 
   async function onSubmit(data: z.infer<typeof userAuthSchema>) {
     setIsLoading(true)
-    console.log(data)
+
+    const isUserExist = await isRegisteredUser(data.email)
+    if (!isUserExist) {
+      return toast({
+        title: "You haven't registered you're account",
+        variant: "destructive",
+        action: (
+          <Link href="/register" className={buttonVariants()}>
+            Register an account
+          </Link>
+        ),
+      })
+    }
 
     try {
       if (await isBanned(data.email)) {
         return toast({
-          title: "Votre compte a été banni",
+          title: "Your account is banned",
           variant: "destructive",
         })
       }
@@ -59,8 +72,8 @@ export function AuthUserEmail() {
 
       router.push("/otp-code/" + data.email.toLowerCase())
       return toast({
-        title: "Un code de vérification a été envoyé à votre adresse e-mail",
-        description: "Veuillez vérifier votre boîte de réception",
+        title: "Check your email",
+        description: "A magic link and OTP code have been sent",
       })
     } catch (error) {
       return toast({

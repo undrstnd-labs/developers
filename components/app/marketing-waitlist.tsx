@@ -28,6 +28,7 @@ function SubmitButton() {
   )
 }
 
+// TODO: Send an email to the user when they subscribe to the waitlist
 export function WaitlistForm() {
   const [isSubmitted, setSubmitted] = useState(false)
 

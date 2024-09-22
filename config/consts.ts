@@ -20,3 +20,8 @@ export const emails = [
     url: "https://emails.findmalek.com/preview/findplate/new-user",
   },
 ] satisfies Email[]
+
+export enum EndpointType {
+  PREDICT,
+  RAG,
+}

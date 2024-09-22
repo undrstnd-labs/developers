@@ -50,3 +50,13 @@ export async function updateUser(email: string, data: Partial<User>) {
     data,
   })
 }
+
+export async function isRegisteredUser(email: string) {
+  const user = await db.user.findFirst({
+    where: {
+      email,
+    },
+  })
+
+  return user?.username ? true : false
+}

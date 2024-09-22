@@ -45,7 +45,10 @@ import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 
 import { vectorizedDocument } from "@/actions/pinecone"
-import { createResource } from "@/actions/resource"
+import {
+  calculateResourceUsageUpload,
+  createResource,
+} from "@/actions/resource"
 
 function FileSvgDraw() {
   return (
@@ -91,9 +94,10 @@ const uploadFileSchema = z.object({
     }),
 })
 
+// TODO:: Add estimate cost after putting the file
 export function DashboardDataSourcesAdd({ user }: { user: User }) {
-  const id = generateDataSourceId()
   const router = useRouter()
+  const id = generateDataSourceId()
 
   const [progress, setProgress] = React.useState<number>(0)
   const [loading, setLoading] = React.useState<boolean>(false)
@@ -108,6 +112,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
     maxFiles: 1,
     maxSize: 25 * 1024 * 1024,
     accept: {
+      // TODO: Add more file types
       "application/pdf": [".pdf"],
     },
   } satisfies DropzoneOptions
@@ -130,8 +135,25 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
 
   async function onSubmit(data: z.infer<typeof uploadFileSchema>) {
     setLoading(true)
-    const progress = simulateUpload()
     const file = data.files[0]
+    const progress = simulateUpload()
+
+    console.log(file)
+    try {
+      await calculateResourceUsageUpload(id, user.id, file.size)
+    } catch (error) {
+      console.error(error)
+      toast({
+        title: "Error",
+        description: "Insufficient balance or error calculating resource usage",
+        variant: "destructive",
+      })
+
+      clearInterval(progress)
+      setProgress(0)
+      setLoading(false)
+      return
+    }
 
     try {
       const uploadedFile = await uploadDataSource({
@@ -141,7 +163,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
       })
       setProgress(80)
 
-      // TODO: Add usage here and remove from their fundings
+      // TODO: Add usage here and remove from their fundings: 1024 = 1 token used
       const [_, resource] = await Promise.all([
         vectorizedDocument({
           props: {

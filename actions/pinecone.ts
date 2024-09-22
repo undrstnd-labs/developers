@@ -18,6 +18,23 @@ interface VectorDocument {
   }
 }
 
+/**
+ * This function vectorizes a document and stores it in a Pinecone index.
+ *
+ * @param props - The properties of the document to vectorize. The properties include the document `id`, `type`, and `url`.
+ *
+ * ### Explanation:
+ * - The function takes a single parameter `props` which is an object containing the properties of the document to vectorize.
+ * - It creates a new Pinecone index using the `pinecone.Index` function.
+ * - It fetches the document from the specified URL and loads it using the appropriate loader based on the document type.
+ * - It vectorizes the document using the embedding model and stores it in the Pinecone index.
+ *
+ * ### Types:
+ * - `props`: An object containing the properties of the document to vectorize.
+ *
+ * ### TODO:
+ * - Add support for more document types.
+ */
 export async function vectorizedDocument({ props }: VectorDocument) {
   const { id, type, url } = props
 
