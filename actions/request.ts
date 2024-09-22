@@ -73,7 +73,6 @@ interface CreateRequestActionProps {
   action: string
   userId: string
   status: RequestStatus
-  resourceTokenId: string
 }
 
 /**
@@ -85,12 +84,11 @@ interface CreateRequestActionProps {
  * @param action - The action performed.
  * @param userId - The unique identifier of the user.
  * @param status - The status of the request.
- * @param resourceTokenId - The unique identifier of the resource token.
  *
  * @returns A promise that resolves to the newly created request.
  *
  * ### Explanation:
- * - The function takes the following parameters: `response`, `request`, `parameters`, `action`, `userId`, `status`, and `resourceTokenId`.
+ * - The function takes the following parameters: `response`, `request`, `parameters`, `action`, `userId` and `status`.
  * - It creates a new request in the database with the specified fields.
  * - It returns the newly created request.
  *
@@ -101,7 +99,6 @@ interface CreateRequestActionProps {
  * - `action` is the action performed, in string format.
  * - `userId` is the unique identifier of the user, in string format.
  * - `status` is the status of the request, in RequestStatus format.
- * - `resourceTokenId` is the unique identifier of the resource token, in string format.
  * - The function returns a promise that resolves to the updated API key.
  */
 export async function createRequestAction({
@@ -111,7 +108,6 @@ export async function createRequestAction({
   action,
   userId,
   status,
-  resourceTokenId,
 }: CreateRequestActionProps) {
   return await db.request.create({
     data: {
@@ -121,7 +117,6 @@ export async function createRequestAction({
       parameters,
       endpoint: action,
       userId,
-      resourceTokenId,
     },
   })
 }
@@ -132,11 +127,12 @@ export async function createRequestAction({
  * @param id - The unique identifier of the request.
  * @param response - The response to update the request with.
  * @param status - The status to update the request with.
+ * @param resourceTokenId - The unique identifier of the resource token.
  *
  * @returns A promise that resolves to the updated request.
  *
  * ### Explanation:
- * - The function takes the following parameters: `id`, `response`, and `status`.
+ * - The function takes the following parameters: `id`, `response`, `status` and `resourceTokenId`.
  * - It updates the request in the database with the specified response and status.
  * - It returns the updated request.
  *
@@ -144,16 +140,19 @@ export async function createRequestAction({
  * - `id` is the unique identifier of the request, in string format.
  * - `response` is the response to update the request with, in string format.
  * - `status` is the status to update the request with, in RequestStatus format.
+ * - `resourceTokenId` is the unique identifier of the resource token, in string format.
  * - The function returns a promise that resolves to the updated request.
  */
 export async function updateRequest({
   id,
   response,
   status,
+  resourceTokenId,
 }: {
   id: string
   response: string
   status: RequestStatus
+  resourceTokenId?: string
 }) {
   return await db.request.update({
     where: {
@@ -162,6 +161,7 @@ export async function updateRequest({
     data: {
       status,
       response,
+      resourceTokenId,
     },
   })
 }

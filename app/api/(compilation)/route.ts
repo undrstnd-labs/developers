@@ -11,7 +11,7 @@ import { undrstnd_client } from "@/lib/undrstnd"
 import { getModel } from "@/lib/utils"
 
 import { updateFunding } from "@/actions/funding"
-import { createRequest, updateRequest } from "@/actions/request"
+import { createRequestAPI, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
 export const maxDuration = 60
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
   }
 
   const [usuageRequest, funding] = await Promise.all([
-    createRequest({
+    createRequestAPI({
       response: "PENDING: Request in progress.",
       status: RequestStatus.PENDING,
       request: JSON.stringify(body),

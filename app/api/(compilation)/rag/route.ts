@@ -13,7 +13,7 @@ import { embeddingModel, undrstnd_client } from "@/lib/undrstnd"
 import { getModel } from "@/lib/utils"
 
 import { updateFunding } from "@/actions/funding"
-import { createRequestAPI, updateRequestAPI } from "@/actions/request"
+import { createRequestAPI, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
 export const maxDuration = 60
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
   ])
 
   if (!funding || funding.amount <= 0) {
-    await updateRequestAPI({
+    await updateRequest({
       id: usuageRequest.id,
       response: "ERROR: Insufficient balance.",
       status: RequestStatus.FAILED,
@@ -202,7 +202,7 @@ export async function POST(request: NextRequest) {
           token_used,
           consumption
         ),
-        updateRequestAPI({
+        updateRequest({
           id: usuageRequest.id,
           response: result.text,
           status: RequestStatus.SUCCESS,
@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
         },
       })
     } catch (error) {
-      await updateRequestAPI({
+      await updateRequest({
         id: usuageRequest.id,
         response: "ERROR: Unable to generate text.",
         status: RequestStatus.FAILED,
@@ -247,14 +247,14 @@ export async function POST(request: NextRequest) {
           token_used,
           consumption
         ),
-        updateRequestAPI({
+        updateRequest({
           id: usuageRequest.id,
           response: await result.text,
           status: RequestStatus.SUCCESS,
         }),
       ])
     } catch (error) {
-      await updateRequestAPI({
+      await updateRequest({
         id: usuageRequest.id,
         response: "ERROR: Unable to generate text.",
         status: RequestStatus.FAILED,

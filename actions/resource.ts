@@ -142,6 +142,9 @@ export async function createResource({
  * - `userId` is the unique identifier of the user, in string format.
  * - `size` is the size of the resource, in number format.
  * - The function does not return anything.
+ *
+ * ### TODO:
+ * - Edit `consumption` to be calculated based on the size of the resource.
  */
 export async function calculateResourceUsageUpload(
   id: string,
@@ -149,8 +152,9 @@ export async function calculateResourceUsageUpload(
   size: number
 ) {
   const FILE_SIZE = size
-  const TOKEN_SIZE = 1024 * 10000
-  const consumption = (FILE_SIZE / TOKEN_SIZE) * 1.5
+  const TOKEN_SIZE = 51_200_000
+  const TOKEN_USED = FILE_SIZE / TOKEN_SIZE
+  const consumption = TOKEN_USED * 1.5
 
   const [request, funding] = await Promise.all([
     createRequestAction({
@@ -163,7 +167,6 @@ export async function calculateResourceUsageUpload(
       action: "calculateResourceUsageUpload",
       userId,
       status: "PENDING",
-      resourceTokenId: id,
     }),
     getFunding(userId, false),
   ])
@@ -176,15 +179,14 @@ export async function calculateResourceUsageUpload(
     })
   }
 
-  const newAmount = funding.amount - consumption
-
   await Promise.all([
-    updateFunding(userId, "text-embedding-3-small", newAmount, false),
-    createUsage(userId, request.id, FILE_SIZE / TOKEN_SIZE, consumption),
+    updateFunding(userId, "text-embedding-3-small", consumption, false),
+    createUsage(userId, request.id, Math.ceil(FILE_SIZE / 1024), consumption),
     updateRequest({
       id: request.id,
       response: "SUCCESS: Resource uploaded.",
       status: "SUCCESS",
+      resourceTokenId: id,
     }),
   ])
 }

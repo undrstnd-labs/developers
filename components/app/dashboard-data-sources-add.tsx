@@ -138,7 +138,6 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
     const file = data.files[0]
     const progress = simulateUpload()
 
-    console.log(file)
     try {
       await calculateResourceUsageUpload(id, user.id, file.size)
     } catch (error) {
@@ -163,7 +162,6 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
       })
       setProgress(80)
 
-      // TODO: Add usage here and remove from their fundings: 1024 = 1 token used
       const [_, resource] = await Promise.all([
         vectorizedDocument({
           props: {

@@ -180,7 +180,7 @@ model Request {
   apiToken   APIToken? @relation(fields: [apiTokenId], references: [id], onDelete: Cascade)
 
   resourceTokenId String?
-  resourceToken   Resource? @relation(fields: [resourceTokenId], references: [id], onDelete: Cascade)
+  // REMOVED: resourceToken   Resource? @relation(fields: [resourceTokenId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @map(name: "updated_at")
@@ -211,14 +211,14 @@ model Resource {
   id String @id @default(cuid())
 
   name        String
-  description String
+  description String?
 
   size   Int
   handle String
   type   String
   url    String
 
-  request Request[]
+  //REMOVED: request Request[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
