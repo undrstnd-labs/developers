@@ -52,7 +52,7 @@ export async function sendMail(
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
         to: (body as MagicLinkData).email,
-        subject: `Votre Magic Link et OTP code ${siteConfig.name}`,
+        subject: `Your Magic Link and OTP code ${siteConfig.name}`,
         html,
       }
       break
@@ -64,7 +64,7 @@ export async function sendMail(
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
         to: (body as NewUserData).email,
-        subject: `Bienvenu to ${siteConfig.name}`,
+        subject: `Welcome to ${siteConfig.name}`,
         html,
       }
       break
