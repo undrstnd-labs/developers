@@ -2,8 +2,9 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth"
 import { Adapter } from "next-auth/adapters"
 import { JWT } from "next-auth/jwt"
-import EmailProvider from "next-auth/providers/email"
+import EmailProvider from "next-auth/providers/nodemailer"
 import GoogleProvider from "next-auth/providers/google"
+import GitHubProvider from "next-auth/providers/github";
 
 import { env } from "@/env.mjs"
 
@@ -23,7 +24,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   providers: [
-    //TODO: Upgrade 'EmailProvider' to 'providers/nodemailer'
     EmailProvider({
       from: env.FROM_EMAIL,
       server: {
@@ -57,6 +57,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
+    GitHubProvider({
+      clientId: env.GITHUB_CLIENT_ID,
+      clientSecret: env.GITHUB_CLIENT_SECRET,
     }),
   ],
   callbacks: {
