@@ -4,12 +4,19 @@ import { render } from "@react-email/render"
 import nodemailer from "nodemailer"
 
 import { env } from "@/env.mjs"
-import { MagicLinkData, MailOptions, MailType, NewUserData } from "@/types/mail"
+import {
+  MagicLinkData,
+  MailOptions,
+  MailType,
+  NewUserData,
+  WaitlistData,
+} from "@/types/mail"
 
 import { siteConfig } from "@/config/site"
 
 import { EmailMagicLink } from "@/components/app/email-magic-link"
 import { EmailNewUser } from "@/components/app/email-new-user"
+import { EmailWhitelist } from "@/components/app/email-whitelist"
 
 /**
  * This function sends an email to a user.
@@ -33,7 +40,7 @@ import { EmailNewUser } from "@/components/app/email-new-user"
  */
 export async function sendMail(
   type: MailType,
-  body: MagicLinkData | NewUserData
+  body: MagicLinkData | NewUserData | WaitlistData
 ) {
   const mailTransporter = nodemailer.createTransport({
     service: "gmail",
@@ -64,6 +71,16 @@ export async function sendMail(
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
         to: (body as NewUserData).email,
+        subject: `Welcome to ${siteConfig.name}`,
+        html,
+      }
+      break
+    }
+    case "whitelist": {
+      const html = render(EmailWhitelist())
+      mailOptions = {
+        from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
+        to: (body as WaitlistData).email,
         subject: `Welcome to ${siteConfig.name}`,
         html,
       }

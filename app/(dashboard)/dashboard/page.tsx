@@ -19,9 +19,9 @@ export function generateMetadata() {
 }
 
 export default async function DashboardPage() {
-  const user = await getAuthedUser();
+  const user = await getAuthedUser()
   if (!user) {
-    return redirect("/login");
+    return redirect("/login")
   }
 
   const [keys, funds, requestsMonth] = await Promise.all([
@@ -31,20 +31,20 @@ export default async function DashboardPage() {
       user.id,
       new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
       new Date()
-    )
-  ]);
+    ),
+  ])
 
   const requestsWeek = requestsMonth.filter(
     (request) =>
       new Date(request.createdAt) >
       new Date(Date.now() - 60 * 60 * 24 * 7 * 1000)
-  );
+  )
 
   const chartData = await getChartData(
     requestsMonth,
     new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
     new Date()
-  );
+  )
 
   return (
     <>

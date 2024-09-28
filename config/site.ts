@@ -7,7 +7,7 @@ export const siteConfig: SiteConfig = {
   images: {
     default: "https://dev.undrstnd-labs.com/og.png",
     notFound: "https://dev.undrstnd-labs.com/not-found.png",
-    logo: "https://emojicdn.elk.sh/⏩?style=twitter",
+    logo: "https://raw.githubusercontent.com/undrstnd-labs/developers/refs/heads/main/public/favicons/android-chrome-512x512.png",
   },
   links: {
     twitter: "https://twitter.com/foundmalek",
