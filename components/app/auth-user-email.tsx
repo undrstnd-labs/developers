@@ -24,6 +24,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+import { GithubSignIn } from "@/components/shared/github-sign-in"
+import { GoogleSignIn } from "@/components/shared/google-sign-in"
 import { isBanned, isRegisteredUser } from "@/actions/user"
 
 export function AuthUserEmail() {
@@ -133,42 +135,8 @@ export function AuthUserEmail() {
         </div>
 
         <div className="grid gap-2">
-          <button
-            type="button"
-            //disabled={isLoading || isFacebookLoading || isGoogleLoading}
-            disabled
-            className={cn(buttonVariants({ variant: "outline" }))}
-            onClick={() => {
-              setIsFacebookLoading(true)
-              signIn("facebook", {
-                callbackUrl: `/dashboard`,
-              })
-            }}
-          >
-            {isFacebookLoading ? (
-              <Icons.spinner className="mr-2 size-4 animate-spin" />
-            ) : (
-              <Icons.facebook className="mr-2 size-4" />
-            )}{" "}
-            Facebook
-          </button>
-
-          <button
-            type="button"
-            disabled={isLoading || isFacebookLoading || isGoogleLoading}
-            className={cn(buttonVariants({ variant: "outline" }))}
-            onClick={() => {
-              setIsGoogleLoading(true)
-              signIn("google", { callbackUrl: "/dashboard" })
-            }}
-          >
-            {isGoogleLoading ? (
-              <Icons.spinner className="mr-2 size-4 animate-spin" />
-            ) : (
-              <Icons.google className="mr-2 size-4" />
-            )}{" "}
-            Google
-          </button>
+          <GoogleSignIn type="login" />
+          <GithubSignIn type="login" />
         </div>
       </div>
     </Form>

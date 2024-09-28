@@ -6,14 +6,14 @@ import { AuthDetailsType } from "@/types/auth"
 import { Icons } from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 
-export function GoogleSignIn({ data }: { data: AuthDetailsType }) {
+export function GoogleSignIn({ data, type }: { data?: AuthDetailsType, type: "login" | "register" }) {
   const [isLoading, setLoading] = useState<boolean>(false)
 
   const handleSignIn = async () => {
     setLoading(true)
     signIn("google", {
       redirect: false,
-      callbackUrl: "/dashboard",
+      callbackUrl: type === "login" ? "/dashboard" : `/onboarding?name=${data?.name}&type=${data?.type}`,
     })
     setLoading(false)
   }
