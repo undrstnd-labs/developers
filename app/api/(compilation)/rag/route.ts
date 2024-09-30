@@ -178,7 +178,7 @@ export async function POST(request: NextRequest) {
     parseInt(similaritySearchLength) || 5
   )
 
-  const undrstnd = undrstnd_client(api_token.token)
+  const undrstnd = undrstnd_client(api_token.tokenGr)
   const undrstnd_data = {
     model: undrstnd(model.id),
     system: results.map((result) => result.pageContent).join("\n\n"),

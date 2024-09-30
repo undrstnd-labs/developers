@@ -51,7 +51,9 @@ export async function createKey(userId: string, name: string) {
   return await db.aPIToken.create({
     data: {
       userId: userId,
-      token: env.GROQ_API_KEY_DEFAULT,
+      tokenGr: env.GR_LPU_API_KEY_DEFAULT,
+      tokenCr: env.CR_INF_API_KEY_DEFAULT,
+      tokenSm: env.SM_RDU_API_KEY_DEFAULT,
       id: generateId(38),
       name: name,
     },

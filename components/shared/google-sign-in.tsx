@@ -21,7 +21,7 @@ export function GoogleSignIn({ data, type }: { data?: AuthDetailsType, type: "lo
   return (
     <Button
       onClick={handleSignIn}
-      className="flex h-[40px] w-full space-x-2 bg-primary px-6 py-4 font-medium text-secondary active:scale-[0.98]"
+      className="flex h-[40px] w-full space-x-2 bg-primary px-6 py-4 font-medium text-primary-foreground active:scale-[0.98]"
     >
       {isLoading ? (
         <Icons.spinner className="size-4 animate-spin" />

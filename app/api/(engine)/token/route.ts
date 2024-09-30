@@ -22,5 +22,5 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  return NextResponse.json({ token: api_token.token })
+  return NextResponse.json({ token: api_token.tokenGr })
 }
