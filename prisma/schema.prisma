@@ -71,11 +71,11 @@ model Session {
 model User {
   id String @id @default(cuid())
 
-  name String?
-  phone    String?  @unique
-  email    String   @unique
-  type     UserType @default(DEVELOPER)
-  image    String   @default("https://dev.undrstnd-labs.com/placeholder.svg")
+  name  String?
+  phone String?  @unique
+  email String   @unique
+  type  UserType @default(DEVELOPER)
+  image String   @default("https://dev.undrstnd-labs.com/placeholder.svg")
 
   fundings      Funding?
   verified      Boolean   @default(false)

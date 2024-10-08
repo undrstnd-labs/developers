@@ -65,9 +65,7 @@ export async function sendMail(
       break
     }
     case "new-user": {
-      const html = render(
-        EmailNewUser({ name: (body as NewUserData).name })
-      )
+      const html = render(EmailNewUser({ name: (body as NewUserData).name }))
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,
         to: (body as NewUserData).email,

@@ -20,8 +20,8 @@ export function EmailNewUser({ name }: { name: string }) {
     <Html>
       <Head />
       <Preview>
-        Welcome to {siteConfig.name} - {name} will be thrilled to have you
-        on board!
+        Welcome to {siteConfig.name} - {name} will be thrilled to have you on
+        board!
       </Preview>
       <Body style={main}>
         <Container style={container}>
