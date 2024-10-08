@@ -3,6 +3,7 @@ import Link from "next/link"
 import { models } from "@/data/models"
 
 import { Marquee } from "@/components/fancy/marquee"
+import { partnerships } from "@/data/partnerships"
 
 export function MarketingSocialProof() {
   const companies = models.filter(
@@ -13,7 +14,7 @@ export function MarketingSocialProof() {
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background md:shadow-xl">
       <Marquee pauseOnHover className="[--duration:20s]">
-        {companies.map((company) => (
+        {[...companies, ...partnerships].map((company) => (
           <Link
             href={company.href}
             key={company.label}

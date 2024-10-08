@@ -175,6 +175,42 @@ function OpenAi({ className }: { className?: string }) {
   )
 }
 
+function TIC({ className }: { className?: string }) {
+  return (
+    <Image
+      src="/social-proof/tunisian-it-community.jpg"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
+function GDG({ className }: { className?: string }) {
+  return (
+    <Image
+      src="/social-proof/google-developer-club.png"
+      alt="logo"
+      className={className}
+      width={64}
+      height={32}
+    />
+  )
+}
+
+function OpenSourceTunisia({ className }: { className?: string }) {
+  return (
+    <Image
+      src="/social-proof/open-source-tunisia.jpeg"
+      alt="logo"
+      className={className}
+      width={32}
+      height={32}
+    />
+  )
+}
+
 function Undrstnd(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -321,4 +357,7 @@ export const Icons = {
   sheet: SheetIcon,
   json: FileJson,
   plus: SquarePlusIcon,
+  tic: TIC,
+  gdg: GDG,
+  ost: OpenSourceTunisia,
 }

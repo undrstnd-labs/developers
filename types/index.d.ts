@@ -128,3 +128,10 @@ export type ChartDataType = {
   success: number
   failed: number
 }
+
+export type Partnership = {
+  company: string
+  label: string
+  href: string
+  image: Icon
+}
