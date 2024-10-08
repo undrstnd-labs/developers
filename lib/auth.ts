@@ -4,7 +4,7 @@ import { Adapter } from "next-auth/adapters"
 import { JWT } from "next-auth/jwt"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import EmailProvider from "next-auth/providers/nodemailer"
+import EmailProvider from "next-auth/providers/email"
 
 import { env } from "@/env.mjs"
 

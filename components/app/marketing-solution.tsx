@@ -59,8 +59,8 @@ const features = [
                     width={800}
                 />
                 <Safari
-                    src={`/data-source.png`}
-                    url="https://dev.undrstnd-labs.com/data-source"
+                    src={`/marketing/data-source.png`}
+                    url="https://dev.undrstnd-labs.com/dashboard"
                     className="-mb-48 ml-12 mt-16 h-full select-none px-4 drop-shadow-[0_0_28px_rgba(0,0,0,.1)] transition-all duration-300 group-hover:translate-x-[-10px]"
                 />
             </>
