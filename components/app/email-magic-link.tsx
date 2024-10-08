@@ -56,6 +56,9 @@ export function EmailMagicLink({ magicLink }: { magicLink: MagicLinkData }) {
           <Link href={siteConfig.url} style={reportLink}>
             {siteConfig.name}
           </Link>
+          <Text style={reportLink}>
+            Undrstnd Labs Inc, 5000 Monastir, Tunisia
+          </Text>
         </Container>
       </Body>
     </Html>

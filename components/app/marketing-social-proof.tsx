@@ -1,9 +1,9 @@
 import React from "react"
 import Link from "next/link"
 import { models } from "@/data/models"
+import { partnerships } from "@/data/partnerships"
 
 import { Marquee } from "@/components/fancy/marquee"
-import { partnerships } from "@/data/partnerships"
 
 export function MarketingSocialProof() {
   const companies = models.filter(

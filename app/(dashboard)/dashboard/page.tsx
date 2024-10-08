@@ -18,20 +18,21 @@ export function generateMetadata() {
   }
 }
 
-// TODO: use promise.all
 export default async function DashboardPage() {
   const user = await getAuthedUser()
   if (!user) {
     return redirect("/login")
   }
 
-  const keys = await getKeys(user.id)
-  const funds = await getFunds(user.id)
-  const requestsMonth = await getRequests(
-    user.id,
-    new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
-    new Date()
-  )
+  const [keys, funds, requestsMonth] = await Promise.all([
+    getKeys(user.id),
+    getFunds(user.id),
+    getRequests(
+      user.id,
+      new Date(Date.now() - 60 * 60 * 24 * 30 * 1000),
+      new Date()
+    ),
+  ])
 
   const requestsWeek = requestsMonth.filter(
     (request) =>

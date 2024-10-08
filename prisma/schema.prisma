@@ -144,8 +144,11 @@ model Funding {
 }
 
 model APIToken {
-  id    String @id @default(cuid())
-  token String
+  id String @id @default(cuid())
+
+  tokenGr String
+  tokenCr String
+  tokenSm String
 
   name     String?
   verified Boolean? @default(false)

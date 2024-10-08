@@ -5,6 +5,7 @@ import { useFormStatus } from "react-dom"
 
 import { Icons } from "@/components/shared/icons"
 
+import { sendMail } from "@/actions/mail"
 import { addWaitlist } from "@/actions/waitlist"
 
 function SubmitButton() {
@@ -57,11 +58,16 @@ export function WaitlistForm() {
             setSubmitted(true)
 
             const email = formData.get("email") as string
-            await addWaitlist(email)
+            await Promise.all([
+              addWaitlist(email),
+              sendMail("whitelist", {
+                email,
+              }),
+            ])
 
             setTimeout(() => {
               setSubmitted(false)
-            }, 5000)
+            }, 1000)
           }}
         >
           <fieldset className="relative z-50  min-w-[300px] max-w-full">
