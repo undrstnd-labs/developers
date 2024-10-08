@@ -26,6 +26,7 @@ import {
   CreditCardIcon,
   DatabaseIcon,
   DatabaseZapIcon,
+  DollarSignIcon,
   EllipsisIcon,
   ExternalLinkIcon,
   File,
@@ -360,4 +361,5 @@ export const Icons = {
   tic: TIC,
   gdg: GDG,
   ost: OpenSourceTunisia,
+  dollar: DollarSignIcon,
 }

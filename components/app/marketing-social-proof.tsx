@@ -12,7 +12,7 @@ export function MarketingSocialProof() {
   )
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background md:shadow-xl">
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background">
       <Marquee pauseOnHover className="[--duration:40s]">
         {[...companies, ...partnerships].map((company) => (
           <Link
