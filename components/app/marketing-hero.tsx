@@ -105,13 +105,15 @@ export function MarketingHero() {
                   duration: 0.8,
                 }}
               >
-                Scale your applications efficiently with our easy-to-use AI inference.
+                Scale your applications efficiently with our easy-to-use AI
+                inference.
                 <span className="hidden sm:inline">
-                  Our Large Language Models (LLMs) are <b>lightning-fast</b> and consume
-                  <b>significantly less energy</b>, providing you with unbeatable performance and sustainability.
+                  Our Large Language Models (LLMs) are <b>lightning-fast</b> and
+                  consume
+                  <b>significantly less energy</b>, providing you with
+                  unbeatable performance and sustainability.
                 </span>
               </FramerComponentWrapper>
-
             </div>
 
             <FramerComponentWrapper
@@ -144,7 +146,6 @@ export function MarketingHero() {
                 Learn Undrstnd
               </Link>
             </FramerComponentWrapper>
-
 
             <FramerComponentWrapper
               initial={{ opacity: 0, y: 20 }}

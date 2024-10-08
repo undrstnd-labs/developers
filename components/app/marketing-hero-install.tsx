@@ -2,6 +2,7 @@
 
 import React from "react"
 
+import { cn } from "@/lib/utils"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 
 import { Icons } from "@/components/shared/icons"
@@ -12,7 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
 
 export function MarketingHeroInstall() {
   const { isCopied, copyToClipboard } = useCopyToClipboard({})
@@ -20,9 +20,12 @@ export function MarketingHeroInstall() {
   return (
     <div className="group flex items-center justify-center space-x-3">
       <div className="group flex flex-col">
-        <p className={cn("font-mono leading-tight transition-opacity duration-300",
-          isCopied ? "text-primary" : "text-muted-foreground"
-        )}>
+        <p
+          className={cn(
+            "font-mono leading-tight transition-opacity duration-300",
+            isCopied ? "text-primary" : "text-muted-foreground"
+          )}
+        >
           $ ~ <span className="text-muted-foreground">npm</span> install
           @ai-sdk/openai
         </p>
