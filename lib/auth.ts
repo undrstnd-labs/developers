@@ -16,7 +16,7 @@ import { isBanned } from "@/actions/user"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db) as Adapter,
-  secret: env.NEXTAUTH_SECRET,
+  secret: env.AUTH_SECRET,
   session: {
     strategy: "jwt",
   },
