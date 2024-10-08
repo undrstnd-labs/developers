@@ -85,7 +85,7 @@ export function MarketingHero() {
                 className={cn(
                   "relative mx-0 max-w-full pt-5 md:mx-auto md:px-4 md:py-2",
                   "text-balance font-bold tracking-tighter",
-                  "text-5xl sm:text-7xl md:text-7xl lg:text-7xl"
+                  "text-4xl sm:text-7xl md:text-7xl lg:text-7xl"
                 )}
                 initial={{ filter: "blur(10px)", opacity: 0, y: 50 }}
                 animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
@@ -105,12 +105,13 @@ export function MarketingHero() {
                   duration: 0.8,
                 }}
               >
-                Scale your applications efficiently with our easy-to-use AI
-                inference. Our Large Language Models (LLMs) are{" "}
-                <b>lightning-fast</b> and consume{" "}
-                <b>significantly less energy</b>, providing you with unbeatable
-                performance and sustainability.
+                Scale your applications efficiently with our easy-to-use AI inference.
+                <span className="hidden sm:inline">
+                  Our Large Language Models (LLMs) are <b>lightning-fast</b> and consume
+                  <b>significantly less energy</b>, providing you with unbeatable performance and sustainability.
+                </span>
               </FramerComponentWrapper>
+
             </div>
 
             <FramerComponentWrapper
@@ -119,13 +120,13 @@ export function MarketingHero() {
               transition={{ delay: 0.8, duration: 0.8 }}
               className="mx-auto flex w-full max-w-full flex-col items-center justify-center gap-4 py-1 sm:max-w-xl sm:flex-row md:mx-auto"
             >
-              <Link href="/#cta">
+              <Link href="/#cta" className="w-full sm:w-auto">
                 <Button
                   variant="expandIcon"
                   Icon={Icons.chevronRight}
                   iconPlacement="right"
                   size="lg"
-                  className="w-full sm:w-auto"
+                  className="w-full"
                 >
                   Join our waitlist
                 </Button>

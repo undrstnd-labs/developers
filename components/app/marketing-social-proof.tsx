@@ -13,12 +13,12 @@ export function MarketingSocialProof() {
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-background md:shadow-xl">
-      <Marquee pauseOnHover className="[--duration:20s]">
+      <Marquee pauseOnHover className="[--duration:40s]">
         {[...companies, ...partnerships].map((company) => (
           <Link
             href={company.href}
             key={company.label}
-            className="flex items-center space-x-1 px-4"
+            className="flex items-center space-x-1 px-2 sm:px-4"
           >
             <company.image className="size-8" />
             <p className="text-lg font-semibold text-muted-foreground">
