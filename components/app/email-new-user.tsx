@@ -15,12 +15,12 @@ import {
 
 import { siteConfig } from "@/config/site"
 
-export function EmailNewUser({ username }: { username: string }) {
+export function EmailNewUser({ name }: { name: string }) {
   return (
     <Html>
       <Head />
       <Preview>
-        Welcome to {siteConfig.name} - {username} will be thrilled to have you
+        Welcome to {siteConfig.name} - {name} will be thrilled to have you
         on board!
       </Preview>
       <Body style={main}>
@@ -33,7 +33,7 @@ export function EmailNewUser({ username }: { username: string }) {
             style={logo}
           />
           <Text style={heading}>Welcome to {siteConfig.name}</Text>
-          <Text style={paragraph}>Hi {username},</Text>
+          <Text style={paragraph}>Hi {name},</Text>
           <Text style={paragraph}>
             Welcome to {siteConfig.name}! I&apos;m Ayoub, one of the founders.
           </Text>

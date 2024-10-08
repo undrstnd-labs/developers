@@ -19,7 +19,7 @@ export type MailOptions = {
 
 export type NewUserData = {
   email: string
-  username: string
+  name: string
 }
 
 export type Email = {

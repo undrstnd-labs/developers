@@ -66,7 +66,7 @@ export async function sendMail(
     }
     case "new-user": {
       const html = render(
-        EmailNewUser({ username: (body as NewUserData).username })
+        EmailNewUser({ name: (body as NewUserData).name })
       )
       mailOptions = {
         from: `${siteConfig.name} <${env.FROM_EMAIL}>`,

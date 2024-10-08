@@ -63,7 +63,7 @@ export default async function DashboardLayout({
               <Button variant="secondary" size="icon" className="rounded-full">
                 <Image
                   src={(user as User).image}
-                  alt={(user as User).username!}
+                  alt={(user as User).name!}
                   width={36}
                   height={36}
                   className="rounded-full"

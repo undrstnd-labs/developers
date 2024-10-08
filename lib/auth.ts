@@ -73,7 +73,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       if (token && dbUser) {
         session.user.id = dbUser.id
-        session.user.username = dbUser.username
+        session.user.name = dbUser.name
         session.user.verified = dbUser.verified
         session.user.email = dbUser.email
         session.user.image = dbUser.image
@@ -94,7 +94,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return {
             id: dbUser.id,
 
-            username: dbUser.username,
+            name: dbUser.name,
             image: dbUser.image,
             email: dbUser.email,
             phone: dbUser.phone,

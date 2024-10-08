@@ -22,7 +22,7 @@ export default async function OnboardingPage({
 
   if (searchParams?.name || searchParams?.type) {
     await updateUser(user.email, {
-      username: searchParams.name as string,
+      name: searchParams.name as string,
       type: (searchParams.type as UserType) || UserType.DEVELOPER,
       verified: true,
       image: `https://avatar.vercel.sh/${searchParams.name}.svg?text=${searchParams.name![0].toUpperCase()}`,

@@ -132,5 +132,5 @@ export async function isRegisteredUser(email: string) {
     },
   })
 
-  return user?.username ? true : false
+  return user?.name ? true : false
 }
