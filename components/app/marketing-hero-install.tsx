@@ -12,32 +12,31 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
-// TODO: Copy SDK
 export function MarketingHeroInstall() {
   const { isCopied, copyToClipboard } = useCopyToClipboard({})
 
   return (
     <div className="group flex items-center justify-center space-x-3">
       <div className="group flex flex-col">
-        <p className="font-mono leading-tight transition-opacity duration-300 group-hover:hidden group-hover:opacity-0">
+        <p className={cn("font-mono leading-tight transition-opacity duration-300",
+          isCopied ? "text-primary" : "text-muted-foreground"
+        )}>
           $ ~ <span className="text-muted-foreground">npm</span> install
-          @undrstnd/ai-engine
-        </p>
-        <p className="hidden leading-tight text-destructive opacity-0 transition-opacity duration-300 group-hover:inline group-hover:opacity-100">
-          Our SDK is currently under development. Stay tuned for updates!
+          @ai-sdk/openai
         </p>
       </div>
 
-      {/*   <DropdownMenu>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            size="small-icon"
+            size="icon"
             className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           >
             {isCopied ? (
-              <Icons.check className="text-primary size-4" />
+              <Icons.check className="size-4 text-primary" />
             ) : (
               <Icons.copy className="size-4" />
             )}
@@ -45,27 +44,27 @@ export function MarketingHeroInstall() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-[180px]">
           <DropdownMenuItem
-            onClick={() => copyToClipboard("npm install @undrstnd/ai-engine")}
+            onClick={() => copyToClipboard("npm install @ai-sdk/openai")}
           >
             npm
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => copyToClipboard("yarn add @undrstnd/ai-engine")}
+            onClick={() => copyToClipboard("yarn add @ai-sdk/openai")}
           >
             yarn
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => copyToClipboard("pnpm install @undrstnd/ai-engine")}
+            onClick={() => copyToClipboard("pnpm install @ai-sdk/openai")}
           >
             pnpm
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() => copyToClipboard("bun install @undrstnd/ai-engine")}
+            onClick={() => copyToClipboard("bun install @ai-sdk/openai")}
           >
             bun
           </DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu> */}
+      </DropdownMenu>
     </div>
   )
 }

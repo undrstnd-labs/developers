@@ -144,7 +144,16 @@ export function MarketingHero() {
                 Learn Undrstnd
               </Link>
             </FramerComponentWrapper>
-            <MarketingHeroInstall />
+
+
+            <FramerComponentWrapper
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="mx-auto flex w-full max-w-full flex-col items-center justify-center gap-4 py-1 sm:max-w-xl sm:flex-row md:mx-auto"
+            >
+              <MarketingHeroInstall />
+            </FramerComponentWrapper>
           </div>
         </div>
       </div>
