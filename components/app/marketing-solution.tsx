@@ -3,9 +3,10 @@
 import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
+import { Combobox } from "@/components/ui/combobox"
 
 import { FlickeringGrid } from "@/components/fancy/flickering-grid"
-import { Ripple } from "@/components/fancy/ripple"
+import { models } from "@/data/models"
 import { Safari } from "@/components/fancy/safari"
 import { Section } from "@/components/ui/section"
 
@@ -73,14 +74,16 @@ const features = [
         className:
             "flex-row md:col-span-2 md:flex-row xl:order-none hover:bg-purple-500/10 transition-all duration-500 ease-out",
         content: (
-            <>
-                <Ripple className="absolute -bottom-full" />
-                <Safari
-                    src={`/llm-options.png`}
-                    url="https://dev.undrstnd-labs.com/models"
-                    className="-mb-32 mt-4 max-h-64 w-full select-none px-4 drop-shadow-[0_0_28px_rgba(0,0,0,.1)] transition-all duration-300 group-hover:translate-y-[-10px]"
+            <div className="flex h-3/5 items-center justify-center">
+                <Combobox
+                    frameworks={models.map((model) => ({
+                        label: model.value,
+                        value: model.label,
+                        icon: model.image,
+                    }))}
+                    className="mt-4"
                 />
-            </>
+            </div>
         ),
     },
 ]
@@ -126,3 +129,4 @@ export function MarketingSolution() {
         </Section>
     )
 }
+

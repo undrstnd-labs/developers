@@ -32,8 +32,8 @@ export function Combobox({
     value: string
     icon: (typeof Icons)[keyof typeof Icons]
   }>
-  value: string
-  onChange: (value: string) => void
+  value?: string
+  onChange?: (value: string) => void
   className?: string
 }) {
   const [open, setOpen] = React.useState(false)
@@ -70,7 +70,7 @@ export function Combobox({
                   key={framework.value}
                   value={framework.value}
                   onSelect={(currentValue) => {
-                    onChange(currentValue)
+                    onChange?.(currentValue)
                     setOpen(false)
                   }}
                 >
