@@ -43,22 +43,6 @@ export const metadata: Metadata = {
     },
   ],
   creator: "findmalek",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [{ url: siteConfig.images.default, alt: siteConfig.name }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.images.default],
-    creator: "@findmalek",
-  },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicons/favicon-16x16.png",
