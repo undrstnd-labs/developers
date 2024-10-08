@@ -1,5 +1,8 @@
 import React from "react"
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+
+import { constructMetadata } from "@/lib/utils"
 
 import { DashboardApiKeyCreate } from "@/components/app/dashboard-api-key-create"
 import { DashboardApiKeyTable } from "@/components/app/dashboard-api-key-table"
@@ -8,13 +11,11 @@ import { EmptyPlaceholder } from "@/components/shared/empty-placeholder"
 import { getKeys } from "@/actions/key"
 import { getAuthedUser } from "@/actions/session"
 
-export function generateMetadata() {
-  return {
-    title: "API Keys",
-    description:
-      "Manage your API keys to access the API and integrate with your applications.",
-  }
-}
+export const metadata: Metadata = constructMetadata({
+  title: "API Keys",
+  description:
+    "Manage your API keys to access the API and integrate with your applications.",
+})
 
 export default async function APIKeysPage() {
   const user = await getAuthedUser()

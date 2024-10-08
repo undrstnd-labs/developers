@@ -1,5 +1,8 @@
 import React from "react"
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+
+import { constructMetadata } from "@/lib/utils"
 
 import { DashboardDataSourcesAdd } from "@/components/app/dashboard-data-sources-add"
 import { DashboardDataSourcesCards } from "@/components/app/dashboard-data-sources-cards"
@@ -8,13 +11,11 @@ import { EmptyPlaceholder } from "@/components/shared/empty-placeholder"
 import { getResources } from "@/actions/resource"
 import { getAuthedUser } from "@/actions/session"
 
-export function generateMetadata() {
-  return {
-    title: "Data Sources",
-    description:
-      "Manage your data sources to access the API and integrate with your RAG applications.",
-  }
-}
+export const metadata: Metadata = constructMetadata({
+  title: "Data Sources",
+  description:
+    "Manage your data sources to access the API and integrate with your RAG applications.",
+})
 
 export default async function DataSourcesPage() {
   const user = await getAuthedUser()

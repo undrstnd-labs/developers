@@ -1,5 +1,8 @@
 import React from "react"
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+
+import { constructMetadata } from "@/lib/utils"
 
 import { DashboardKeyUsage } from "@/components/app/dashboard-key-usage"
 import { Icons } from "@/components/shared/icons"
@@ -10,13 +13,11 @@ import { getKeys } from "@/actions/key"
 import { getChartData, getRequests } from "@/actions/request"
 import { getAuthedUser } from "@/actions/session"
 
-export function generateMetadata() {
-  return {
-    title: "Overview",
-    description:
-      "View an overview of your account, including funds, API keys, and usage.",
-  }
-}
+export const metadata: Metadata = constructMetadata({
+  title: "Overview",
+  description:
+    "View an overview of your account, including funds, API keys, and usage.",
+})
 
 export default async function DashboardPage() {
   const user = await getAuthedUser()
