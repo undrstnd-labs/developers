@@ -1,9 +1,17 @@
+import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { UserType } from "@prisma/client"
+
+import { constructMetadata } from "@/lib/utils"
 
 import { createFunding, getFunds } from "@/actions/funding"
 import { getAuthedUser } from "@/actions/session"
 import { updateUser } from "@/actions/user"
+
+export const metadata: Metadata = constructMetadata({
+  title: `Profile onboarding`,
+  description: `Onboarding page for the user profile`,
+})
 
 export default async function OnboardingPage({
   searchParams,

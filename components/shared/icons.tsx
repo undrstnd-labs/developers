@@ -217,6 +217,8 @@ function Undrstnd(props: React.SVGProps<SVGSVGElement>) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 205.86 204.91"
+      width={64}
+      height={64}
       {...props}
     >
       <rect
@@ -236,16 +238,6 @@ function Undrstnd(props: React.SVGProps<SVGSVGElement>) {
         strokeMiterlimit="10"
         strokeWidth="12"
       />
-      <text
-        transform="translate(43.76 97.27) rotate(45) scale(.86 1)"
-        fill="#fff"
-        fontFamily="MyriadPro-Regular, 'Myriad Pro'"
-        fontSize="164.35"
-      >
-        <tspan x="0" y="0">
-          U
-        </tspan>
-      </text>
       <path
         d="m100.09,25.63h45.78v91.46c0,12.63-10.26,22.89-22.89,22.89h0c-12.63,0-22.89-10.26-22.89-22.89V25.63h0Z"
         transform="translate(94.57 -62.71) rotate(45)"

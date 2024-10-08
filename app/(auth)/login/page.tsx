@@ -1,7 +1,8 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
-import { cn } from "@/lib/utils"
+import { cn, constructMetadata } from "@/lib/utils"
 
 import { AuthUserEmail } from "@/components/app/auth-user-email"
 import { Icons } from "@/components/shared/icons"
@@ -9,13 +10,11 @@ import { buttonVariants } from "@/components/ui/button"
 
 import { getAuthedUser } from "@/actions/session"
 
-export function generateMetadata() {
-  return {
-    title: "Login to your account",
-    description:
-      "Login to your account to access all the features and functionality.",
-  }
-}
+export const metadata: Metadata = constructMetadata({
+  title: "Login to your account",
+  description:
+    "Login to your account to access all the features and functionality.",
+})
 
 export default async function LoginPage() {
   const user = await getAuthedUser()

@@ -1,8 +1,9 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { cn, constructMetadata } from "@/lib/utils"
 
 import { AuthRegister } from "@/components/app/auth-register"
 import { Icons } from "@/components/shared/icons"
@@ -10,12 +11,10 @@ import { buttonVariants } from "@/components/ui/button"
 
 import { getAuthedUser } from "@/actions/session"
 
-export function generateMetadata() {
-  return {
-    title: `Create an account`,
-    description: `Create an account on ${siteConfig.name} to get started.`,
-  }
-}
+export const metadata: Metadata = constructMetadata({
+  title: `Create an account`,
+  description: `Create an account on ${siteConfig.name} to get started.`,
+})
 
 export default async function RegisterPage() {
   const user = await getAuthedUser()
