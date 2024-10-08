@@ -12,6 +12,8 @@ import { authUserEmailSchema as userAuthSchema } from "@/config/validation"
 import { cn } from "@/lib/utils"
 import { toast } from "@/hooks/use-toast"
 
+import { GithubSignIn } from "@/components/shared/github-sign-in"
+import { GoogleSignIn } from "@/components/shared/google-sign-in"
 import { Icons } from "@/components/shared/icons"
 import { buttonVariants } from "@/components/ui/button"
 import {
@@ -24,8 +26,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import { GithubSignIn } from "@/components/shared/github-sign-in"
-import { GoogleSignIn } from "@/components/shared/google-sign-in"
 import { isBanned, isRegisteredUser } from "@/actions/user"
 
 export function AuthUserEmail() {

@@ -2,9 +2,9 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth from "next-auth"
 import { Adapter } from "next-auth/adapters"
 import { JWT } from "next-auth/jwt"
-import EmailProvider from "next-auth/providers/nodemailer"
+import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import GitHubProvider from "next-auth/providers/github";
+import EmailProvider from "next-auth/providers/nodemailer"
 
 import { env } from "@/env.mjs"
 

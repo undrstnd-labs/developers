@@ -83,12 +83,8 @@ const config = {
       },
       keyframes: {
         shine: {
-          from: {
-            backgroundPosition: "0 0",
-          },
-          to: {
-            backgroundPosition: "-200% 0",
-          },
+          from: { backgroundPosition: "200% 0" },
+          to: { backgroundPosition: "-200% 0" },
         },
         "accordion-down": {
           from: {
@@ -204,7 +200,7 @@ const config = {
         slide: "slide var(--speed) ease-in-out infinite alternate",
         grid: "grid 15s linear infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
-        shine: "shine 2s linear infinite",
+        shine: "shine 8s ease-in-out infinite",
         marquee: "marquee var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
         meteor: "meteor 5s linear infinite",

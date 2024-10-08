@@ -6,14 +6,23 @@ import { AuthDetailsType } from "@/types/auth"
 import { Icons } from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 
-export function GithubSignIn({ data, type }: { data?: AuthDetailsType, type: "login" | "register" }) {
+export function GithubSignIn({
+  data,
+  type,
+}: {
+  data?: AuthDetailsType
+  type: "login" | "register"
+}) {
   const [isLoading, setLoading] = useState<boolean>(false)
 
   const handleSignIn = async () => {
     setLoading(true)
     signIn("github", {
       redirect: false,
-      callbackUrl: type === "login" ? "/dashboard" : `/onboarding?name=${data?.name}&type=${data?.type}`,
+      callbackUrl:
+        type === "login"
+          ? "/dashboard"
+          : `/onboarding?name=${data?.name}&type=${data?.type}`,
     })
     setLoading(false)
   }
