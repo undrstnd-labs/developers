@@ -10,22 +10,18 @@ async function getStream() {
       "x-api-key": "udsk_demo-api-key-x-00000",
     },
     body: JSON.stringify({
-      stream: false,
-      modelId: "mixtral-8x7b-32768",
-      datasourceToken: "udds_kj82oqy6bo",
-      similaritySearchLength: "1",
-      messages: [
+      "stream": false,
+      "modelId": "llama3-8b-8192",
+      "system": "Your name is Undrstnd and you are very helpful",
+      "datasourceToken": "udds_6fq0ck6cbbk",
+      "similaritySearchLength": "1",
+      "messages": [
         {
-          name: "system",
-          content: "Hello, how can I help you?",
-          role: "system",
-        },
-        {
-          name: "user",
-          content: "What is the unit of Calcium",
-          role: "user",
-        },
-      ],
+          "name": "user",
+          "content": "Which site and sub-site is/are involved?",
+          "role": "user"
+        }
+      ]
     }),
   })
 
