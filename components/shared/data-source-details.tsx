@@ -1,11 +1,13 @@
 "use client"
+
 import React, { useState } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { getFileTypeIcon } from "@/data/file-icons"
 import { Resource } from "@prisma/client"
 
 import { formatDate } from "@/lib/utils"
+import { toast } from "@/hooks/use-toast"
 
 import { Icons } from "@/components/shared/icons"
 import { SecretCopy } from "@/components/shared/secret-copy"
@@ -20,8 +22,8 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { editResource } from "@/actions/resource"
-import { toast } from "@/hooks/use-toast"
+
+import { deleteResource, editResource } from "@/actions/resource"
 
 interface DataSourceDetailsProps {
   resource: Resource | null
@@ -40,7 +42,9 @@ export function DataSourceDetails({
 
   const [loading, setLoading] = useState<boolean>(false)
   const [deleteConfirmation, setDeleteConfirmation] = useState("")
-  const [editedResource, setEditedResource] = useState<Partial<Resource>>({} as Resource)
+  const [editedResource, setEditedResource] = useState<Partial<Resource>>(
+    {} as Resource
+  )
 
   React.useEffect(() => {
     if (action === "edit" && resource) {
@@ -53,10 +57,11 @@ export function DataSourceDetails({
 
   async function handleEdit() {
     setLoading(true)
-    if (!resource) return toast({
-      title: "Resource not found",
-      variant: "destructive",
-    })
+    if (!resource)
+      return toast({
+        title: "Resource not found",
+        variant: "destructive",
+      })
 
     try {
       await editResource(resource.id, resource.userId, editedResource)
@@ -79,15 +84,20 @@ export function DataSourceDetails({
     setLoading(true)
     if (deleteConfirmation === resource?.name) {
       try {
-        // ...
+        await deleteResource(resource.id, resource.userId)
+        toast({
+          title: "Resource deleted successfully",
+        })
+        handleModalClose()
+        router.refresh()
       } catch (error) {
-        // ...
+        return toast({
+          title: "Failed to delete resource",
+          variant: "destructive",
+        })
       } finally {
         setLoading(false)
       }
-
-      console.log("Deleting resource:", resource)
-      handleModalClose()
     }
   }
 
@@ -193,7 +203,9 @@ export function DataSourceDetails({
               </Button>
 
               <Button disabled={loading} onClick={handleEdit}>
-                {loading && <Icons.spinner className="mr-2 size-4 animate-spin" />}
+                {loading && (
+                  <Icons.spinner className="mr-2 size-4 animate-spin" />
+                )}
                 Save Changes
               </Button>
             </>
@@ -213,7 +225,9 @@ export function DataSourceDetails({
                 onClick={handleDelete}
                 disabled={loading || deleteConfirmation !== resource.name}
               >
-                {loading && <Icons.spinner className="mr-2 size-4 animate-spin" />}
+                {loading && (
+                  <Icons.spinner className="mr-2 size-4 animate-spin" />
+                )}
                 Delete
               </Button>
             </>

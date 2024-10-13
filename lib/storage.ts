@@ -20,3 +20,34 @@ export async function uploadDataSource({
 
   return data
 }
+
+interface DeleteDataSourceProps {
+  fileId: string
+  userId: string
+}
+
+export async function deleteDataSource({
+  fileId,
+  userId,
+}: DeleteDataSourceProps) {
+  const { data: files } = await supabase.storage
+    .from("data-sources")
+    .list(`${userId}`)
+
+  if (!files) {
+    throw new Error("Files not found")
+  }
+
+  const file = files?.find((file) => file.name.includes(fileId))
+
+  if (!file) {
+    throw new Error("File not found")
+  }
+
+  const { error } = await supabase.storage
+    .from("data-sources")
+    .remove([`${userId}/${file.name}`])
+  if (error) {
+    throw error
+  }
+}

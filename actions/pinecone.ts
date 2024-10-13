@@ -64,3 +64,24 @@ export async function vectorizedDocument({ props }: VectorDocument) {
     namespace: id,
   })
 }
+
+/**
+ * This function deletes a document in pinecone for a user.
+ *
+ * @param namespace - The unique identifier of the document in the Pinecone index.
+ *
+ * @returns A promise that resolves to the deleted resource.
+ *
+ * ### Explanation:
+ * - The function takes the following parameter: `namespace`.
+ * - It deletes the document from the Pinecone index.
+ * - It returns the deleted resource.
+ *
+ * ### Types:
+ * - `namespace` is the unique identifier of the document in the Pinecone index, in string format.
+ * - The function returns a promise that resolves to the deleted resource.
+ */
+export async function deleteDocument(namespace: string) {
+  const pineconeIndex = pinecone.Index("developers")
+  await pineconeIndex.namespace(namespace).deleteAll()
+}

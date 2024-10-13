@@ -3,8 +3,10 @@
 import { Resource } from "@prisma/client"
 
 import { db } from "@/lib/prisma"
+import { deleteDataSource } from "@/lib/storage"
 
 import { getFunds, updateFunding } from "@/actions/funding"
+import { deleteDocument } from "@/actions/pinecone"
 import { createRequestAction, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
@@ -225,4 +227,32 @@ export async function editResource(
     },
     data,
   })
+}
+
+/**
+ * This function deletes a resource for a user.
+ *
+ * @param id - The unique identifier of the resource.
+ * @param userId - The unique identifier of the user.
+ *
+ * @returns A promise that resolves to the deleted resource.
+ *
+ * ### Explanation:
+ * - The function takes the following parameters: `id` and `userId`.
+ * - It deletes the resource for the user in the database.
+ * - It returns the deleted resource.
+ *
+ * ### Types:
+ * - `id` is the unique identifier of the resource, in string format.
+ * - `userId` is the unique identifier of the user, in string format.
+ * - The function returns a promise that resolves to the deleted resource.
+ */
+export async function deleteResource(id: string, userId: string) {
+  const [resource] = await Promise.all([
+    editResource(id, userId, { deletedAt: new Date() }),
+    deleteDataSource({ fileId: id, userId }),
+    deleteDocument(id),
+  ])
+
+  return resource
 }
