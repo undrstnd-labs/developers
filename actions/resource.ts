@@ -1,5 +1,7 @@
 "use server"
 
+import { Resource } from "@prisma/client"
+
 import { db } from "@/lib/prisma"
 
 import { getFunds, updateFunding } from "@/actions/funding"
@@ -189,4 +191,38 @@ export async function calculateResourceUsageUpload(
       resourceTokenId: id,
     }),
   ])
+}
+
+/**
+ * This function edits a resource for a user.
+ *
+ * @param id - The unique identifier of the resource.
+ * @param userId - The unique identifier of the user.
+ * @param data - The data to update the resource.
+ *
+ * @returns A promise that resolves to the updated resource.
+ *
+ * ### Explanation:
+ * - The function takes the following parameters: `id`, `userId`, and `data`.
+ * - It updates the resource for the user in the database.
+ * - It returns the updated resource.
+ *
+ * ### Types:
+ * - `id` is the unique identifier of the resource, in string format.
+ * - `userId` is the unique identifier of the user, in string format.
+ * - `data` is the data to update the resource, in Partial format.
+ * - The function returns a promise that resolves to the updated resource.
+ */
+export async function editResource(
+  id: string,
+  userId: string,
+  data: Partial<Resource>
+) {
+  return await db.resource.update({
+    where: {
+      id,
+      userId,
+    },
+    data,
+  })
 }

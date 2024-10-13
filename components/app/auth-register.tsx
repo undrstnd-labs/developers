@@ -88,7 +88,7 @@ export function AuthRegister() {
                   >
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <Label className="relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all duration-300 hover:bg-secondary [&:has(:checked)]:border-primary">
+                        <Label className="duration-time relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all hover:bg-secondary [&:has(:checked)]:border-primary">
                           <RadioGroupItem
                             value={UserType.DEVELOPER}
                             className="peer sr-only"
@@ -111,7 +111,7 @@ export function AuthRegister() {
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
-                        <Label className="relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all duration-300 hover:bg-secondary [&:has(:checked)]:border-primary">
+                        <Label className="duration-time relative flex w-full cursor-pointer flex-col justify-center rounded-lg border p-6 transition-all hover:bg-secondary [&:has(:checked)]:border-primary">
                           <RadioGroupItem
                             value={UserType.ORGANIZATION}
                             className="peer sr-only"

@@ -89,15 +89,15 @@ export function HeroVideoDialog({
           alt={thumbnailAlt}
           width={1920}
           height={1080}
-          className="rounded-md border transition-all duration-200 ease-out group-hover:brightness-[0.8]"
+          className="duration-time rounded-md border transition-all ease-out group-hover:brightness-[0.8]"
         />
-        <div className="absolute inset-0 flex scale-[0.9] items-center justify-center rounded-2xl transition-all duration-200 ease-out group-hover:scale-100">
+        <div className="duration-time absolute inset-0 flex scale-[0.9] items-center justify-center rounded-2xl transition-all ease-out group-hover:scale-100">
           <div className="z-30 flex size-28 items-center justify-center rounded-full bg-primary/10 backdrop-blur-md">
             <div
-              className={`relative flex size-20 scale-100 items-center justify-center rounded-full bg-gradient-to-b from-primary/30 to-primary shadow-md transition-all duration-200 ease-out group-hover:scale-[1.2]`}
+              className={`duration-time relative flex size-20 scale-100 items-center justify-center rounded-full bg-gradient-to-b from-primary/30 to-primary shadow-md transition-all ease-out group-hover:scale-[1.2]`}
             >
               <Play
-                className="size-8 scale-100 fill-white text-white transition-transform duration-200 ease-out group-hover:scale-105"
+                className="duration-time size-8 scale-100 fill-white text-white transition-transform ease-out group-hover:scale-105"
                 style={{
                   filter:
                     "drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06))",

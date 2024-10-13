@@ -10,7 +10,7 @@ export function SecretCopy({ secret }: { secret: string }) {
   const { copyToClipboard, isCopied } = useCopyToClipboard({ timeout: 2000 })
 
   return (
-    <div className="w-fit flex-1 cursor-pointer truncate rounded-md bg-muted transition-colors duration-200 hover:text-primary-foreground/50">
+    <div className="duration-time w-fit flex-1 cursor-pointer truncate rounded-md bg-muted transition-colors hover:text-primary-foreground/50">
       <div
         className="flex items-center space-x-2"
         onClick={() => {

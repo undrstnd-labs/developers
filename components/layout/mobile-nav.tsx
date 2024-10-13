@@ -84,10 +84,10 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                     key={index}
                     className="transition-color group flex min-w-full items-center justify-between rounded-md bg-background p-2 py-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline"
                   >
-                    <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
+                    <span className="group-hover:duration-time text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all">
                       {item.name}
                     </span>
-                    <item.icon className="size-5 group-hover:text-primary group-hover:transition-all group-hover:duration-300" />
+                    <item.icon className="group-hover:duration-time size-5 group-hover:text-primary group-hover:transition-all" />
                   </Link>
                 ))}
                 <form action={handleSignOut}>
@@ -95,10 +95,10 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                     type="submit"
                     className="transition-color group flex min-w-full items-center justify-between rounded-md bg-background p-2 py-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline"
                   >
-                    <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
+                    <span className="group-hover:duration-time text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all">
                       Déconnexion
                     </span>
-                    <Icons.lock className="size-5 group-hover:text-primary group-hover:transition-all group-hover:duration-300" />
+                    <Icons.lock className="group-hover:duration-time size-5 group-hover:text-primary group-hover:transition-all" />
                   </Button>
                 </form>
                 <Separator className="my-3" />
@@ -145,8 +145,8 @@ export function MobileNav({ user }: { user: User | Boolean }) {
                             className="transition-color group flex min-w-full items-center justify-between space-x-2 rounded-md bg-background p-4 text-base font-semibold text-muted-foreground hover:bg-muted hover:no-underline"
                           >
                             <div className="flex items-center space-x-2">
-                              <link.icon className="size-5 group-hover:text-primary group-hover:transition-all group-hover:duration-300" />
-                              <span className="text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all group-hover:duration-300">
+                              <link.icon className="group-hover:duration-time size-5 group-hover:text-primary group-hover:transition-all" />
+                              <span className="group-hover:duration-time text-muted-foreground group-hover:text-secondary-foreground group-hover:transition-all">
                                 {link.name}
                               </span>
                             </div>
@@ -188,7 +188,7 @@ export function MobileNav({ user }: { user: User | Boolean }) {
             <div className="mt-3 flow-root space-y-6 px-2">
               <Separator className="my-5" />
               <div className="flex items-center justify-between">
-                <span className="transition-color text-base font-semibold text-muted-foreground duration-300 hover:text-secondary-foreground">
+                <span className="transition-color duration-time text-base font-semibold text-muted-foreground hover:text-secondary-foreground">
                   Theme
                 </span>
                 <ThemeSwitch />

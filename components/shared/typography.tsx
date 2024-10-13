@@ -67,7 +67,7 @@ export function TypographyAnchor({
     <Link
       href={href}
       target={target}
-      className="relative inline-flex flex-1 justify-center gap-1 leading-4 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 after:bg-secondary-foreground after:text-secondary-foreground after:transition-transform after:duration-300 after:ease-in-out hover:font-medium hover:after:origin-bottom-left hover:after:scale-x-100"
+      className="after:duration-time relative inline-flex flex-1 justify-center gap-1 leading-4 after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-bottom-right after:scale-x-0 after:bg-secondary-foreground after:text-secondary-foreground after:transition-transform after:ease-in-out hover:font-medium hover:after:origin-bottom-left hover:after:scale-x-100"
     >
       <span>{children}</span>
       <svg

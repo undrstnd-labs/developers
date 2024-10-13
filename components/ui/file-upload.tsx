@@ -313,7 +313,7 @@ export const FileUploaderItem = forwardRef<
         onClick={() => removeFileFromSet(index)}
       >
         <span className="sr-only">remove item {index}</span>
-        <RemoveIcon className="size-4 duration-200 ease-in-out hover:stroke-destructive" />
+        <RemoveIcon className="duration-time size-4 ease-in-out hover:stroke-destructive" />
       </button>
     </div>
   )
@@ -337,7 +337,7 @@ export const FileInput = forwardRef<
     >
       <div
         className={cn(
-          `w-full rounded-lg duration-300 ease-in-out
+          `duration-time w-full rounded-lg ease-in-out
          ${
            dropzoneState.isDragAccept
              ? "border-green-500"

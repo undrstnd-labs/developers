@@ -17,14 +17,14 @@ const features = [
     title: "Fast AI Inference",
     description:
       "Experience incredibly fast AI inference times, up to 20x faster than GPT-4o and other leading models.",
-    className: "hover:bg-yellow-500/10 transition-all duration-500 ease-out",
+    className: "hover:bg-yellow-500/10 transition-all duration-time ease-out",
     content: <MarketingSolutionChart />,
   },
   {
     title: "Affordable Pricing",
     description:
       "Our cost-effective AI services are designed to be up to 70x cheaper than traditional providers like OpenAI.",
-    className: "hover:bg-green-500/10 transition-all duration-500 ease-out",
+    className: "hover:bg-green-500/10 transition-all duration-time ease-out",
     content: (
       <div className="flex h-3/5 items-center justify-center">
         <div className="text-7xl font-semibold text-primary">
@@ -44,7 +44,7 @@ const features = [
     description:
       "Upload your own datasets and train models in under a minute with our easy-to-use Data Source feature.",
     className:
-      "md:row-span-2 hover:bg-blue-500/10 transition-all duration-500 ease-out",
+      "md:row-span-2 hover:bg-blue-500/10 transition-all duration-time ease-out",
     content: (
       <>
         <FlickeringGrid
@@ -60,7 +60,7 @@ const features = [
         <Safari
           src={`/marketing/data-source.png`}
           url="https://dev.undrstnd-labs.com/dashboard"
-          className="-mb-48 ml-12 mt-16 h-full select-none px-4 drop-shadow-[0_0_28px_rgba(0,0,0,.1)] transition-all duration-300 group-hover:translate-x-[-10px]"
+          className="duration-time -mb-48 ml-12 mt-16 h-full select-none px-4 drop-shadow-[0_0_28px_rgba(0,0,0,.1)] transition-all group-hover:translate-x-[-10px]"
         />
       </>
     ),
@@ -70,7 +70,7 @@ const features = [
     description:
       "Choose from a variety of open-source LLMs to fit your specific needs, all backed by powerful, flexible APIs.",
     className:
-      "flex-row md:col-span-2 md:flex-row xl:order-none hover:bg-purple-500/10 transition-all duration-500 ease-out",
+      "flex-row md:col-span-2 md:flex-row xl:order-none hover:bg-purple-500/10 transition-all duration-time ease-out",
     content: (
       <div className="flex h-3/5 items-center justify-center">
         <Combobox

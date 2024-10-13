@@ -214,6 +214,7 @@ export function DashboardDataSourcesAdd({ user }: { user: User }) {
         resource={finish}
         isModalOpen={true}
         handleModalClose={() => setFinish({} as Resource)}
+        action={null}
       />
     )
   }

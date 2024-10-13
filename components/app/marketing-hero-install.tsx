@@ -22,7 +22,7 @@ export function MarketingHeroInstall() {
       <div className="group flex flex-col">
         <p
           className={cn(
-            "font-mono leading-tight transition-opacity duration-300",
+            "duration-time font-mono leading-tight transition-opacity",
             isCopied ? "text-primary" : "text-muted-foreground"
           )}
         >
@@ -36,7 +36,7 @@ export function MarketingHeroInstall() {
           <Button
             variant="ghost"
             size="icon"
-            className="opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            className="duration-time opacity-0 transition-opacity group-hover:opacity-100"
           >
             {isCopied ? (
               <Icons.check className="size-4 text-primary" />

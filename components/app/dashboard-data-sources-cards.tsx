@@ -1,12 +1,19 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { getFileTypeIcon } from "@/data/file-icons"
 import { Resource } from "@prisma/client"
 
 import { DataSourceDetails } from "@/components/shared/data-source-details"
 import { Icons } from "@/components/shared/icons"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function DashboardDataSourcesCards({
   resources,
@@ -14,17 +21,33 @@ export function DashboardDataSourcesCards({
   resources: Resource[]
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedDataSource, setSelectedDataSource] = useState<Resource>(
-    {} as Resource
+  const [action, setAction] = useState<"view" | "edit" | "delete" | null>(null)
+  const [selectedDataSource, setSelectedDataSource] = useState<Resource | null>(
+    null
   )
 
   const handleCardClick = (dataSource: Resource) => {
     setSelectedDataSource(dataSource)
+    setAction("view")
     setIsModalOpen(true)
   }
 
   const handleModalClose = () => {
     setIsModalOpen(false)
+    setSelectedDataSource(null)
+    setAction(null)
+  }
+
+  const handleEdit = (dataSource: Resource) => {
+    setSelectedDataSource(dataSource)
+    setAction("edit")
+    setIsModalOpen(true)
+  }
+
+  const handleDelete = (dataSource: Resource) => {
+    setSelectedDataSource(dataSource)
+    setAction("delete")
+    setIsModalOpen(true)
   }
 
   return (
@@ -33,20 +56,41 @@ export function DashboardDataSourcesCards({
         {resources.map((dataSource) => (
           <Card
             key={dataSource.name}
-            onClick={() => handleCardClick(dataSource)}
-            className="cursor-pointer transition-colors hover:bg-muted"
+            className="duration-time relative transition-colors hover:bg-secondary"
           >
-            <CardContent className="mt-4 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                {getFileTypeIcon(dataSource.type)}
-                <div>
-                  <div className="font-medium">{dataSource.name}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {dataSource.description}
+            <CardContent className="p-4">
+              <div className="flex items-start justify-between">
+                <div
+                  className="flex cursor-pointer items-center gap-4"
+                  onClick={() => handleCardClick(dataSource)}
+                >
+                  {getFileTypeIcon(dataSource.type)}
+                  <div>
+                    <div className="font-medium">{dataSource.name}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {dataSource.description}
+                    </div>
                   </div>
                 </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="size-8 p-0">
+                      <Icons.more className="size-4" />
+                      <span className="sr-only">Open menu</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => handleEdit(dataSource)}>
+                      <Icons.edit className="mr-2 size-4" />
+                      <span>Edit</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDelete(dataSource)}>
+                      <Icons.trash className="mr-2 size-4" />
+                      <span>Delete</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
-              <Icons.chevronRight className="size-5 text-muted-foreground" />
             </CardContent>
           </Card>
         ))}
@@ -56,6 +100,7 @@ export function DashboardDataSourcesCards({
         resource={selectedDataSource}
         isModalOpen={isModalOpen}
         handleModalClose={handleModalClose}
+        action={action}
       />
     </>
   )
