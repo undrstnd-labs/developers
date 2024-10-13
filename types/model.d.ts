@@ -20,3 +20,10 @@ export type Message = {
   content: string
   role: "system" | "user" | "assistant" | "tool"
 }
+
+export type ErrorResponse = {
+  status: number
+  req_token: string
+  modelId?: string
+  message?: string
+}

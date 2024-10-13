@@ -5,12 +5,12 @@ import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
 import { models } from "@/config/models"
-import { getFunding, returnError } from "@/lib/api"
+import { getErrorResponse } from "@/lib/api"
 import { db } from "@/lib/prisma"
 import { undrstnd_client } from "@/lib/undrstnd"
 import { getModel } from "@/lib/utils"
 
-import { updateFunding } from "@/actions/funding"
+import { getFunds, updateFunding } from "@/actions/funding"
 import { createRequestAPI, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
@@ -78,10 +78,11 @@ export async function POST(request: NextRequest) {
   try {
     bodySchema.parse(body)
   } catch (error) {
-    console.log(error.issues)
-    return returnError({
-      error: error.issues[0],
+    return getErrorResponse({
       status: 400,
+      req_token,
+      modelId,
+      message: `The parameter '${error.issues[0].path[0]}' could be missing or invalid.`,
     })
   }
 
@@ -93,20 +94,20 @@ export async function POST(request: NextRequest) {
   })
 
   if (!api_token) {
-    return returnError({
-      error: "ERROR: Invalid API token.",
+    return getErrorResponse({
       status: 401,
+      req_token,
       modelId,
     })
   }
 
   const model = getModel(modelId)
   if (!model) {
-    return returnError({
-      error: "ERROR: Invalid model or model is offline.",
+    return getErrorResponse({
       status: 400,
-      userId: api_token.userId,
+      req_token,
       modelId,
+      message: "Invalid model or model is offline.",
     })
   }
 
@@ -124,7 +125,7 @@ export async function POST(request: NextRequest) {
       userId: api_token.userId,
       apiTokenId: api_token.id,
     }),
-    getFunding(api_token.userId, model.id),
+    getFunds(api_token.userId),
   ])
 
   if (!funding || funding.amount <= 0) {
@@ -134,16 +135,14 @@ export async function POST(request: NextRequest) {
       status: RequestStatus.FAILED,
     })
 
-    return returnError({
-      error: "ERROR: Insufficient balance.",
-      status: 400,
-      userId: api_token.userId,
+    return getErrorResponse({
+      status: 402,
+      req_token,
       modelId,
     })
   }
 
   const undrstnd = undrstnd_client(api_token.tokenGr)
-
   const undrstnd_data = {
     model: undrstnd(model.id),
     system,
@@ -160,7 +159,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const [funding, usage] = await Promise.all([
-        updateFunding(api_token.userId, model.id, consumption, true),
+        updateFunding(api_token.userId, consumption),
         createUsage(
           api_token.userId,
           usuageRequest.id,
@@ -191,9 +190,9 @@ export async function POST(request: NextRequest) {
         status: RequestStatus.FAILED,
       })
 
-      return returnError({
-        error: "ERROR: Unable to generate text.",
+      return getErrorResponse({
         status: 500,
+        req_token,
         modelId,
       })
     }
@@ -205,7 +204,7 @@ export async function POST(request: NextRequest) {
 
     try {
       await Promise.all([
-        updateFunding(api_token.userId, model.id, consumption),
+        updateFunding(api_token.userId, consumption),
         createUsage(
           api_token.userId,
           usuageRequest.id,
@@ -225,9 +224,9 @@ export async function POST(request: NextRequest) {
         status: RequestStatus.FAILED,
       })
 
-      return returnError({
-        error: "ERROR: Unable to generate text.",
+      return getErrorResponse({
         status: 500,
+        req_token,
         modelId,
       })
     }

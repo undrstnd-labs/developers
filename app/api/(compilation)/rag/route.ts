@@ -6,13 +6,14 @@ import { convertToCoreMessages, generateText, streamText } from "ai"
 import * as z from "zod"
 
 import { models } from "@/config/models"
-import { getFunding, returnError } from "@/lib/api"
+import { siteConfig } from "@/config/site"
+import { getErrorResponse } from "@/lib/api"
 import { pinecone } from "@/lib/pinecone"
 import { db } from "@/lib/prisma"
 import { embeddingModel, undrstnd_client } from "@/lib/undrstnd"
 import { getModel } from "@/lib/utils"
 
-import { updateFunding } from "@/actions/funding"
+import { getFunds, updateFunding } from "@/actions/funding"
 import { createRequestAPI, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
@@ -88,10 +89,11 @@ export async function POST(request: NextRequest) {
   try {
     bodySchema.parse(body)
   } catch (error) {
-    console.log(error.issues)
-    return returnError({
-      error: error.issues[0],
+    return getErrorResponse({
       status: 400,
+      req_token,
+      modelId,
+      message: `The parameter '${error.issues[0].path[0]}' could be missing or invalid.`,
     })
   }
 
@@ -101,11 +103,10 @@ export async function POST(request: NextRequest) {
       deletedAt: null,
     },
   })
-
   if (!api_token) {
-    return returnError({
-      error: "ERROR: Invalid API token.",
+    return getErrorResponse({
       status: 401,
+      req_token,
       modelId,
     })
   }
@@ -113,25 +114,25 @@ export async function POST(request: NextRequest) {
   const datasource = await db.resource.findFirst({
     where: {
       id: datasourceToken,
-      userId: api_token.userId,
+      // userId: api_token.userId, TODO: Remove because it only show datasource for specific users
     },
   })
-
   if (!datasource) {
-    return returnError({
-      error: "ERROR: Invalid datasource token.",
+    return getErrorResponse({
       status: 400,
+      req_token,
       modelId,
+      message: `Invalid datasource token, please go to the ${siteConfig.url}/dashboard/data-sources.`,
     })
   }
 
   const model = getModel(modelId)
   if (!model) {
-    return returnError({
-      error: "ERROR: Invalid model or model is offline.",
+    return getErrorResponse({
       status: 400,
-      userId: api_token.userId,
+      req_token,
       modelId,
+      message: "Invalid model or model is offline.",
     })
   }
 
@@ -149,7 +150,7 @@ export async function POST(request: NextRequest) {
       userId: api_token.userId,
       apiTokenId: api_token.id,
     }),
-    getFunding(api_token.userId, model.id),
+    getFunds(api_token.userId),
   ])
 
   if (!funding || funding.amount <= 0) {
@@ -159,10 +160,9 @@ export async function POST(request: NextRequest) {
       status: RequestStatus.FAILED,
     })
 
-    return returnError({
-      error: "ERROR: Insufficient balance.",
-      status: 400,
-      userId: api_token.userId,
+    return getErrorResponse({
+      status: 402,
+      req_token,
       modelId,
     })
   }
@@ -195,7 +195,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const [funding, usage] = await Promise.all([
-        updateFunding(api_token.userId, model.id, consumption),
+        updateFunding(api_token.userId, consumption),
         createUsage(
           api_token.userId,
           usuageRequest.id,
@@ -226,9 +226,9 @@ export async function POST(request: NextRequest) {
         status: RequestStatus.FAILED,
       })
 
-      return returnError({
-        error: "ERROR: Unable to generate text.",
+      return getErrorResponse({
         status: 500,
+        req_token,
         modelId,
       })
     }
@@ -240,7 +240,7 @@ export async function POST(request: NextRequest) {
 
     try {
       await Promise.all([
-        updateFunding(api_token.userId, model.id, consumption),
+        updateFunding(api_token.userId, consumption),
         createUsage(
           api_token.userId,
           usuageRequest.id,
@@ -260,19 +260,13 @@ export async function POST(request: NextRequest) {
         status: RequestStatus.FAILED,
       })
 
-      return returnError({
-        error: "ERROR: Unable to generate text.",
+      return getErrorResponse({
         status: 500,
+        req_token,
         modelId,
       })
     }
 
     return result.toDataStreamResponse()
   }
-
-  return returnError({
-    error: "ERROR: Invalid stream parameter.",
-    status: 400,
-    modelId,
-  })
 }

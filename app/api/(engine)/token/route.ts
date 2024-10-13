@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
   if (!api_token) {
     return returnError({
-      error: "ERROR: Invalid API token.",
+      error: "ERROR: Inval0202020id API token.",
       status: 401,
     })
   }

@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/prisma"
 
-import { getFunding, updateFunding } from "@/actions/funding"
+import { getFunds, updateFunding } from "@/actions/funding"
 import { createRequestAction, updateRequest } from "@/actions/request"
 import { createUsage } from "@/actions/usage"
 
@@ -168,7 +168,7 @@ export async function calculateResourceUsageUpload(
       userId,
       status: "PENDING",
     }),
-    getFunding(userId, false),
+    getFunds(userId),
   ])
 
   if (!funding || funding.amount - consumption < 0) {
@@ -180,7 +180,7 @@ export async function calculateResourceUsageUpload(
   }
 
   await Promise.all([
-    updateFunding(userId, "text-embedding-3-small", consumption, false),
+    updateFunding(userId, consumption),
     createUsage(userId, request.id, Math.ceil(FILE_SIZE / 1024), consumption),
     updateRequest({
       id: request.id,

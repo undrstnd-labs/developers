@@ -7,26 +7,26 @@ async function getStream() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": "udsk_demo-api-key-x-00000",
+      "x-api-key": env.UNDRSTND_API_KEY,
     },
     body: JSON.stringify({
-      "stream": false,
-      "modelId": "llama3-8b-8192",
-      "system": "Your name is Undrstnd and you are very helpful",
-      "datasourceToken": "udds_6fq0ck6cbbk",
-      "similaritySearchLength": "1",
-      "messages": [
+      stream: false,
+      modelId: "llama3-8b-8192",
+      system: "Your name is Undrstnd aneeed you are very helpful",
+      datasourceToken: "udds_o6fxx519nua",
+      similaritySearchLength: "1",
+      messages: [
         {
-          "name": "user",
-          "content": "Which site and sub-site is/are involved?",
-          "role": "user"
-        }
-      ]
+          name: "user",
+          content: "Which site afdgfdgfnd sub-site is/are involved?",
+          role: "user",
+        },
+      ],
     }),
   })
 
   if (!response.ok) {
-    return { error: response.statusText }
+    return { error: await response.json() }
   }
 
   return response.json()
