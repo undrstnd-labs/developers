@@ -40,6 +40,11 @@ export const navDashboardLinks: userNavLink[] = [
     href: "/dashboard/data-sources",
   },
   {
+    name: "Playground",
+    icon: Icons.playground,
+    href: "/dashboard/playground",
+  },
+  {
     name: "Usage",
     icon: Icons.chart,
     href: "/dashboard/usage",

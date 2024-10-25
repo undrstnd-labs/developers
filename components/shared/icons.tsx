@@ -70,6 +70,7 @@ import {
   ShieldQuestionIcon,
   ShoppingCartIcon,
   SquarePlusIcon,
+  SquareTerminalIcon,
   StarIcon,
   SunMedium,
   TagIcon,
@@ -357,4 +358,5 @@ export const Icons = {
   dollar: DollarSignIcon,
   edit: PencilIcon,
   delete: TrashIcon,
+  playground: SquareTerminalIcon,
 }
