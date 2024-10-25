@@ -37,9 +37,11 @@ import {
   FolderPlus,
   GlobeIcon,
   HandshakeIcon,
+  HashIcon,
   HeartIcon,
   HelpCircle,
   Image as ImageIcon,
+  InfoIcon,
   KeyIcon,
   Laptop,
   LeafIcon,
@@ -74,6 +76,7 @@ import {
   StarIcon,
   SunMedium,
   TagIcon,
+  ThermometerIcon,
   TicketIcon,
   ToggleRightIcon,
   Trash,
@@ -359,4 +362,7 @@ export const Icons = {
   edit: PencilIcon,
   delete: TrashIcon,
   playground: SquareTerminalIcon,
+  info: InfoIcon,
+  thermometer: ThermometerIcon,
+  hash: HashIcon
 }

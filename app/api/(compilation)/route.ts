@@ -78,6 +78,7 @@ export async function POST(request: NextRequest) {
   try {
     bodySchema.parse(body)
   } catch (error) {
+    console.error(error)
     return getErrorResponse({
       status: 400,
       req_token,
@@ -103,6 +104,7 @@ export async function POST(request: NextRequest) {
 
   const model = getModel(modelId)
   if (!model) {
+    console.error("Invalid model or model is offline.")
     return getErrorResponse({
       status: 400,
       req_token,

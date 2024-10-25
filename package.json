@@ -70,6 +70,7 @@
     "@undrstnd/ai-engine": "^2.4.11",
     "@vercel/analytics": "^1.2.2",
     "ai": "^3.3.21",
+    "axios": "^1.7.7",
     "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
