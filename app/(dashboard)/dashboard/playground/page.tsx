@@ -30,7 +30,7 @@ export default async function PlaygroundPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-bold md:text-2xl">Playground</h1>
       </div>
-      <LLMPlayground keys={keys} resources={resources} user={user} />
+      <LLMPlayground keys={keys} resources={resources}  />
     </>
   )
 }

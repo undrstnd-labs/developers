@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from "react"
-import { APIToken, Resource, User } from "@prisma/client"
+import { models } from "@/data/models"
+import { APIToken, Resource,  } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { models } from "@/data/models"
 
 import { Message } from "@/types"
 
@@ -24,13 +24,17 @@ type FormData = z.infer<typeof playgroundParamsSchema>
 type MessageFormData = z.infer<typeof playgroundMessageSchema>
 
 interface LLMPlaygroundProps {
-  user: User
   keys: APIToken[]
   resources: Resource[]
 }
 
-export function LLMPlayground({user, keys, resources }: LLMPlaygroundProps) {
-  const [messages, setMessages] = useState<Message[]>([])
+export function LLMPlayground({ keys, resources }: LLMPlaygroundProps) {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      content: "Hello, how can I help you?",
+      role: "system",
+    },
+  ])
   const [paramters, setParameters] = useState<FormData>({
     apiKey: keys[0]?.id || "",
     endpoint: "llm",
@@ -75,12 +79,12 @@ export function LLMPlayground({user, keys, resources }: LLMPlaygroundProps) {
         similaritySearchLength: "1",
         system: "You are called Undrstnd",
         messages: [
-          {
-            name: "system",
-            content: "Hello, how can I help you?",
-            role: "system",
-          },
-          { name: "user", content: message, role: "user" },
+          ...messages.map((message) => ({
+            name: message.role,
+            content: message.content,
+            role: message.role,
+          })),
+
         ],
       }
 
@@ -116,7 +120,6 @@ export function LLMPlayground({user, keys, resources }: LLMPlaygroundProps) {
           onSendMessage={handleMessageSubmitForm}
           onCopyMessage={copyToClipboard}
           isValidation={!!!paramters}
-          user={user}
         />
       </div>
 

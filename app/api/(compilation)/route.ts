@@ -68,6 +68,31 @@ const bodySchema = z
     ])
   )
 
+  async function* makeIterator(result: any) {
+    const encoder = new TextEncoder();
+  
+    // Assuming result.text is a string
+    yield encoder.encode(result.text);
+  
+    // You can add more data here if needed
+    // yield encoder.encode(JSON.stringify(result.funding));
+    // yield encoder.encode(JSON.stringify(result.usage));
+  }
+  
+  function iteratorToStream(iterator: any) {
+    return new ReadableStream({
+      async pull(controller) {
+        const { value, done } = await iterator.next();
+  
+        if (done) {
+          controller.close();
+        } else {
+          controller.enqueue(value);
+        }
+      },
+    });
+  }
+
 export async function POST(request: NextRequest) {
   const headersList = headers()
   const body = await request.json()
@@ -104,7 +129,7 @@ export async function POST(request: NextRequest) {
 
   const model = getModel(modelId)
   if (!model) {
-    console.error("Invalid model or model is offline.")
+    console.error()
     return getErrorResponse({
       status: 400,
       req_token,
@@ -205,7 +230,7 @@ export async function POST(request: NextRequest) {
     const consumption = token_used * (model.pricing / 1000000)
 
     try {
-      await Promise.all([
+      const [funds, usage] = await Promise.all([
         updateFunding(api_token.userId, consumption),
         createUsage(
           api_token.userId,
@@ -219,6 +244,7 @@ export async function POST(request: NextRequest) {
           status: RequestStatus.SUCCESS,
         }),
       ])
+      
     } catch (error) {
       await updateRequest({
         id: usuageRequest.id,
