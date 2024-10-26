@@ -40,5 +40,5 @@ export const playgroundParamsSchema = z.object({
 })
 
 export const playgroundMessageSchema = z.object({
-    message: z.string().min(1),
-});
+  message: z.string().min(1),
+})

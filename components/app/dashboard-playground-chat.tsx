@@ -1,21 +1,21 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import React, { useRef } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { AnimatePresence, motion } from "framer-motion"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
+import { Message } from "@/types"
+
+import { Icons } from "@/components/shared/icons"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Message } from "@/types";
-import React, {  useRef } from "react"
-import { AnimatePresence, motion } from "framer-motion"
-
-import { Icons } from "@/components/shared/icons"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/form"
 import { Textarea } from "@/components/ui/textarea"
 import {
   Tooltip,
@@ -23,15 +23,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { User } from "@prisma/client"
+
 const messageSchema = z.object({
   message: z.string().min(1, { message: "Message is required" }),
-});
+})
 
 interface DashboardPlaygroundChatProps {
-  messages: Message[];
-  onSendMessage: (message: string) => void;
-  onCopyMessage: (message: string) => void;
-  isValidation: boolean;
+  messages: Message[]
+  onSendMessage: (message: string) => void
+  onCopyMessage: (message: string) => void
+  isValidation: boolean
+  user: User
 }
 
 export function DashboardPlaygroundChat({
@@ -39,28 +42,28 @@ export function DashboardPlaygroundChat({
   onSendMessage,
   onCopyMessage,
   isValidation,
+  user
 }: DashboardPlaygroundChatProps) {
   const form = useForm<z.infer<typeof messageSchema>>({
     resolver: zodResolver(messageSchema),
     defaultValues: {
       message: "",
     },
-  });
+  })
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-
   const onSubmit = (data: z.infer<typeof messageSchema>) => {
     if (isValidation) {
-      form.setError("message", { message: "Apply changes in the parameters" });
+      form.setError("message", { message: "Apply changes in the parameters" })
     }
-    onSendMessage(data.message);
-    form.reset();
-  };
+    onSendMessage(data.message)
+    form.reset()
+  }
 
   return (
     <div className="flex size-full flex-col">
- <div className="flex-1 space-y-4 overflow-y-auto pr-4">
+      <div className="flex-1 space-y-4 overflow-y-auto pr-4">
         <AnimatePresence initial={false}>
           {messages.map((message, index) => (
             <motion.div
@@ -85,8 +88,8 @@ export function DashboardPlaygroundChat({
                   <AvatarImage
                     src={
                       message.role === "user"
-                        ? "/user-avatar.png"
-                        : "/ai-avatar.png"
+                        ? user.image
+                        : "/favicons/android-chrome-192x192.png"
                     }
                   />
                 </Avatar>
@@ -121,39 +124,44 @@ export function DashboardPlaygroundChat({
         <div ref={messagesEndRef} />
       </div>
       <Form {...form}>
-  <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 p-4">
-    <div className="relative">
-      <FormField
-        control={form.control}
-        name="message"
-        render={({ field }) => (
-          <FormItem>
-            <FormControl>
-              <div className="relative">
-                <Textarea
-                  placeholder="Type your message here..."
-                  className="flex-1 resize-none pr-10"
-                  rows={3}
-                  {...field}
-                />
-                <Button
-                  type="submit"
-                  size="icon"
-                  className="absolute bottom-2 right-2 size-8"
-                  disabled={isValidation}
-                >
-                  <Icons.send className="size-4" />
-                </Button>
-              </div>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 p-4">
+          <div className="relative">
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <div className="relative">
+                      <Textarea
+                        placeholder="Type your message here..."
+                        className="flex-1 resize-none pr-10"
+                        rows={3}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            form.handleSubmit(onSubmit)();
+                          }
+                        }}
+                        {...field}
+                      />
+                      <Button
+                        type="submit"
+                        size="icon"
+                        className="absolute bottom-2 right-2 size-8"
+                        disabled={isValidation}
+                      >
+                        <Icons.send className="size-4" />
+                      </Button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </form>
+      </Form>
     </div>
-  </form>
-</Form>
-
-    </div>
-  );
+  )
 }

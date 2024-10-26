@@ -1,12 +1,12 @@
 "use client"
 
 import React, { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { APIToken, Resource } from "@prisma/client"
+import { APIToken, Resource, User } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { models } from "@/data/models"
 
-import { Message, Model } from "@/types"
+import { Message } from "@/types"
 
 import {
   playgroundMessageSchema,
@@ -18,23 +18,24 @@ import { DashboardPlaygroundChat } from "@/components/app/dashboard-playground-c
 import { DashboardPlaygroundParameters } from "@/components/app/dashboard-playground-paramters"
 import { Separator } from "@/components/ui/separator"
 
-import { llmQuery, ragQuery, } from "@/actions/playground"
+import { llmQuery, ragQuery } from "@/actions/playground"
 
 type FormData = z.infer<typeof playgroundParamsSchema>
 type MessageFormData = z.infer<typeof playgroundMessageSchema>
 
 interface LLMPlaygroundProps {
+  user: User
   keys: APIToken[]
   resources: Resource[]
 }
 
-export function LLMPlayground({ keys, resources }: LLMPlaygroundProps) {
+export function LLMPlayground({user, keys, resources }: LLMPlaygroundProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [paramters, setParameters] = useState<FormData>({
     apiKey: keys[0]?.id || "",
     endpoint: "llm",
     datasourceKey: "",
-    model: resources[0]?.id || "",
+    model: models[6].label,
     isStreaming: false,
     temperature: 0.7,
     maxTokens: 2048,
@@ -115,6 +116,7 @@ export function LLMPlayground({ keys, resources }: LLMPlaygroundProps) {
           onSendMessage={handleMessageSubmitForm}
           onCopyMessage={copyToClipboard}
           isValidation={!!!paramters}
+          user={user}
         />
       </div>
 

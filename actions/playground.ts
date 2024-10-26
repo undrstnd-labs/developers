@@ -36,9 +36,6 @@ interface APIResponse {
   }
 }
 
-
-
-
 export const llmQuery = async (
   payload: LLMRequestPayload
 ): Promise<APIResponse> => {
