@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import React, { useRef, useEffect } from "react"
+import React, { useEffect, useRef } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AnimatePresence, motion } from "framer-motion"
 import { useForm } from "react-hook-form"
@@ -11,6 +11,7 @@ import { Message } from "@/types"
 import { Icons } from "@/components/shared/icons"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import {
   Form,
   FormControl,
@@ -25,7 +26,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { Card, CardContent } from "@/components/ui/card"
 
 const messageSchema = z.object({
   message: z.string().min(1, { message: "Message is required" }),
@@ -93,21 +93,23 @@ export function DashboardPlaygroundChat({
                   )}
                   <div
                     className={`relative rounded-lg p-3 ${
-                      message.role === "user" ? "bg-primary text-primary-foreground" : "bg-secondary text-secondary-foreground"
+                      message.role === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-secondary text-secondary-foreground"
                     }`}
                   >
                     <p className="text-sm">{message.content}</p>
-                    <div className="absolute -right-2 top-0 hidden transform translate-x-full group-hover:flex items-center space-x-1">
+                    <div className="absolute -right-2 top-0 hidden translate-x-full items-center space-x-1 group-hover:flex">
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <Button
                               variant="outline"
                               size="icon"
-                              className="h-8 w-8"
+                              className="size-8"
                               onClick={() => onCopyMessage(message.content)}
                             >
-                              <Icons.copy className="h-4 w-4" />
+                              <Icons.copy className="size-4" />
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent side="top">
@@ -118,8 +120,8 @@ export function DashboardPlaygroundChat({
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <div className="bg-secondary text-secondary-foreground px-2 py-1 rounded text-xs">
-                              <Icons.clock className="h-3 w-3 inline mr-1" />
+                            <div className="rounded bg-secondary px-2 py-1 text-xs text-secondary-foreground">
+                              <Icons.clock className="mr-1 inline size-3" />
                               {/* {message.generationTime}s */}
                             </div>
                           </TooltipTrigger>
@@ -147,7 +149,7 @@ export function DashboardPlaygroundChat({
                     <div className="relative">
                       <Textarea
                         placeholder="Type your message here..."
-                        className="pr-12 resize-none"
+                        className="resize-none pr-12"
                         rows={3}
                         onKeyDown={(e) => {
                           if (e.key === "Enter" && !e.shiftKey) {
@@ -160,10 +162,10 @@ export function DashboardPlaygroundChat({
                       <Button
                         type="submit"
                         size="icon"
-                        className="absolute bottom-2 right-2 h-8 w-8"
+                        className="absolute bottom-2 right-2 size-8"
                         disabled={isValidation}
                       >
-                        <Icons.send className="h-4 w-4" />
+                        <Icons.send className="size-4" />
                       </Button>
                     </div>
                   </FormControl>

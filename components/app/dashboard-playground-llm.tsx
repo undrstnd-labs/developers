@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { models } from "@/data/models"
-import { APIToken, Resource,  } from "@prisma/client"
+import { APIToken, Resource } from "@prisma/client"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -84,7 +84,6 @@ export function LLMPlayground({ keys, resources }: LLMPlaygroundProps) {
             content: message.content,
             role: message.role,
           })),
-
         ],
       }
 

@@ -68,30 +68,30 @@ const bodySchema = z
     ])
   )
 
-  async function* makeIterator(result: any) {
-    const encoder = new TextEncoder();
-  
-    // Assuming result.text is a string
-    yield encoder.encode(result.text);
-  
-    // You can add more data here if needed
-    // yield encoder.encode(JSON.stringify(result.funding));
-    // yield encoder.encode(JSON.stringify(result.usage));
-  }
-  
-  function iteratorToStream(iterator: any) {
-    return new ReadableStream({
-      async pull(controller) {
-        const { value, done } = await iterator.next();
-  
-        if (done) {
-          controller.close();
-        } else {
-          controller.enqueue(value);
-        }
-      },
-    });
-  }
+async function* makeIterator(result: any) {
+  const encoder = new TextEncoder()
+
+  // Assuming result.text is a string
+  yield encoder.encode(result.text)
+
+  // You can add more data here if needed
+  // yield encoder.encode(JSON.stringify(result.funding));
+  // yield encoder.encode(JSON.stringify(result.usage));
+}
+
+function iteratorToStream(iterator: any) {
+  return new ReadableStream({
+    async pull(controller) {
+      const { value, done } = await iterator.next()
+
+      if (done) {
+        controller.close()
+      } else {
+        controller.enqueue(value)
+      }
+    },
+  })
+}
 
 export async function POST(request: NextRequest) {
   const headersList = headers()
@@ -244,7 +244,6 @@ export async function POST(request: NextRequest) {
           status: RequestStatus.SUCCESS,
         }),
       ])
-      
     } catch (error) {
       await updateRequest({
         id: usuageRequest.id,
