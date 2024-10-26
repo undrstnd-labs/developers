@@ -1,10 +1,24 @@
-'use client'
+"use client"
 
-import React from "react"
-import { Controller, useForm } from "react-hook-form"
-import { motion } from "framer-motion"
+import { models } from "@/data/models"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { APIToken } from "@prisma/client"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { playgroundParamsSchema } from "@/config/validation"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -14,230 +28,228 @@ import {
 } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Icons } from "@/components/shared/icons"
-import { models } from "@/data/models"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
-interface FormData {
-  apiKey: string
-  endpoint: string
-  datasourceKey: string
-  model: string
-  isStreaming: boolean
-  temperature: number
-  maxTokens: number
-}
-
+type FormData = z.infer<typeof playgroundParamsSchema>
 interface DashboardPlaygroundParametersProps {
+  keys: APIToken[]
   onSubmit: (data: FormData) => void
 }
 
 export function DashboardPlaygroundParameters({
+  keys,
   onSubmit,
 }: DashboardPlaygroundParametersProps) {
-  const { control, handleSubmit, watch } = useForm<FormData>({
+  const form = useForm<FormData>({
+    resolver: zodResolver(playgroundParamsSchema),
     defaultValues: {
-      apiKey: "",
+      apiKey: keys[0]?.id || "",
       endpoint: "llm",
       datasourceKey: "",
-      model: "",
+      model: models[6].label,
       isStreaming: false,
       temperature: 0.7,
       maxTokens: 2048,
     },
   })
 
-  const endpoint = watch("endpoint")
-
   return (
-    <Card className="w-full max-w-md">
+    <Card className="h-full bg-muted/30">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">Parameters</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="api-key" className="flex items-center gap-2">
-                <Icons.key className="size-4" />
-                API Key
-              </Label>
-              <Controller
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-12"
+          >
+            <div className="space-y-6">
+              <FormField
+                control={form.control}
                 name="apiKey"
-                control={control}
                 render={({ field }) => (
-                  <Input
-                    id="api-key"
-                    type="password"
-                    placeholder="Enter your API key"
-                    className="font-mono"
-                    {...field}
-                  />
+                  <FormItem>
+                    <FormLabel>API Key</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your API key" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="endpoint" className="flex items-center gap-2">
-                <Icons.zap className="size-4" />
-                Endpoint
-              </Label>
-              <Controller
+              <FormField
+                control={form.control}
                 name="endpoint"
-                control={control}
                 render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger id="endpoint">
-                      <SelectValue placeholder="Select an endpoint" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="llm">LLM</SelectItem>
-                      <SelectItem value="datasource">Data Source</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <FormItem>
+                    <FormLabel>Endpoint</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an endpoint" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="llm">LLM</SelectItem>
+                        <SelectItem value="datasource">Data Source</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-            </div>
-            {endpoint === "datasource" && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-2"
-              >
-                <Label htmlFor="datasource-key" className="flex items-center gap-2">
-                  <Icons.key className="size-4" />
-                  Datasource Key
-                </Label>
-                <Controller
+              {form.watch("endpoint") === "datasource" && (
+                <FormField
+                  control={form.control}
                   name="datasourceKey"
-                  control={control}
                   render={({ field }) => (
-                    <Input
-                      id="datasource-key"
-                      type="text"
-                      placeholder="Enter your Datasource key"
-                      className="font-mono"
-                      {...field}
-                    />
+                    <FormItem>
+                      <FormLabel>Datasource Key</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your Datasource key"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
                   )}
                 />
-              </motion.div>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="model" className="flex items-center gap-2">
-                <Icons.info className="size-4" />
-                Model
-              </Label>
-              <Controller
+              )}
+              <FormField
+                control={form.control}
                 name="model"
-                control={control}
                 render={({ field }) => (
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger id="model">
-                      <SelectValue placeholder="Select a model" />
-                    </SelectTrigger>
-                    <SelectContent>
+                  <FormItem>
+                    <FormLabel>Model</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a model" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
                         {models.map((model) => (
-                            <SelectItem key={model.value} value={model.value}>
-                            {model.label}
-                            </SelectItem>
+                          <SelectItem key={model.label} value={model.label}>
+                            <div className="flex items-center gap-2 truncate">
+                              <model.image className="size-4" />
+                              {model.value}
+                            </div>
+                          </SelectItem>
                         ))}
-                    </SelectContent>
-                  </Select>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
                 )}
               />
-            </div>
-            <div className="flex items-center justify-between">
-              <Label htmlFor="stream" className="flex cursor-pointer items-center gap-2">
-                <Icons.zap className="size-4" />
-                Enable Streaming
-              </Label>
-              <Controller
+              <FormField
+                control={form.control}
                 name="isStreaming"
-                control={control}
                 render={({ field }) => (
-                  <Switch
-                    id="stream"
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
+                  <FormItem className="flex items-center justify-between">
+                    <FormLabel className="flex cursor-pointer items-center gap-2">
+                      Enable Streaming
+                    </FormLabel>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
                 )}
               />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="temperature" className="flex items-center gap-2">
-                  <Icons.thermometer className="size-4" />
-                  Temperature
-                </Label>
-                <span className="text-sm font-medium">
-                  {watch("temperature").toFixed(1)}
-                </span>
-              </div>
-              <Controller
+              <FormField
+                control={form.control}
                 name="temperature"
-                control={control}
                 render={({ field }) => (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Slider
-                          id="temperature"
-                          min={0}
-                          max={1}
-                          step={0.1}
-                          value={[field.value]}
-                          onValueChange={(value) => field.onChange(value[0])}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Adjust the randomness of the model&apos;s output</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Temperature</FormLabel>
+                      <span className="text-sm font-medium">
+                        {form.watch("temperature").toFixed(1)}
+                      </span>
+                    </div>
+                    <FormControl>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Slider
+                              min={0}
+                              max={1}
+                              step={0.1}
+                              value={[field.value]}
+                              onValueChange={(value) =>
+                                field.onChange(value[0])
+                              }
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>
+                              Adjust the randomness of the mode&apos;s output
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </FormControl>
+                  </FormItem>
                 )}
               />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="max-tokens" className="flex items-center gap-2">
-                  <Icons.hash className="size-4" />
-                  Max Tokens
-                </Label>
-                <span className="text-sm font-medium">{watch("maxTokens")}</span>
-              </div>
-              <Controller
+              <FormField
+                control={form.control}
                 name="maxTokens"
-                control={control}
                 render={({ field }) => (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Slider
-                          id="max-tokens"
-                          min={1}
-                          max={4096}
-                          step={1}
-                          value={[field.value]}
-                          onValueChange={(value) => field.onChange(value[0])}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Set the maximum number of tokens in the response</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                  <FormItem>
+                    <div className="flex items-center justify-between">
+                      <FormLabel>Max Tokens</FormLabel>
+                      <span className="text-sm font-medium">
+                        {form.watch("maxTokens")}
+                      </span>
+                    </div>
+                    <FormControl>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Slider
+                              min={1}
+                              max={4096}
+                              step={1}
+                              value={[field.value]}
+                              onValueChange={(value) =>
+                                field.onChange(value[0])
+                              }
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>
+                              Set the maximum number of tokens in the response
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </FormControl>
+                  </FormItem>
                 )}
               />
             </div>
-          </div>
-          <Button type="submit" className="w-full">
-            Apply Settings
-          </Button>
-        </form>
+            <Button type="submit" className="w-full">
+              Apply Settings
+            </Button>
+          </form>
+        </Form>
       </CardContent>
     </Card>
   )

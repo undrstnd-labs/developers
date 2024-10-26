@@ -1,88 +1,130 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
-import { DashboardPlaygroundChat } from '@/components/app/dashboard-playground-chat'
-import { DashboardPlaygroundParameters } from '@/components/app/dashboard-playground-paramters'
-import { setApiKey, llmQuery, ragQuery } from '@/actions/playground'
+import React, { useState } from "react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { APIToken, Resource } from "@prisma/client"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
-interface Message {
-  role: 'user' | 'assistant' | 'system'
-  content: string
+import { Message, Model } from "@/types"
+
+import {
+  playgroundMessageSchema,
+  playgroundParamsSchema,
+} from "@/config/validation"
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
+
+import { DashboardPlaygroundChat } from "@/components/app/dashboard-playground-chat"
+import { DashboardPlaygroundParameters } from "@/components/app/dashboard-playground-paramters"
+import { Separator } from "@/components/ui/separator"
+
+import { llmQuery, ragQuery, } from "@/actions/playground"
+
+type FormData = z.infer<typeof playgroundParamsSchema>
+type MessageFormData = z.infer<typeof playgroundMessageSchema>
+
+interface LLMPlaygroundProps {
+  keys: APIToken[]
+  resources: Resource[]
 }
 
-interface FormData {
-  apiKey: string
-  endpoint: string
-  datasourceKey: string
-  model: string
-  isStreaming: boolean
-  temperature: number
-  maxTokens: number
-}
-
-export function LLMPlayground() {
+export function LLMPlayground({ keys, resources }: LLMPlaygroundProps) {
   const [messages, setMessages] = useState<Message[]>([])
-  const [parameters, setParameters] = useState<FormData>({
-    apiKey: '',
-    endpoint: 'llm',
-    datasourceKey: '',
-    model: 'llama-3.1-8b-instant',
+  const [paramters, setParameters] = useState<FormData>({
+    apiKey: keys[0]?.id || "",
+    endpoint: "llm",
+    datasourceKey: "",
+    model: resources[0]?.id || "",
     isStreaming: false,
     temperature: 0.7,
     maxTokens: 2048,
   })
+  const { copyToClipboard } = useCopyToClipboard({ timeout: 2000 })
+
+  const messageForm = useForm<MessageFormData>({
+    defaultValues: {
+      message: "",
+    },
+  })
+
+  const handleMessageSubmitForm = async (message: string) => {
+    await handleSendMessage(message)
+    messageForm.reset()
+  }
 
   const handleSendMessage = async (message: string) => {
-    const newUserMessage: Message = { role: 'user', content: message }
+    if (!paramters) {
+      console.log("Parameters not set")
+      messageForm.setError("message", { message: "Parameters not set" })
+      return
+    }
+
+    const newUserMessage: Message = { role: "user", content: message }
     setMessages([...messages, newUserMessage])
 
     try {
       const payload = {
-        stream: parameters.isStreaming,
-        modelId: parameters.model,
-        datasourceToken: parameters.endpoint === 'llm' ? 'llama3-8b-8192' : parameters.datasourceKey,
-        similaritySearchLength: '1',
-        system: 'You are called Undrstnd',
+        apiKey: paramters.apiKey,
+        stream: paramters.isStreaming,
+        modelId: paramters.model,
+        datasourceToken:
+          paramters.endpoint === "rag" && paramters.datasourceKey
+            ? paramters.datasourceKey
+            : "",
+        similaritySearchLength: "1",
+        system: "You are called Undrstnd",
         messages: [
-          { name: 'system', content: 'Hello, how can I help you?', role: 'system' },
-          { name: 'user', content: message, role: 'user' },
+          {
+            name: "system",
+            content: "Hello, how can I help you?",
+            role: "system",
+          },
+          { name: "user", content: message, role: "user" },
         ],
       }
 
-      const response = parameters.endpoint === 'llm' 
-        ? await llmQuery(payload)
-        : await ragQuery(payload)
+      const response =
+        paramters.endpoint === "llm"
+          ? await llmQuery(payload)
+          : await ragQuery(payload)
 
-      const newAssistantMessage: Message = { role: 'assistant', content: response.output }
-      setMessages(prevMessages => [...prevMessages, newAssistantMessage])
+      const newAssistantMessage: Message = {
+        role: "assistant",
+        content: response.output,
+      }
+      setMessages((prevMessages) => [...prevMessages, newAssistantMessage])
     } catch (error) {
-      console.log('Error sending message:', error)
-      const errorMessage: Message = { role: 'assistant', content: 'Sorry, an error occurred while processing your request.' }
-      setMessages(prevMessages => [...prevMessages, errorMessage])
+      console.log("Error sending message:", error)
+      const errorMessage: Message = {
+        role: "assistant",
+        content: "Sorry, an error occurred while processing your request.",
+      }
+      setMessages((prevMessages) => [...prevMessages, errorMessage])
     }
-  }
-
-  const handleCopyMessage = (message: Message) => {
-    navigator.clipboard.writeText(message.content)
   }
 
   const handleParametersSubmit = (data: FormData) => {
     setParameters(data)
-    setApiKey(data.apiKey)
-    console.log('Parameters updated:', data)
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-background">
+    <div className="flex h-full space-x-2 bg-background">
       <div className="flex-1 overflow-hidden">
         <DashboardPlaygroundChat
           messages={messages}
-          onSendMessage={handleSendMessage}
-          onCopyMessage={handleCopyMessage}
+          onSendMessage={handleMessageSubmitForm}
+          onCopyMessage={copyToClipboard}
+          isValidation={!!!paramters}
         />
       </div>
-      <div className="w-1/3 overflow-y-auto border-l border-border">
-        <DashboardPlaygroundParameters onSubmit={handleParametersSubmit} />
+
+      <Separator orientation="vertical" />
+
+      <div className="w-1/3 overflow-y-auto">
+        <DashboardPlaygroundParameters
+          onSubmit={handleParametersSubmit}
+          keys={keys}
+        />
       </div>
     </div>
   )

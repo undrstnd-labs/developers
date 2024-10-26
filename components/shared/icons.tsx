@@ -364,5 +364,5 @@ export const Icons = {
   playground: SquareTerminalIcon,
   info: InfoIcon,
   thermometer: ThermometerIcon,
-  hash: HashIcon
+  hash: HashIcon,
 }

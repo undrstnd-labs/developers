@@ -28,3 +28,17 @@ export const authRegisterSchema = z.object({
 export const apiTokenSchema = z.object({
   name: z.string().min(2).max(50),
 })
+
+export const playgroundParamsSchema = z.object({
+  apiKey: z.string().min(1, { message: "API key is required" }),
+  endpoint: z.string().min(1, { message: "Endpoint is required" }),
+  datasourceKey: z.string().optional(),
+  model: z.string().min(1, { message: "Model is required" }),
+  isStreaming: z.boolean(),
+  temperature: z.number().min(0).max(1),
+  maxTokens: z.number().min(1),
+})
+
+export const playgroundMessageSchema = z.object({
+    message: z.string().min(1),
+});

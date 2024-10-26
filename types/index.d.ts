@@ -135,3 +135,8 @@ export type Partnership = {
   href: string
   image: Icon
 }
+
+export interface Message {
+  role: "user" | "assistant" | "system"
+  content: string
+}

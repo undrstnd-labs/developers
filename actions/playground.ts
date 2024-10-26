@@ -7,6 +7,7 @@ interface Message {
 }
 
 interface LLMRequestPayload {
+  apiKey: string
   stream: boolean
   modelId: string
   system: string
@@ -15,6 +16,7 @@ interface LLMRequestPayload {
 }
 
 interface RAGRequestPayload {
+  apiKey: string
   stream: boolean
   modelId: string
   datasourceToken: string
@@ -34,11 +36,8 @@ interface APIResponse {
   }
 }
 
-let apiKey = "udsk_demo-api-key-x-00000"
 
-export const setApiKey = (newApiKey: string) => {
-  apiKey = newApiKey
-}
+
 
 export const llmQuery = async (
   payload: LLMRequestPayload
@@ -48,7 +47,7 @@ export const llmQuery = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": apiKey,
+        "x-api-key": payload.apiKey,
       },
       body: JSON.stringify(payload),
     })
@@ -72,7 +71,7 @@ export const ragQuery = async (
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": apiKey,
+        "x-api-key": payload.apiKey,
       },
       body: JSON.stringify(payload),
     })
